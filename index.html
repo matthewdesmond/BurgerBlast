@@ -2,38 +2,23 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-
-<meta
-  name="viewport"
-  content="width=device-width,
-           initial-scale=1.0,
-           maximum-scale=1.0,
-           user-scalable=no">
-
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <title>Desmond's Burger Blast</title>
 
 <style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 
-*{
-  box-sizing:border-box;
-  -webkit-tap-highlight-color:transparent;
-}
-
-html,
-body{
+html,body{
   margin:0;
-  padding:0;
   width:100%;
   height:100%;
   overflow:hidden;
-  background:#17100d;
-  color:#fff;
   font-family:Arial,Helvetica,sans-serif;
+  background:#08aeea;
+  color:#17204d;
 }
 
-body{
-  min-height:100%;
-}
+body{min-height:100%}
 
 button{
   font:inherit;
@@ -52,24 +37,12 @@ button:focus{
   display:flex;
   flex-direction:column;
   overflow:hidden;
-
-  background:
-    radial-gradient(
-      circle at 10% 20%,
-      rgba(255,190,60,.08) 0 3px,
-      transparent 4px
-    ),
-    radial-gradient(
-      circle at 80% 30%,
-      rgba(255,90,90,.08) 0 4px,
-      transparent 5px
-    ),
-    radial-gradient(
-      circle at 35% 75%,
-      rgba(80,190,255,.08) 0 3px,
-      transparent 4px
-    ),
-    #17100d;
+  background:linear-gradient(
+    180deg,
+    #66dcff 0%,
+    #dffaff 38%,
+    #8de4ff 100%
+  );
 }
 
 
@@ -79,64 +52,95 @@ button:focus{
 
 .header{
   flex:0 0 auto;
-  padding:7px 10px 8px;
+  text-align:center;
+  padding:6px 8px 7px;
   background:linear-gradient(
     180deg,
-    #4b1710,
-    #27100c
+    #13bdf0,
+    #168ee9
   );
-  border-bottom:3px solid #ffb52e;
-  text-align:center;
+  border-bottom:4px solid #ffd52f;
+  position:relative;
+  overflow:hidden;
+}
+
+.header:before,
+.header:after{
+  content:"";
+  position:absolute;
+  border-radius:50%;
+  background:rgba(255,255,255,.7);
+}
+
+.header:before{
+  width:70px;
+  height:24px;
+  left:10px;
+  top:8px;
+  box-shadow:
+    20px -6px 0 4px rgba(255,255,255,.65);
+}
+
+.header:after{
+  width:80px;
+  height:26px;
+  right:8px;
+  top:10px;
+  box-shadow:
+    -22px -7px 0 3px rgba(255,255,255,.65);
 }
 
 .logo{
-  font-size:clamp(
-    21px,
-    5.7vw,
-    34px
-  );
-
+  position:relative;
+  z-index:1;
+  font-size:clamp(21px,5.7vw,34px);
   font-weight:1000;
-  line-height:1.05;
-
-  color:#ffcc4d;
+  line-height:1;
+  color:#fff;
 
   text-shadow:
-    3px 3px 0 #8d2416,
-    -1px -1px 0 #fff;
+    3px 3px 0 #ed3e25,
+    -2px -2px 0 #17377e;
 
   white-space:nowrap;
 }
 
 .logo span{
-  color:#ff6b35;
+  color:#ffef39;
 }
 
 .subtitle{
-  font-size:12px;
-  font-weight:900;
-  margin-top:3px;
-  color:#ffdca1;
+  position:relative;
+  z-index:1;
+  font-size:11px;
+  font-weight:1000;
+  margin-top:4px;
+  color:#fff;
 }
 
 .moneybar{
   display:flex;
   justify-content:center;
   gap:8px;
-  margin-top:6px;
+  margin-top:5px;
+  position:relative;
+  z-index:1;
 }
 
 .money{
-  background:#21120e;
-  border:2px solid #e79b25;
-  border-radius:12px;
-  padding:5px 11px;
-  font-size:13px;
+  background:#fff;
+  border:3px solid #ffd22e;
+  border-radius:15px;
+  padding:4px 12px;
+  font-size:15px;
   font-weight:1000;
+  color:#18204e;
+  box-shadow:0 3px 0 #ca8d00;
 }
 
 .money.crowns{
-  border-color:#d7b8ff;
+  border-color:#d98cff;
+  box-shadow:0 3px 0 #8b3cc4;
 }
 
 
@@ -155,7 +159,7 @@ button:focus{
   display:none;
   height:100%;
   overflow:hidden;
-  padding:6px 8px;
+  padding:5px 7px;
 }
 
 .page.active{
@@ -163,36 +167,7 @@ button:focus{
   flex-direction:column;
 }
 
-
-/* =========================================================
-   HOME PAGE LAYOUT
-   ========================================================= */
-
-/*
-   The Home page has a dedicated bottom slot for the
-   customer order. This prevents the order box from ever
-   covering the burger builder or navigation.
-*/
-
 #home.page.active{
-  display:flex;
-  flex-direction:column;
-  min-height:0;
-  overflow:hidden;
-}
-
-#home > .panel{
-  flex:0 0 auto;
-}
-
-#home > .builder{
-  flex:1 1 auto;
-  min-height:0;
-  overflow:hidden;
-}
-
-#home > .orderBox{
-  flex:0 0 auto;
   min-height:0;
 }
 
@@ -204,19 +179,18 @@ button:focus{
 .panel{
   background:linear-gradient(
     180deg,
-    #35201a,
-    #24130f
+    #ffffff,
+    #eafaff
   );
 
-  border:2px solid #8f4b2c;
-  border-radius:15px;
+  border:3px solid #1b8de3;
+  border-radius:16px;
 
-  padding:7px;
-  margin-bottom:5px;
+  padding:6px;
+  margin-bottom:4px;
 
   box-shadow:
-    inset 0 1px rgba(255,255,255,.08),
-    0 3px 0 #100806;
+    0 3px 0 rgba(22,65,137,.3);
 }
 
 
@@ -226,43 +200,40 @@ button:focus{
 
 .homeStats{
   display:grid;
-
-  grid-template-columns:
-    repeat(4,1fr);
-
+  grid-template-columns:repeat(4,1fr);
   gap:4px;
 }
 
 .stat{
   min-width:0;
-
-  background:#170d0a;
-
-  border:1px solid #73402c;
-  border-radius:9px;
-
-  padding:5px 3px;
-
+  background:#fff;
+  border:2px solid #b8ddf7;
+  border-radius:12px;
+  padding:4px 2px;
   text-align:center;
 }
 
 .statLabel{
   font-size:8px;
-  color:#cba995;
-  font-weight:900;
-
+  color:#19306d;
+  font-weight:1000;
   white-space:nowrap;
 }
 
 .statValue{
   font-size:13px;
   font-weight:1000;
-
-  color:#fff;
-
-  margin-top:2px;
-
+  color:#17204d;
+  margin-top:1px;
   white-space:nowrap;
+}
+
+.earnings{
+  text-align:center;
+  margin-top:4px;
+  font-size:10px;
+  color:#168c3c;
+  font-weight:1000;
 }
 
 
@@ -277,61 +248,52 @@ button:focus{
 }
 
 .bigButton{
-  min-height:53px;
+  min-height:52px;
 
-  border:0;
-  border-radius:14px;
+  border:3px solid #173d91;
+  border-radius:16px;
 
   font-weight:1000;
   font-size:16px;
 
-  color:#2b1209;
+  color:#fff;
 
   box-shadow:
-    0 4px 0 rgba(0,0,0,.4);
+    0 4px 0 rgba(0,0,0,.25);
 }
 
 .start{
-  background:
-    linear-gradient(
-      180deg,
-      #6dff75,
-      #28c84b
-    );
+  background:linear-gradient(
+    180deg,
+    #63ff61,
+    #19cf55
+  );
 }
 
 .order{
-  background:
-    linear-gradient(
-      180deg,
-      #ffd96b,
-      #ff9e25
-    );
+  background:linear-gradient(
+    180deg,
+    #ffd94b,
+    #ff9b19
+  );
 }
 
 .bigButton:active{
   transform:translateY(2px);
-
-  box-shadow:
-    0 2px 0 rgba(0,0,0,.4);
 }
 
 .shiftInfo{
-  margin-top:5px;
-
   text-align:center;
-
-  font-weight:900;
+  font-weight:1000;
   font-size:11px;
-
-  color:#ffe3bb;
-
+  color:#173a77;
+  margin-top:4px;
   white-space:nowrap;
 }
 
 
 /* =========================================================
-   BUILDER
+   BURGER BUILDER
    ========================================================= */
 
 .builder{
@@ -342,21 +304,28 @@ button:focus{
   flex-direction:column;
 
   overflow:hidden;
+
+  background:linear-gradient(
+    180deg,
+    #fffef1,
+    #f4fbff
+  );
+
+  border-color:#ffba24;
 }
 
 .panelTitle{
   flex:0 0 auto;
 
-  font-size:15px;
+  font-size:16px;
   font-weight:1000;
 
-  color:#ffd15c;
-
-  text-transform:uppercase;
-
-  letter-spacing:.3px;
+  color:#173b91;
 
   margin-bottom:4px;
+
+  text-shadow:
+    1px 1px #fff;
 }
 
 
@@ -365,38 +334,33 @@ button:focus{
 .currentBurger{
   flex:0 0 auto;
 
-  background:#120b09;
+  background:#fff;
 
-  border:2px solid #633422;
-
-  border-radius:11px;
+  border:2px solid #a9d9f5;
+  border-radius:12px;
 
   padding:5px;
-
-  margin-bottom:5px;
+  margin-bottom:4px;
 }
 
 .currentBurgerTitle{
-  color:#ffbd4a;
+  color:#ef6b1b;
 
   font-size:10px;
-
   font-weight:1000;
 
   text-transform:uppercase;
 }
 
 #burgerSummary{
-  font-size:11px;
-
+  font-size:10px;
   line-height:1.25;
 
-  color:#fff0d0;
+  color:#24335c;
 
   margin-top:2px;
 
-  max-height:30px;
-
+  max-height:28px;
   overflow:hidden;
 }
 
@@ -413,55 +377,75 @@ button:focus{
 
   gap:4px;
 
-  margin-bottom:5px;
+  margin-bottom:4px;
 }
 
 .builderTab{
-  min-height:38px;
+  min-height:37px;
 
-  border:2px solid #73402c;
+  border:2px solid #b6c9ef;
+  border-radius:11px;
 
-  border-radius:10px;
+  background:#f3f8ff;
 
-  background:#29150f;
-
-  color:#ffe7c2;
+  color:#26356c;
 
   font-size:10px;
-
   font-weight:1000;
 
-  padding:3px 2px;
+  padding:2px;
+}
+
+.builderTab:nth-child(1){
+  background:#ffe94d;
+}
+
+.builderTab:nth-child(2){
+  background:#ff5c68;
+  color:#fff;
+}
+
+.builderTab:nth-child(3){
+  background:#ff9e31;
+}
+
+.builderTab:nth-child(4){
+  background:#45df67;
+}
+
+.builderTab:nth-child(5){
+  background:#a96cff;
+  color:#fff;
+}
+
+.builderTab:nth-child(6){
+  background:#ff55a8;
+  color:#fff;
+}
+
+.builderTab:nth-child(7){
+  background:#31b9f2;
+  color:#fff;
 }
 
 .builderTab.active{
-  background:
-    linear-gradient(
-      180deg,
-      #ff9e35,
-      #df5421
-    );
-
-  border-color:#ffd15a;
-
-  color:#21100a;
+  border:3px solid #172d79;
+  transform:translateY(-1px);
 }
 
 
-/* SELECTION WINDOW */
+/* INGREDIENT WINDOW */
 
 .ingredientWindow{
   flex:1 1 auto;
+  min-height:70px;
 
-  min-height:90px;
+  background:#e9f9ff;
 
-  background:#100a08;
+  border:2px solid #79c9ef;
+  border-radius:13px;
 
-  border:2px solid #693925;
-
-  border-radius:12px;
-
-  padding:5px;
+  padding:4px;
 
   overflow:hidden;
 
@@ -474,28 +458,30 @@ button:focus{
 
   text-align:center;
 
-  color:#ffd15c;
+  color:#fff;
+
+  background:#168fe2;
+
+  border-radius:10px;
 
   font-size:12px;
-
   font-weight:1000;
 
-  margin-bottom:4px;
+  padding:3px;
 
-  line-height:1.1;
+  margin-bottom:4px;
 }
 
 .choices{
   flex:1;
-
   min-height:0;
 
   overflow-y:auto;
   overflow-x:hidden;
 
-  -webkit-overflow-scrolling:touch;
-
   padding:1px;
+
+  -webkit-overflow-scrolling:touch;
 }
 
 .choiceGrid{
@@ -510,26 +496,22 @@ button:focus{
 .choice{
   min-height:40px;
 
-  border:2px solid #75432d;
+  border:2px solid #a7cde6;
+  border-radius:11px;
 
-  border-radius:10px;
+  background:#fff;
 
-  background:
-    linear-gradient(
-      180deg,
-      #382019,
-      #25130f
-    );
-
-  color:#fff;
+  color:#182652;
 
   padding:4px;
 
   text-align:left;
 
   font-weight:900;
-
   font-size:11px;
+
+  box-shadow:
+    0 2px 0 rgba(48,90,150,.12);
 }
 
 .choice:active{
@@ -537,22 +519,16 @@ button:focus{
 }
 
 .choice.selected{
-  border-color:#65ff73;
+  border:3px solid #18b64d;
 
-  background:
-    linear-gradient(
-      180deg,
-      #245d2c,
-      #18371d
-    );
+  background:#dcffe5;
 
-  color:#d9ffdc;
+  color:#11662e;
 }
 
 .choice.locked{
-  opacity:.55;
-
-  border-color:#49342b;
+  opacity:.52;
+  background:#edf0f4;
 }
 
 .choiceName{
@@ -562,7 +538,7 @@ button:focus{
 .choiceInfo{
   display:block;
 
-  color:#ffc879;
+  color:#e76b19;
 
   font-size:8px;
 
@@ -582,73 +558,74 @@ button:focus{
 
   gap:5px;
 
-  margin-top:5px;
+  margin-top:4px;
 }
 
 .clearBurger,
 .submitBurger{
-  min-height:39px;
+  min-height:38px;
 
   border:0;
-
-  border-radius:10px;
+  border-radius:12px;
 
   font-weight:1000;
-
   font-size:12px;
-}
 
-.clearBurger{
-  background:#633126;
   color:#fff;
 }
 
+.clearBurger{
+  background:linear-gradient(
+    #ff5e67,
+    #e62942
+  );
+}
+
 .submitBurger{
-  background:#49dc67;
-  color:#11230f;
+  background:linear-gradient(
+    #62ff67,
+    #1dcc4e
+  );
+
+  color:#083a19;
+
+  border:2px solid #159a40;
 }
 
 
 /* =========================================================
    CUSTOMER ORDER
+   Normal flex child.
+   NEVER overlays the burger builder.
    ========================================================= */
-
-/*
-   IMPORTANT:
-   This section is NOT positioned over the page.
-   It is a normal flex child with its own reserved space.
-*/
 
 .orderBox{
   flex:0 0 auto;
 
   width:100%;
 
-  background:#120a08;
+  background:#fff;
 
-  border:2px solid #70412c;
+  border:3px solid #9a5ce8;
+  border-radius:13px;
 
-  border-radius:12px;
+  padding:5px;
 
-  padding:6px;
+  margin:0 0 4px;
 
-  margin:0 0 4px 0;
-
-  max-height:112px;
+  max-height:108px;
 
   overflow:hidden;
 
   position:relative;
-
   z-index:2;
 }
 
 .orderTitle{
-  color:#ffd05b;
+  color:#5c35b4;
 
   font-weight:1000;
-
-  font-size:13px;
+  font-size:12px;
 
   line-height:1.1;
 }
@@ -656,14 +633,12 @@ button:focus{
 #orderText{
   margin-top:3px;
 
-  font-size:10px;
+  font-size:9px;
+  line-height:1.2;
 
-  line-height:1.25;
+  color:#24335c;
 
-  color:#ffe9cb;
-
-  max-height:38px;
-
+  max-height:35px;
   overflow:hidden;
 }
 
@@ -672,167 +647,97 @@ button:focus{
 
   width:100%;
 
-  min-height:34px;
-
-  max-height:36px;
+  min-height:32px;
 
   border:0;
-
   border-radius:10px;
 
-  background:#7351c9;
+  background:linear-gradient(
+    180deg,
+    #a36cff,
+    #6b43d9
+  );
 
-  color:white;
+  color:#fff;
 
   font-weight:1000;
+  font-size:11px;
 
-  font-size:12px;
-
-  margin-top:4px;
-
-  position:relative;
-
-  z-index:3;
+  margin-top:3px;
 }
 
 
 /* =========================================================
-   UPGRADES
+   OTHER PAGES
    ========================================================= */
 
 .listWindow{
   flex:1;
-
   min-height:0;
-
   overflow:auto;
-
-  padding-right:2px;
 }
 
-.upgrade{
-  background:
-    linear-gradient(
-      180deg,
-      #342018,
-      #21110d
-    );
+.upgrade,
+.location{
+  background:#fff;
 
-  border:2px solid #71412b;
-
-  border-radius:12px;
+  border:3px solid #8fc9ef;
+  border-radius:13px;
 
   padding:8px;
-
   margin-bottom:6px;
 }
 
 .upgradeTop{
   display:flex;
-
   justify-content:space-between;
-
   gap:5px;
 }
 
-.upgradeName{
+.upgradeName,
+.locationName{
   font-weight:1000;
-
-  color:#ffd15c;
+  color:#173b91;
 }
 
 .upgradeLevel{
   font-size:11px;
-
-  color:#d8c0ae;
+  color:#53668e;
 }
 
-.upgradePower{
+.upgradePower,
+.locationBonus{
   font-size:11px;
 
-  color:#76ff83;
+  color:#16a247;
+
+  font-weight:1000;
 
   margin-top:2px;
 }
 
-.upgradeButton{
-  width:100%;
-
-  min-height:40px;
-
-  border:0;
-
-  border-radius:9px;
-
-  background:#ff9e30;
-
-  color:#241007;
-
-  font-weight:1000;
-
-  margin-top:6px;
-}
-
-.upgradeButton:disabled{
-  background:#553a2d;
-
-  color:#a9958b;
-}
-
-
-/* =========================================================
-   LOCATIONS
-   ========================================================= */
-
-.location{
-  background:
-    linear-gradient(
-      180deg,
-      #342018,
-      #21110d
-    );
-
-  border:2px solid #71412b;
-
-  border-radius:12px;
-
-  padding:8px;
-
-  margin-bottom:6px;
-}
-
-.locationName{
-  font-size:15px;
-
-  font-weight:1000;
-
-  color:#ffd15c;
-}
-
-.locationBonus{
-  color:#72ff82;
-
-  font-size:12px;
-
-  font-weight:900;
-
-  margin-top:2px;
-}
-
+.upgradeButton,
 .locationButton{
   width:100%;
 
-  min-height:40px;
-
-  margin-top:6px;
+  min-height:39px;
 
   border:0;
+  border-radius:10px;
 
-  border-radius:9px;
+  background:#ffb62d;
 
-  background:#ff9e30;
+  color:#482000;
 
   font-weight:1000;
+
+  margin-top:6px;
+}
+
+.upgradeButton:disabled,
+.locationButton:disabled{
+  background:#cbd5df;
+  color:#748096;
 }
 
 
@@ -852,38 +757,35 @@ button:focus{
 .moreButton{
   min-height:65px;
 
-  border:2px solid #74402b;
+  border:3px solid #6d70df;
+  border-radius:14px;
 
-  border-radius:13px;
+  background:linear-gradient(
+    180deg,
+    #fff,
+    #eaf4ff
+  );
 
-  background:
-    linear-gradient(
-      180deg,
-      #392019,
-      #24130e
-    );
-
-  color:#fff;
+  color:#26356c;
 
   font-weight:1000;
-
   font-size:13px;
 }
 
 .moreContent{
   margin-top:7px;
 
-  background:#120a08;
+  background:#fff;
 
-  border:2px solid #693925;
-
+  border:2px solid #9ccff0;
   border-radius:12px;
 
   padding:9px;
 
   font-size:12px;
-
   line-height:1.5;
+
+  color:#26335e;
 }
 
 
@@ -903,33 +805,49 @@ button:focus{
 
   padding:5px;
 
-  background:#25120e;
+  background:#1765c8;
 
-  border-top:3px solid #8d4a29;
+  border-top:3px solid #ffd62f;
 }
 
 .navButton{
   min-height:46px;
 
-  border:2px solid #663723;
+  border:3px solid #a8d7ff;
+  border-radius:12px;
 
-  border-radius:11px;
+  background:#fff;
 
-  background:#321910;
-
-  color:#e8c9ae;
+  color:#233568;
 
   font-weight:1000;
-
   font-size:11px;
 }
 
+.navButton:nth-child(1){
+  background:#ffd52e;
+}
+
+.navButton:nth-child(2){
+  background:#32a7ff;
+  color:#fff;
+}
+
+.navButton:nth-child(3){
+  background:#9b65ee;
+  color:#fff;
+}
+
+.navButton:nth-child(4){
+  background:#ff5ba8;
+  color:#fff;
+}
+
 .navButton.active{
-  background:#ff8e2d;
+  border-color:#fff;
 
-  color:#21100a;
-
-  border-color:#ffd15c;
+  box-shadow:
+    inset 0 0 0 2px #173b91;
 }
 
 
@@ -942,7 +860,7 @@ button:focus{
 
   left:8px;
   right:8px;
-  bottom:65px;
+  bottom:64px;
 
   z-index:20;
 
@@ -951,7 +869,6 @@ button:focus{
   text-align:center;
 
   font-weight:1000;
-
   font-size:13px;
 
   opacity:0;
@@ -966,24 +883,28 @@ button:focus{
 .messageInner{
   display:inline-block;
 
-  background:#1b0d09;
+  background:#fff;
 
-  border:2px solid #ffbd43;
-
+  border:3px solid #ffb52e;
   border-radius:12px;
 
   padding:8px 12px;
+
+  color:#17305e;
+
+  box-shadow:
+    0 3px 0 rgba(0,0,0,.2);
 }
 
 
 /* =========================================================
-   SMALL SCREEN
+   SHORT SCREENS
    ========================================================= */
 
 @media(max-height:700px){
 
   .header{
-    padding:4px 8px 6px;
+    padding:4px 7px 5px;
   }
 
   .logo{
@@ -991,7 +912,7 @@ button:focus{
   }
 
   .subtitle{
-    font-size:10px;
+    font-size:9px;
   }
 
   .moneybar{
@@ -999,7 +920,8 @@ button:focus{
   }
 
   .money{
-    padding:4px 9px;
+    padding:3px 9px;
+    font-size:12px;
   }
 
   .page{
@@ -1008,8 +930,7 @@ button:focus{
 
   .panel{
     padding:5px;
-
-    margin-bottom:4px;
+    margin-bottom:3px;
   }
 
   .stat{
@@ -1025,65 +946,26 @@ button:focus{
   }
 
   .bigButton{
-    min-height:47px;
+    min-height:46px;
     font-size:14px;
   }
 
   .builderTab{
-    min-height:34px;
+    min-height:32px;
     font-size:9px;
   }
 
   .choice{
-    min-height:37px;
+    min-height:36px;
     font-size:10px;
   }
 
   .builderBottom button{
-    min-height:35px;
+    min-height:34px;
   }
-
-  /*
-     Keep the customer section compact enough
-     to stay completely inside its own space.
-  */
 
   .orderBox{
-    max-height:105px;
-    padding:5px;
-  }
-
-  .orderTitle{
-    font-size:11px;
-  }
-
-  #orderText{
-    font-size:9px;
-    max-height:34px;
-  }
-
-  .repeatButton{
-    min-height:31px;
-    max-height:32px;
-    font-size:11px;
-    margin-top:3px;
-  }
-
-  .navButton{
-    min-height:42px;
-  }
-
-}
-
-
-/* =========================================================
-   VERY SHORT SCREENS
-   ========================================================= */
-
-@media(max-height:620px){
-
-  .orderBox{
-    max-height:92px;
+    max-height:98px;
   }
 
   .orderTitle{
@@ -1092,42 +974,30 @@ button:focus{
 
   #orderText{
     font-size:8px;
-    max-height:27px;
+    max-height:30px;
   }
 
   .repeatButton{
-    min-height:28px;
-    max-height:29px;
+    min-height:29px;
     font-size:10px;
   }
 
-  .builderBottom{
-    margin-top:3px;
-  }
-
-  .builderBottom button{
-    min-height:31px;
+  .navButton{
+    min-height:41px;
   }
 
 }
-
 </style>
 </head>
-
 
 <body>
 
 <div id="game">
 
-
-<!-- =====================================================
-     HEADER
-     ===================================================== -->
-
 <header class="header">
 
   <div class="logo">
-    DESMOND'S <span>BURGER BLAST</span>
+    🍔 DESMOND'S <span>BURGER BLAST</span> 🍟
   </div>
 
   <div class="subtitle">
@@ -1139,13 +1009,17 @@ button:focus{
     <div
       class="money"
       aria-label="Total dollars">
+
       🍔 <span id="cash">$0.00</span>
+
     </div>
 
     <div
       class="money crowns"
       aria-label="Burger Crowns">
+
       👑 <span id="crowns">0</span>
+
     </div>
 
   </div>
@@ -1153,24 +1027,14 @@ button:focus{
 </header>
 
 
-<!-- =====================================================
-     PAGES
-     ===================================================== -->
-
 <main id="pages">
 
-
-<!-- =====================================================
-     HOME
-     ===================================================== -->
 
 <section
   id="home"
   class="page active"
   aria-label="Home">
 
-
-  <!-- HOME PROGRESSION -->
 
   <div class="panel">
 
@@ -1185,7 +1049,9 @@ button:focus{
         <div
           class="statValue"
           id="homeCash">
+
           $0.00
+
         </div>
 
       </div>
@@ -1200,7 +1066,9 @@ button:focus{
         <div
           class="statValue"
           id="ordersServed">
+
           0
+
         </div>
 
       </div>
@@ -1215,7 +1083,9 @@ button:focus{
         <div
           class="statValue"
           id="level">
+
           1
+
         </div>
 
       </div>
@@ -1230,7 +1100,9 @@ button:focus{
         <div
           class="statValue"
           id="xp">
+
           0 / 5
+
         </div>
 
       </div>
@@ -1238,14 +1110,7 @@ button:focus{
     </div>
 
 
-    <div
-      style="
-        text-align:center;
-        margin-top:5px;
-        font-size:10px;
-        color:#76ff83;
-        font-weight:1000;
-      ">
+    <div class="earnings">
 
       💰 EARNINGS / SECOND:
       <span id="eps">$0.01</span>
@@ -1254,8 +1119,6 @@ button:focus{
 
   </div>
 
-
-  <!-- SHIFT -->
 
   <div class="panel">
 
@@ -1288,25 +1151,19 @@ button:focus{
       class="shiftInfo"
       aria-live="polite">
 
-      Your kitchen is waiting for you!
+      Your kitchen is waiting!
 
     </div>
 
   </div>
 
 
-  <!-- BURGER BUILDER -->
-
   <div class="panel builder">
 
     <div class="panelTitle">
-
       🍔 BUILD YOUR BURGER
-
     </div>
 
-
-    <!-- CURRENT BURGER -->
 
     <div class="currentBurger">
 
@@ -1317,16 +1174,10 @@ button:focus{
       <div
         id="burgerSummary"
         aria-live="polite">
-
-        Bun: Classic Bun • Patty: Beef Patty •
-        Cheese: None • Toppings: None
-
       </div>
 
     </div>
 
-
-    <!-- CATEGORY BUTTONS -->
 
     <div
       class="builderTabs"
@@ -1338,8 +1189,7 @@ button:focus{
         class="builderTab active"
         type="button"
         data-category="bun"
-        role="tab"
-        aria-selected="true">
+        role="tab">
 
         🍞 Bun
 
@@ -1350,8 +1200,7 @@ button:focus{
         class="builderTab"
         type="button"
         data-category="patty"
-        role="tab"
-        aria-selected="false">
+        role="tab">
 
         🥩 Patty
 
@@ -1362,8 +1211,7 @@ button:focus{
         class="builderTab"
         type="button"
         data-category="cheese"
-        role="tab"
-        aria-selected="false">
+        role="tab">
 
         🧀 Cheese
 
@@ -1374,8 +1222,7 @@ button:focus{
         class="builderTab"
         type="button"
         data-category="topping"
-        role="tab"
-        aria-selected="false">
+        role="tab">
 
         🥬 Toppings
 
@@ -1386,8 +1233,7 @@ button:focus{
         class="builderTab"
         type="button"
         data-category="sauce"
-        role="tab"
-        aria-selected="false">
+        role="tab">
 
         🥫 Sauce
 
@@ -1398,8 +1244,7 @@ button:focus{
         class="builderTab"
         type="button"
         data-category="fries"
-        role="tab"
-        aria-selected="false">
+        role="tab">
 
         🍟 Fries
 
@@ -1410,18 +1255,14 @@ button:focus{
         class="builderTab"
         type="button"
         data-category="side"
-        role="tab"
-        aria-selected="false">
+        role="tab">
 
         🍗 Side
 
       </button>
 
-
     </div>
 
-
-    <!-- INGREDIENT WINDOW -->
 
     <div class="ingredientWindow">
 
@@ -1443,8 +1284,6 @@ button:focus{
 
     </div>
 
-
-    <!-- BUILDER ACTIONS -->
 
     <div class="builderBottom">
 
@@ -1472,25 +1311,19 @@ button:focus{
   </div>
 
 
-  <!-- CUSTOMER ORDER -->
-
   <div
     id="orderBox"
     class="orderBox"
     hidden>
 
     <div class="orderTitle">
-
       👤 CUSTOMER ORDER
-
     </div>
-
 
     <div
       id="orderText"
       aria-live="polite">
     </div>
-
 
     <button
       id="repeatOrder"
@@ -1503,13 +1336,8 @@ button:focus{
 
   </div>
 
-
 </section>
 
-
-<!-- =====================================================
-     UPGRADES
-     ===================================================== -->
 
 <section
   id="upgrades"
@@ -1525,7 +1353,7 @@ button:focus{
     <div
       style="
         font-size:11px;
-        color:#d8bba7;
+        color:#53668e
       ">
 
       Upgrade your kitchen.
@@ -1535,7 +1363,6 @@ button:focus{
 
   </div>
 
-
   <div
     id="upgradeList"
     class="listWindow">
@@ -1543,10 +1370,6 @@ button:focus{
 
 </section>
 
-
-<!-- =====================================================
-     LOCATIONS
-     ===================================================== -->
 
 <section
   id="locations"
@@ -1562,7 +1385,7 @@ button:focus{
     <div
       style="
         font-size:11px;
-        color:#d8bba7;
+        color:#53668e
       ">
 
       Unlock new places to increase earnings.
@@ -1571,7 +1394,6 @@ button:focus{
 
   </div>
 
-
   <div
     id="locationList"
     class="listWindow">
@@ -1579,10 +1401,6 @@ button:focus{
 
 </section>
 
-
-<!-- =====================================================
-     MORE
-     ===================================================== -->
 
 <section
   id="more"
@@ -1594,7 +1412,6 @@ button:focus{
     <div class="panelTitle">
       ⭐ MORE
     </div>
-
 
     <div class="moreGrid">
 
@@ -1657,10 +1474,6 @@ button:focus{
 </main>
 
 
-<!-- =====================================================
-     NAVIGATION
-     ===================================================== -->
-
 <nav
   class="nav"
   aria-label="Main navigation">
@@ -1709,7 +1522,6 @@ button:focus{
 
   </button>
 
-
 </nav>
 
 
@@ -1730,15 +1542,11 @@ button:focus{
 "use strict";
 
 
-/* =====================================================
-   GAME STATE
-   ===================================================== */
-
 const SAVE_KEY =
-  "desmondBurgerBlastV8";
+  "desmondBurgerBlastV9";
 
 
-let state = {
+let state={
 
   cash:0,
 
@@ -1753,16 +1561,6 @@ let state = {
   shiftActive:false,
 
   shiftEndAt:0,
-
-  /*
-     NEXT SHIFT LENGTH
-
-     15 min = 900 seconds
-     30 min = 1800
-     45 min = 2700
-     60 min = 3600
-     then +30 minutes each time
-  */
 
   shiftRemaining:900,
 
@@ -1803,111 +1601,195 @@ let state = {
 };
 
 
-/* =====================================================
-   INGREDIENTS
-   ===================================================== */
+const ingredients={
 
-const ingredients = {
 
   bun:[
+
     ["Classic Bun",1],
+
     ["Brioche Bun",3],
+
     ["Sesame Bun",5],
+
     ["Pretzel Bun",7],
+
     ["Potato Bun",9],
+
     ["Garlic Bun",11],
+
     ["Texas Toast",13],
+
     ["Onion Bun",15],
+
     ["Brioche Sesame Bun",17],
+
     ["Golden Bun",20]
+
   ],
+
 
   patty:[
+
     ["Beef Patty",1],
+
     ["Crispy Chicken",4],
+
     ["Double Beef",6],
+
     ["Veggie Patty",8],
+
     ["Turkey Patty",10],
+
     ["Spicy Chicken",12],
+
     ["Bacon Burger Patty",14],
+
     ["BBQ Beef Patty",16],
+
     ["Triple Beef",18],
+
     ["Ultimate Patty",20]
+
   ],
+
 
   cheese:[
+
     ["None",1],
+
     ["American Cheese",2],
+
     ["Cheddar",5],
+
     ["Swiss",8],
+
     ["Pepper Jack",10],
+
     ["Provolone",12],
+
     ["Mozzarella",14],
+
     ["Gouda",16],
+
     ["Blue Cheese",18],
+
     ["Triple Cheese",20]
+
   ],
+
 
   topping:[
+
     ["Lettuce",1],
+
     ["Tomato",1],
+
     ["Pickles",2],
+
     ["Onions",3],
+
     ["Jalapeños",5],
+
     ["Mushrooms",7],
+
     ["Bacon",9],
+
     ["Fried Egg",11],
+
     ["Avocado",13],
+
     ["Crispy Onions",15],
+
     ["Coleslaw",17],
+
     ["Onion Straws",19],
+
     ["Loaded Topping Mix",20]
+
   ],
+
 
   sauce:[
+
     ["Ketchup",1],
+
     ["Mustard",1],
+
     ["Mayo",2],
+
     ["BBQ Sauce",4],
+
     ["Ranch",6],
+
     ["Buffalo Sauce",8],
+
     ["Honey Mustard",10],
+
     ["Special Sauce",12],
+
     ["Chipotle Sauce",14],
+
     ["Garlic Sauce",16],
+
     ["Burger Blast Sauce",18],
+
     ["Secret Sauce",20]
+
   ],
+
 
   fries:[
+
     ["None",1],
+
     ["Classic Fries",5],
+
     ["Waffle Fries",7],
+
     ["Curly Fries",9],
+
     ["Cajun Fries",11],
+
     ["Loaded Fries",13],
+
     ["Bacon Fries",15],
+
     ["Cheese Fries",17],
+
     ["Truffle Fries",19],
+
     ["Ultimate Fries",20]
+
   ],
 
+
   side:[
+
     ["No Side",1],
+
     ["Mozzarella Sticks",7],
+
     ["Onion Rings",9],
+
     ["Wings",11],
+
     ["Chicken Tenders",13],
+
     ["Loaded Nachos",15],
+
     ["Jalapeño Poppers",17],
+
     ["Mac & Cheese Bites",19],
+
     ["Loaded Pretzel Bites",20]
+
   ]
 
 };
 
 
-const categoryNames = {
+const categoryNames={
 
   bun:"Choose Your Bun",
 
@@ -1926,47 +1808,63 @@ const categoryNames = {
 };
 
 
-/* =====================================================
-   UPGRADES
-   ===================================================== */
-
-const upgradeData = [
+const upgradeData=[
 
   ["Super Grill",.02],
+
   ["Turbo Fryer",.02],
+
   ["Speed Chef",.015],
+
   ["Bigger Kitchen",.02],
+
   ["Advertising",.025],
+
   ["Premium Pricing",.02],
+
   ["Fast Service",.015],
+
   ["Burger Mastery",.03],
+
   ["Combo Bonus",.025],
+
   ["Golden Luck",.01],
+
   ["Superstar Chef",.035],
+
   ["Cash Register",.02],
+
   ["Kitchen Heat",.025],
+
   ["Crowd Builder",.03],
+
   ["Secret Recipe",.04],
+
   ["Mega Burger",.05]
 
 ];
 
 
-/* =====================================================
-   LOCATIONS
-   ===================================================== */
-
-const locationData = [
+const locationData=[
 
   ["Desmond's Kitchen",0],
+
   ["Beach Burger",.05],
+
   ["Downtown",.10],
+
   ["Stadium Grill",.15],
+
   ["Fun Park",.20],
+
   ["Mountain Grill",.25],
+
   ["Big City",.30],
+
   ["Highway Stop",.35],
+
   ["Night Market",.40],
+
   ["Burger Island",.50]
 
 ];
@@ -1980,7 +1878,7 @@ function save(){
 
   try{
 
-    state.lastTick =
+    state.lastTick=
       Date.now();
 
     localStorage.setItem(
@@ -1993,124 +1891,11 @@ function save(){
 }
 
 
-function load(){
-
-  try{
-
-    const raw =
-      localStorage.getItem(
-        SAVE_KEY
-      );
-
-    if(raw){
-
-      const saved =
-        JSON.parse(raw);
-
-      state =
-        Object.assign(
-          state,
-          saved
-        );
-
-      state.build =
-        Object.assign(
-
-          {
-            bun:"Classic Bun",
-            patty:"Beef Patty",
-            cheese:"None",
-            toppings:[],
-            sauce:"Ketchup",
-            fries:"None",
-            side:"No Side"
-
-          },
-
-          saved.build || {}
-
-        );
-
-    }
-
-  }catch(e){}
-
-
-  if(!Array.isArray(
-    state.build.toppings
-  )){
-
-    state.build.toppings=[];
-
-  }
-
-
-  /*
-     Repair invalid old shift data.
-
-     Valid maximum is 8 hours.
-     If an old save contains something ridiculous
-     such as 1500 hours, reset to 15 minutes.
-  */
-
-  if(
-    !Number.isFinite(
-      state.shiftRemaining
-    ) ||
-
-    state.shiftRemaining < 900 ||
-
-    state.shiftRemaining > 28800
-  ){
-
-    state.shiftRemaining=900;
-
-  }
-
-
-  /*
-     Make sure the saved value is a valid
-     15-minute/30-minute progression.
-  */
-
-  state.shiftRemaining =
-    normalizeShiftLength(
-      state.shiftRemaining
-    );
-
-
-  processOffline();
-
-  state.lastTick =
-    Date.now();
-
-}
-
-
-/* =====================================================
-   SHIFT LENGTH SYSTEM
-   ===================================================== */
-
-/*
-   Valid progression:
-
-   15 minutes
-   30 minutes
-   45 minutes
-   60 minutes
-   90 minutes
-   120 minutes
-   150 minutes
-   180 minutes
-   ...
-   480 minutes / 8 hours
-*/
-
 function normalizeShiftLength(
   seconds
 ){
 
-  seconds =
+  seconds=
     Number(seconds);
 
 
@@ -2125,12 +1910,9 @@ function normalizeShiftLength(
   }
 
 
-  /*
-     Before one hour:
-     round down to the nearest 15 minutes.
-  */
-
-  if(seconds<3600){
+  if(
+    seconds<3600
+  ){
 
     return (
       Math.floor(
@@ -2140,11 +1922,6 @@ function normalizeShiftLength(
 
   }
 
-
-  /*
-     At or above one hour:
-     use 30-minute increments.
-  */
 
   return (
     Math.round(
@@ -2157,19 +1934,15 @@ function normalizeShiftLength(
 
 function getNextShiftLength(){
 
-  const current =
+  const current=
     normalizeShiftLength(
       state.shiftRemaining
     );
 
 
-  /*
-     15 -> 30
-     30 -> 45
-     45 -> 60
-  */
-
-  if(current<3600){
+  if(
+    current<3600
+  ){
 
     return Math.min(
       current+900,
@@ -2179,12 +1952,6 @@ function getNextShiftLength(){
   }
 
 
-  /*
-     60 -> 90
-     90 -> 120
-     etc.
-  */
-
   return Math.min(
     current+1800,
     28800
@@ -2193,67 +1960,96 @@ function getNextShiftLength(){
 }
 
 
-/* =====================================================
-   OFFLINE EARNINGS
-   ===================================================== */
+function load(){
 
-function processOffline(){
+  try{
 
-  if(!state.shiftActive){
+    const raw=
+      localStorage.getItem(
+        SAVE_KEY
+      );
 
-    state.lastTick =
-      Date.now();
 
-    return;
+    if(raw){
+
+      const saved=
+        JSON.parse(raw);
+
+
+      state=
+        Object.assign(
+          state,
+          saved
+        );
+
+
+      state.build=
+        Object.assign(
+
+          {
+            bun:"Classic Bun",
+
+            patty:"Beef Patty",
+
+            cheese:"None",
+
+            toppings:[],
+
+            sauce:"Ketchup",
+
+            fries:"None",
+
+            side:"No Side"
+
+          },
+
+          saved.build||{}
+
+        );
+
+    }
+
+  }catch(e){}
+
+
+  if(
+    !Array.isArray(
+      state.build.toppings
+    )
+  ){
+
+    state.build.toppings=[];
 
   }
 
 
-  const now =
+  state.shiftRemaining=
+    normalizeShiftLength(
+      state.shiftRemaining
+    );
+
+
+  /*
+    Never auto-build a burger
+    from a customer order.
+  */
+
+  if(state.order){
+
+    state.order.toppings=
+      Array.isArray(
+        state.order.toppings
+      )
+      ?state.order.toppings
+      :[];
+
+  }
+
+
+  processOffline();
+
+  state.lastTick=
     Date.now();
-
-
-  const elapsed =
-    Math.max(
-      0,
-      (now-state.lastTick)/1000
-    );
-
-
-  const remaining =
-    Math.max(
-      0,
-      (state.shiftEndAt-
-       state.lastTick)/1000
-    );
-
-
-  const seconds =
-    Math.min(
-      elapsed,
-      remaining
-    );
-
-
-  if(seconds>0){
-
-    state.cash +=
-      EPS()*seconds;
-
-  }
-
-
-  if(now>=state.shiftEndAt){
-
-    state.shiftActive=false;
-
-    state.shiftRemaining=
-      getNextShiftLength();
-
-  }
-
-
-  state.lastTick=now;
 
 }
 
@@ -2272,13 +2068,11 @@ function upgradeMultiplier(){
     of upgradeData
   ){
 
-    const level =
-      Number(
-        state.upgrades[name] || 0
-      );
-
     total +=
-      level*power;
+      Number(
+        state.upgrades[name]||0
+      )*
+      power;
 
   }
 
@@ -2298,9 +2092,11 @@ function locationMultiplier(){
     of locationData
   ){
 
-    if(state.locations[name]){
+    if(
+      state.locations[name]
+    ){
 
-      total += bonus;
+      total+=bonus;
 
     }
 
@@ -2314,15 +2110,15 @@ function locationMultiplier(){
 
 function EPS(){
 
-  let value =
-    .01 *
-    upgradeMultiplier() *
+  let value=
+    .01*
+    upgradeMultiplier()*
     locationMultiplier();
 
 
   if(
     state.galacticUntil &&
-    Date.now() <
+    Date.now()<
     state.galacticUntil
   ){
 
@@ -2337,13 +2133,83 @@ function EPS(){
 
 
 /* =====================================================
-   DISPLAY
+   TIME / DISPLAY
    ===================================================== */
+
+function processOffline(){
+
+  if(
+    !state.shiftActive
+  ){
+
+    state.lastTick=
+      Date.now();
+
+    return;
+
+  }
+
+
+  const now=
+    Date.now();
+
+
+  const elapsed=
+    Math.max(
+      0,
+      (now-state.lastTick)/1000
+    );
+
+
+  const remaining=
+    Math.max(
+      0,
+      (state.shiftEndAt-
+       state.lastTick)/1000
+    );
+
+
+  const seconds=
+    Math.min(
+      elapsed,
+      remaining
+    );
+
+
+  if(
+    seconds>0
+  ){
+
+    state.cash+=
+      EPS()*
+      seconds;
+
+  }
+
+
+  if(
+    now>=
+    state.shiftEndAt
+  ){
+
+    state.shiftActive=false;
+
+    state.shiftRemaining=
+      getNextShiftLength();
+
+  }
+
+
+  state.lastTick=
+    now;
+
+}
+
 
 function money(value){
 
-  return "$" +
-    Number(value || 0)
+  return "$"+
+    Number(value||0)
       .toFixed(2);
 
 }
@@ -2359,46 +2225,54 @@ function xpNeeded(){
 }
 
 
-function formatTime(seconds){
+function formatTime(
+  seconds
+){
 
-  seconds =
+  seconds=
     Math.max(
       0,
       Math.floor(seconds)
     );
 
 
-  const h =
+  const h=
     Math.floor(
       seconds/3600
     );
 
 
-  const m =
+  const m=
     Math.floor(
       (seconds%3600)/60
     );
 
 
-  const s =
+  const s=
     seconds%60;
 
 
-  if(h>0){
+  if(
+    h>0
+  ){
 
-    return (
-      h+"h "+
-      String(m).padStart(2,"0")+
+    return(
+      h+
+      "h "+
+      String(m)
+        .padStart(2,"0")+
       "m"
     );
 
   }
 
 
-  return (
-    String(m).padStart(2,"0")+
+  return(
+    String(m)
+      .padStart(2,"0")+
     ":"+
-    String(s).padStart(2,"0")
+    String(s)
+      .padStart(2,"0")
   );
 
 }
@@ -2408,51 +2282,53 @@ function updateDisplay(){
 
   document.getElementById(
     "cash"
-  ).textContent =
+  ).textContent=
     money(state.cash);
 
 
   document.getElementById(
     "homeCash"
-  ).textContent =
+  ).textContent=
     money(state.cash);
 
 
   document.getElementById(
     "crowns"
-  ).textContent =
+  ).textContent=
     state.crowns;
 
 
   document.getElementById(
     "eps"
-  ).textContent =
+  ).textContent=
     money(EPS());
 
 
   document.getElementById(
     "ordersServed"
-  ).textContent =
+  ).textContent=
     state.ordersServed;
 
 
   document.getElementById(
     "level"
-  ).textContent =
+  ).textContent=
     state.recipeLevel;
 
 
   document.getElementById(
     "xp"
-  ).textContent =
+  ).textContent=
     state.xp+
     " / "+
     xpNeeded();
 
 
-  if(state.shiftActive){
+  if(
+    state.shiftActive
+  ){
 
-    const remaining =
+    const remaining=
       Math.max(
         0,
         Math.ceil(
@@ -2464,9 +2340,11 @@ function updateDisplay(){
 
     document.getElementById(
       "shiftStatus"
-    ).textContent =
+    ).textContent=
       "🔥 SHIFT ACTIVE — "+
-      formatTime(remaining)+
+      formatTime(
+        remaining
+      )+
       " remaining";
 
 
@@ -2474,7 +2352,7 @@ function updateDisplay(){
 
     document.getElementById(
       "shiftStatus"
-    ).textContent =
+    ).textContent=
       "Your kitchen is waiting! Next shift: "+
       formatTime(
         state.shiftRemaining
@@ -2489,63 +2367,75 @@ function updateDisplay(){
 
 
 /* =====================================================
-   BURGER BUILDER
+   BURGER BUILDING
    ===================================================== */
 
-function renderCategory(category){
+/*
+  IMPORTANT:
 
-  state.currentCategory =
+  Nothing in the customer-order system
+  changes state.build.
+
+  The player must choose every
+  ingredient manually.
+
+  Toppings are multi-select.
+
+  All other categories are single-select.
+*/
+
+
+function renderCategory(
+  category
+){
+
+  state.currentCategory=
     category;
 
 
-  const title =
+  const title=
     document.getElementById(
       "windowTitle"
     );
 
 
-  const choices =
+  const choices=
     document.getElementById(
       "choices"
     );
 
 
-  title.textContent =
+  title.textContent=
     categoryNames[category];
 
 
   choices.innerHTML="";
 
 
-  const grid =
+  const grid=
     document.createElement(
       "div"
     );
 
 
-  grid.className =
+  grid.className=
     "choiceGrid";
 
 
   for(
-    const item
+    const [
+      name,
+      unlockLevel
+    ]
     of ingredients[category]
   ){
 
-    const name =
-      item[0];
-
-
-    const unlockLevel =
-      item[1];
-
-
-    const unlocked =
-      state.recipeLevel >=
+    const unlocked=
+      state.recipeLevel>=
       unlockLevel;
 
 
-    const button =
+    const button=
       document.createElement(
         "button"
       );
@@ -2553,16 +2443,17 @@ function renderCategory(category){
 
     button.type="button";
 
-    button.className="choice";
+    button.className=
+      "choice";
 
 
-    const selected =
+    const selected=
       category==="topping"
 
         ? state.build.toppings
             .includes(name)
 
-        : state.build[category] ===
+        : state.build[category]===
           name;
 
 
@@ -2597,12 +2488,12 @@ function renderCategory(category){
       button.setAttribute(
         "aria-label",
         name+
-        ", locked until recipe level "+
+        ", locked until level "+
         unlockLevel
       );
 
 
-      button.innerHTML =
+      button.innerHTML=
         '<span class="choiceName">'+
         "🔒 "+
         escapeHTML(name)+
@@ -2619,7 +2510,7 @@ function renderCategory(category){
 
           speak(
             name+
-            ". Locked. Unlocks at recipe level "+
+            ". Locked. Unlocks at level "+
             unlockLevel
           );
 
@@ -2647,7 +2538,7 @@ function renderCategory(category){
       );
 
 
-      button.innerHTML =
+      button.innerHTML=
         '<span class="choiceName">'+
         escapeHTML(name)+
         "</span>"+
@@ -2703,7 +2594,7 @@ function selectIngredient(
     category==="topping"
   ){
 
-    const index =
+    const index=
       state.build.toppings
         .indexOf(name);
 
@@ -2770,8 +2661,8 @@ function updateTabs(){
     .forEach(
       button=>{
 
-        const active =
-          button.dataset.category ===
+        const active=
+          button.dataset.category===
           state.currentCategory;
 
 
@@ -2796,7 +2687,7 @@ function updateTabs(){
 
 function updateBurgerSummary(){
 
-  const toppings =
+  const toppings=
     state.build.toppings.length
 
       ? state.build.toppings.join(", ")
@@ -2806,7 +2697,7 @@ function updateBurgerSummary(){
 
   document.getElementById(
     "burgerSummary"
-  ).textContent =
+  ).textContent=
 
     "Bun: "+
     state.build.bun+
@@ -2832,20 +2723,53 @@ function updateBurgerSummary(){
 }
 
 
+function clearBurger(){
+
+  state.build={
+
+    bun:"Classic Bun",
+
+    patty:"Beef Patty",
+
+    cheese:"None",
+
+    toppings:[],
+
+    sauce:"Ketchup",
+
+    fries:"None",
+
+    side:"No Side"
+
+  };
+
+
+  renderCategory(
+    state.currentCategory
+  );
+
+
+  updateBurgerSummary();
+
+  save();
+
+}
+
+
 /* =====================================================
-   ORDER SYSTEM
+   CUSTOMER ORDER
    ===================================================== */
 
 function randomUnlocked(
   category
 ){
 
-  const available =
+  const available=
     ingredients[category]
 
       .filter(
         item =>
-          state.recipeLevel >=
+          state.recipeLevel>=
           item[1]
       )
 
@@ -2867,12 +2791,12 @@ function randomUnlocked(
 
 function createOrder(){
 
-  const toppingsPool =
+  const toppingsPool=
     ingredients.topping
 
       .filter(
         item =>
-          state.recipeLevel >=
+          state.recipeLevel>=
           item[1]
       )
 
@@ -2886,10 +2810,21 @@ function createOrder(){
 
 
   if(
-    state.recipeLevel>=3
+    state.recipeLevel<3
   ){
 
-    const count =
+    toppings=[
+      "Lettuce",
+      "Tomato"
+    ].filter(
+      x =>
+        toppingsPool.includes(x)
+    );
+
+
+  }else{
+
+    const count=
       Math.min(
         1+
         Math.floor(
@@ -2899,7 +2834,7 @@ function createOrder(){
       );
 
 
-    toppings =
+    toppings=
       [...toppingsPool]
         .sort(
           ()=>Math.random()-.5
@@ -2909,40 +2844,43 @@ function createOrder(){
           count
         );
 
-
-  }else{
-
-    toppings=[
-      "Lettuce",
-      "Tomato"
-    ];
-
   }
 
 
   state.order={
 
     bun:
-      randomUnlocked("bun"),
+      randomUnlocked(
+        "bun"
+      ),
 
     patty:
-      randomUnlocked("patty"),
+      randomUnlocked(
+        "patty"
+      ),
 
     cheese:
-      randomUnlocked("cheese"),
+      randomUnlocked(
+        "cheese"
+      ),
 
     toppings:
-
       toppings,
 
     sauce:
-      randomUnlocked("sauce"),
+      randomUnlocked(
+        "sauce"
+      ),
 
     fries:
-      randomUnlocked("fries"),
+      randomUnlocked(
+        "fries"
+      ),
 
     side:
-      randomUnlocked("side")
+      randomUnlocked(
+        "side"
+      )
 
   };
 
@@ -2962,12 +2900,18 @@ function createOrder(){
 
   renderOrder();
 
-  speakOrder();
-
-
   document.getElementById(
     "orderBox"
   ).hidden=false;
+
+  speakOrder();
+
+
+  /*
+    DO NOT copy the order into state.build.
+
+    The player must build it manually.
+  */
 
 }
 
@@ -2978,13 +2922,13 @@ function renderOrder(){
     return;
 
 
-  const o =
+  const o=
     state.order;
 
 
   document.getElementById(
     "orderText"
-  ).textContent =
+  ).textContent=
 
     "Bun: "+
     o.bun+
@@ -2996,7 +2940,6 @@ function renderOrder(){
     o.cheese+
 
     ". Toppings: "+
-
     (
       o.toppings.length
         ? o.toppings.join(", ")
@@ -3022,7 +2965,7 @@ function speakOrder(){
     return;
 
 
-  const o =
+  const o=
     state.order;
 
 
@@ -3043,7 +2986,6 @@ function speakOrder(){
     ". "+
 
     "Toppings, "+
-
     (
       o.toppings.length
         ? o.toppings.join(", ")
@@ -3052,13 +2994,11 @@ function speakOrder(){
 
     ". Sauce, "+
     o.sauce+
-    ". "+
 
-    "Fries, "+
+    ". Fries, "+
     o.fries+
-    ". "+
 
-    "Side, "+
+    ". Side, "+
     o.side+
     "."
 
@@ -3068,7 +3008,7 @@ function speakOrder(){
 
 
 /* =====================================================
-   SUBMIT BURGER
+   ORDER CHECK
    ===================================================== */
 
 function compareOrders(){
@@ -3090,11 +3030,11 @@ function compareOrders(){
   }
 
 
-  const o =
+  const o=
     state.order;
 
 
-  const b =
+  const b=
     state.build;
 
 
@@ -3173,13 +3113,13 @@ function compareOrders(){
   }
 
 
-  const wanted =
+  const wanted=
     [...o.toppings]
       .sort()
       .join("|");
 
 
-  const actual =
+  const actual=
     [...b.toppings]
       .sort()
       .join("|");
@@ -3213,7 +3153,7 @@ function compareOrders(){
 
 
     showMessage(
-      "🍔 Order needs changes!"
+      "🍔 Not quite! Check the highlighted ingredients."
     );
 
 
@@ -3222,7 +3162,7 @@ function compareOrders(){
   }
 
 
-  let payout =
+  let payout=
     .05+
     state.recipeLevel*
     .015;
@@ -3231,16 +3171,15 @@ function compareOrders(){
   let golden=false;
 
 
-  const goldenChance =
+  const goldenChance=
+
     state.goldenChance+
 
-    (
-      Number(
-        state.upgrades[
-          "Golden Luck"
-        ] || 0
-      )*.01
-    );
+    Number(
+      state.upgrades[
+        "Golden Luck"
+      ]||0
+    )*.01;
 
 
   if(
@@ -3285,9 +3224,9 @@ function compareOrders(){
 
     state.recipeLevel++;
 
+
     speak(
-      "Level up! "+
-      "You are now recipe level "+
+      "Level up! You are now recipe level "+
       state.recipeLevel
     );
 
@@ -3300,7 +3239,7 @@ function compareOrders(){
   }
 
 
-  const buck =
+  const buck=
     Math.max(
       1,
       Math.floor(
@@ -3312,8 +3251,7 @@ function compareOrders(){
   if(golden){
 
     speak(
-      "Golden Burger! "+
-      "You earned "+
+      "Golden Burger! You earned "+
       money(payout)+
       " and "+
       buck+
@@ -3330,8 +3268,7 @@ function compareOrders(){
   }else{
 
     speak(
-      "Order complete! "+
-      "You earned "+
+      "Order complete! You earned "+
       money(payout)+
       " and "+
       buck+
@@ -3357,47 +3294,9 @@ function compareOrders(){
 
   clearBurger();
 
-
   save();
 
   updateDisplay();
-
-}
-
-
-/* =====================================================
-   CLEAR BURGER
-   ===================================================== */
-
-function clearBurger(){
-
-  state.build={
-
-    bun:"Classic Bun",
-
-    patty:"Beef Patty",
-
-    cheese:"None",
-
-    toppings:[],
-
-    sauce:"Ketchup",
-
-    fries:"None",
-
-    side:"No Side"
-
-  };
-
-
-  renderCategory(
-    state.currentCategory
-  );
-
-
-  updateBurgerSummary();
-
-  save();
 
 }
 
@@ -3421,51 +3320,52 @@ function startShift(){
   }
 
 
-  /*
-     Always repair the stored duration before
-     starting a new shift.
-  */
-
-  state.shiftRemaining =
+  state.shiftRemaining=
     normalizeShiftLength(
       state.shiftRemaining
     );
 
 
-  const length =
+  const length=
     state.shiftRemaining;
 
 
   state.shiftActive=true;
 
 
-  state.shiftEndAt =
+  state.shiftEndAt=
     Date.now()+
     length*1000;
 
 
-  state.lastTick =
+  state.lastTick=
     Date.now();
 
 
   document.getElementById(
     "shiftStatus"
-  ).textContent =
+  ).textContent=
     "🔥 SHIFT ACTIVE — "+
-    formatTime(length)+
+    formatTime(
+      length
+    )+
     " remaining";
 
 
   speak(
     "Shift started for "+
-    formatTime(length)+
+    formatTime(
+      length
+    )+
     "."
   );
 
 
   showMessage(
     "🔥 "+
-    formatTime(length)+
+    formatTime(
+      length
+    )+
     " shift started!"
   );
 
@@ -3499,7 +3399,7 @@ function upgradeCost(
 
 function renderUpgrades(){
 
-  const container =
+  const container=
     document.getElementById(
       "upgradeList"
     );
@@ -3511,20 +3411,20 @@ function renderUpgrades(){
   upgradeData.forEach(
     ([name,power])=>{
 
-      const level =
+      const level=
         Number(
           state.upgrades[name]||0
         );
 
 
-      const cost =
+      const cost=
         upgradeCost(
           name,
           level
         );
 
 
-      const card =
+      const card=
         document.createElement(
           "div"
         );
@@ -3534,7 +3434,7 @@ function renderUpgrades(){
         "upgrade";
 
 
-      const top =
+      const top=
         document.createElement(
           "div"
         );
@@ -3544,7 +3444,7 @@ function renderUpgrades(){
         "upgradeTop";
 
 
-      const title =
+      const title=
         document.createElement(
           "div"
         );
@@ -3558,7 +3458,7 @@ function renderUpgrades(){
         name;
 
 
-      const levelText =
+      const levelText=
         document.createElement(
           "div"
         );
@@ -3574,17 +3474,22 @@ function renderUpgrades(){
         " / 20";
 
 
-      top.appendChild(title);
+      top.appendChild(
+        title
+      );
+
 
       top.appendChild(
         levelText
       );
 
 
-      card.appendChild(top);
+      card.appendChild(
+        top
+      );
 
 
-      const powerText =
+      const powerText=
         document.createElement(
           "div"
         );
@@ -3609,7 +3514,7 @@ function renderUpgrades(){
       );
 
 
-      const button =
+      const button=
         document.createElement(
           "button"
         );
@@ -3705,7 +3610,9 @@ function renderUpgrades(){
    LOCATIONS
    ===================================================== */
 
-function locationCost(index){
+function locationCost(
+  index
+){
 
   if(index===0)
     return 0;
@@ -3724,7 +3631,7 @@ function locationCost(index){
 
 function renderLocations(){
 
-  const container =
+  const container=
     document.getElementById(
       "locationList"
     );
@@ -3736,11 +3643,11 @@ function renderLocations(){
   locationData.forEach(
     ([name,bonus],index)=>{
 
-      const unlocked =
+      const unlocked=
         !!state.locations[name];
 
 
-      const card =
+      const card=
         document.createElement(
           "div"
         );
@@ -3750,7 +3657,7 @@ function renderLocations(){
         "location";
 
 
-      const title =
+      const title=
         document.createElement(
           "div"
         );
@@ -3769,7 +3676,7 @@ function renderLocations(){
       );
 
 
-      const bonusText =
+      const bonusText=
         document.createElement(
           "div"
         );
@@ -3790,7 +3697,7 @@ function renderLocations(){
       );
 
 
-      const button =
+      const button=
         document.createElement(
           "button"
         );
@@ -3812,8 +3719,10 @@ function renderLocations(){
 
       }else{
 
-        const cost =
-          locationCost(index);
+        const cost=
+          locationCost(
+            index
+          );
 
 
         button.textContent=
@@ -3895,15 +3804,15 @@ document.getElementById(
   "click",
   ()=>{
 
-    const text =
-      "<strong>❓ Mystery & Special Burgers</strong><br><br>"+
-      "🌌 Galactic Burger unlocks around recipe level 6 and gives 2× earnings for 1 hour.<br><br>"+
-      "🌟 Golden Burger is a rare prize with a 10× payout.";
-
-
     document.getElementById(
       "moreContent"
-    ).innerHTML=text;
+    ).innerHTML=
+
+      "<strong>❓ Mystery & Special Burgers</strong><br><br>"+
+
+      "🌌 Galactic Burger unlocks around recipe level 6 and gives 2× earnings for 1 hour.<br><br>"+
+
+      "🌟 Golden Burger is a rare prize with a 10× payout.";
 
 
     speak(
@@ -3922,7 +3831,8 @@ document.getElementById(
   "click",
   ()=>{
 
-    const rap =
+    const rap=
+
       "Welcome to Desmond's Burger Blast! "+
       "Stack that bun and make it fast! "+
       "Patty on the grill, cheese on top, "+
@@ -3938,7 +3848,8 @@ document.getElementById(
 
     document.getElementById(
       "moreContent"
-    ).innerHTML =
+    ).innerHTML=
+
       "<strong>🎤 BURGER RAP</strong><br><br>"+
       rap;
 
@@ -3954,9 +3865,12 @@ document.getElementById(
 
     document.getElementById(
       "moreContent"
-    ).innerHTML =
+    ).innerHTML=
+
       "<strong>👑 PRESTIGE</strong><br><br>"+
+
       "Prestige gives permanent Burger Crowns.<br><br>"+
+
       "Current Crowns: "+
       state.crowns;
 
@@ -3978,7 +3892,7 @@ document.getElementById(
 
     document.getElementById(
       "moreContent"
-    ).innerHTML =
+    ).innerHTML=
 
       "<strong>📊 STATS</strong><br><br>"+
 
@@ -4036,7 +3950,7 @@ document
         "click",
         ()=>{
 
-          const page =
+          const page=
             button.dataset.page;
 
 
@@ -4099,7 +4013,7 @@ document
 
 
 /* =====================================================
-   BUILDER CATEGORY BUTTONS
+   BUILDER TABS
    ===================================================== */
 
 document
@@ -4183,8 +4097,7 @@ document.getElementById(
 
 
     speak(
-      "Burger cleared. "+
-      "Classic bun and beef patty selected."
+      "Burger cleared. Nothing has been automatically selected."
     );
 
   }
@@ -4208,19 +4121,20 @@ let messageTimer=null;
 
 function showMessage(text){
 
-  const message =
+  const message=
     document.getElementById(
       "message"
     );
 
 
-  const inner =
+  const inner=
     message.querySelector(
       ".messageInner"
     );
 
 
-  inner.textContent=text;
+  inner.textContent=
+    text;
 
 
   message.classList.add(
@@ -4233,7 +4147,7 @@ function showMessage(text){
   );
 
 
-  messageTimer =
+  messageTimer=
     setTimeout(
       ()=>{
 
@@ -4265,7 +4179,7 @@ function speak(text){
     window.speechSynthesis.cancel();
 
 
-    const utterance =
+    const utterance=
       new SpeechSynthesisUtterance(
         text
       );
@@ -4328,7 +4242,7 @@ function escapeHTML(text){
 setInterval(
   ()=>{
 
-    const now =
+    const now=
       Date.now();
 
 
@@ -4336,25 +4250,22 @@ setInterval(
       state.shiftActive
     ){
 
-      const elapsed =
+      const elapsed=
         Math.max(
           0,
-          (now-
-           state.lastTick)/
-          1000
+          (now-state.lastTick)/1000
         );
 
 
-      const remaining =
+      const remaining=
         Math.max(
           0,
           (state.shiftEndAt-
-           state.lastTick)/
-          1000
+           state.lastTick)/1000
         );
 
 
-      const seconds =
+      const seconds=
         Math.min(
           elapsed,
           remaining
@@ -4380,14 +4291,7 @@ setInterval(
         state.shiftActive=false;
 
 
-        /*
-           Move to the next valid shift:
-
-           15 -> 30 -> 45 -> 60
-           -> 90 -> 120 -> 150...
-        */
-
-        state.shiftRemaining =
+        state.shiftRemaining=
           getNextShiftLength();
 
 
@@ -4450,6 +4354,17 @@ document.addEventListener(
         state.currentCategory
       );
 
+
+      if(state.order){
+
+        renderOrder();
+
+        document.getElementById(
+          "orderBox"
+        ).hidden=false;
+
+      }
+
     }
 
   }
@@ -4483,6 +4398,17 @@ renderUpgrades();
 renderLocations();
 
 updateDisplay();
+
+
+if(state.order){
+
+  renderOrder();
+
+  document.getElementById(
+    "orderBox"
+  ).hidden=false;
+
+}
 
 </script>
 
