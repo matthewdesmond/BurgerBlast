@@ -165,6 +165,39 @@ button:focus{
 
 
 /* =========================================================
+   HOME PAGE LAYOUT
+   ========================================================= */
+
+/*
+   The Home page has a dedicated bottom slot for the
+   customer order. This prevents the order box from ever
+   covering the burger builder or navigation.
+*/
+
+#home.page.active{
+  display:flex;
+  flex-direction:column;
+  min-height:0;
+  overflow:hidden;
+}
+
+#home > .panel{
+  flex:0 0 auto;
+}
+
+#home > .builder{
+  flex:1 1 auto;
+  min-height:0;
+  overflow:hidden;
+}
+
+#home > .orderBox{
+  flex:0 0 auto;
+  min-height:0;
+}
+
+
+/* =========================================================
    PANELS
    ========================================================= */
 
@@ -580,8 +613,16 @@ button:focus{
    CUSTOMER ORDER
    ========================================================= */
 
+/*
+   IMPORTANT:
+   This section is NOT positioned over the page.
+   It is a normal flex child with its own reserved space.
+*/
+
 .orderBox{
   flex:0 0 auto;
+
+  width:100%;
 
   background:#120a08;
 
@@ -589,13 +630,17 @@ button:focus{
 
   border-radius:12px;
 
-  padding:7px;
+  padding:6px;
 
-  margin-bottom:4px;
+  margin:0 0 4px 0;
 
-  max-height:145px;
+  max-height:112px;
 
   overflow:hidden;
+
+  position:relative;
+
+  z-index:2;
 }
 
 .orderTitle{
@@ -604,26 +649,32 @@ button:focus{
   font-weight:1000;
 
   font-size:13px;
+
+  line-height:1.1;
 }
 
 #orderText{
-  margin-top:4px;
+  margin-top:3px;
 
-  font-size:11px;
+  font-size:10px;
 
-  line-height:1.3;
+  line-height:1.25;
 
   color:#ffe9cb;
 
-  max-height:48px;
+  max-height:38px;
 
   overflow:hidden;
 }
 
 .repeatButton{
+  display:block;
+
   width:100%;
 
-  min-height:37px;
+  min-height:34px;
+
+  max-height:36px;
 
   border:0;
 
@@ -635,7 +686,13 @@ button:focus{
 
   font-weight:1000;
 
-  margin-top:5px;
+  font-size:12px;
+
+  margin-top:4px;
+
+  position:relative;
+
+  z-index:3;
 }
 
 
@@ -986,13 +1043,72 @@ button:focus{
     min-height:35px;
   }
 
+  /*
+     Keep the customer section compact enough
+     to stay completely inside its own space.
+  */
+
   .orderBox{
-    max-height:125px;
+    max-height:105px;
+    padding:5px;
+  }
+
+  .orderTitle{
+    font-size:11px;
+  }
+
+  #orderText{
+    font-size:9px;
+    max-height:34px;
+  }
+
+  .repeatButton{
+    min-height:31px;
+    max-height:32px;
+    font-size:11px;
+    margin-top:3px;
   }
 
   .navButton{
     min-height:42px;
   }
+
+}
+
+
+/* =========================================================
+   VERY SHORT SCREENS
+   ========================================================= */
+
+@media(max-height:620px){
+
+  .orderBox{
+    max-height:92px;
+  }
+
+  .orderTitle{
+    font-size:10px;
+  }
+
+  #orderText{
+    font-size:8px;
+    max-height:27px;
+  }
+
+  .repeatButton{
+    min-height:28px;
+    max-height:29px;
+    font-size:10px;
+  }
+
+  .builderBottom{
+    margin-top:3px;
+  }
+
+  .builderBottom button{
+    min-height:31px;
+  }
+
 }
 
 </style>
@@ -1638,6 +1754,16 @@ let state = {
 
   shiftEndAt:0,
 
+  /*
+     NEXT SHIFT LENGTH
+
+     15 min = 900 seconds
+     30 min = 1800
+     45 min = 2700
+     60 min = 3600
+     then +30 minutes each time
+  */
+
   shiftRemaining:900,
 
   lastTick:Date.now(),
@@ -1683,187 +1809,99 @@ let state = {
 
 const ingredients = {
 
-
   bun:[
-
     ["Classic Bun",1],
-
     ["Brioche Bun",3],
-
     ["Sesame Bun",5],
-
     ["Pretzel Bun",7],
-
     ["Potato Bun",9],
-
     ["Garlic Bun",11],
-
     ["Texas Toast",13],
-
     ["Onion Bun",15],
-
     ["Brioche Sesame Bun",17],
-
     ["Golden Bun",20]
-
   ],
-
 
   patty:[
-
     ["Beef Patty",1],
-
     ["Crispy Chicken",4],
-
     ["Double Beef",6],
-
     ["Veggie Patty",8],
-
     ["Turkey Patty",10],
-
     ["Spicy Chicken",12],
-
     ["Bacon Burger Patty",14],
-
     ["BBQ Beef Patty",16],
-
     ["Triple Beef",18],
-
     ["Ultimate Patty",20]
-
   ],
-
 
   cheese:[
-
     ["None",1],
-
     ["American Cheese",2],
-
     ["Cheddar",5],
-
     ["Swiss",8],
-
     ["Pepper Jack",10],
-
     ["Provolone",12],
-
     ["Mozzarella",14],
-
     ["Gouda",16],
-
     ["Blue Cheese",18],
-
     ["Triple Cheese",20]
-
   ],
-
 
   topping:[
-
     ["Lettuce",1],
-
     ["Tomato",1],
-
     ["Pickles",2],
-
     ["Onions",3],
-
     ["Jalapeños",5],
-
     ["Mushrooms",7],
-
     ["Bacon",9],
-
     ["Fried Egg",11],
-
     ["Avocado",13],
-
     ["Crispy Onions",15],
-
     ["Coleslaw",17],
-
     ["Onion Straws",19],
-
     ["Loaded Topping Mix",20]
-
   ],
-
 
   sauce:[
-
     ["Ketchup",1],
-
     ["Mustard",1],
-
     ["Mayo",2],
-
     ["BBQ Sauce",4],
-
     ["Ranch",6],
-
     ["Buffalo Sauce",8],
-
     ["Honey Mustard",10],
-
     ["Special Sauce",12],
-
     ["Chipotle Sauce",14],
-
     ["Garlic Sauce",16],
-
     ["Burger Blast Sauce",18],
-
     ["Secret Sauce",20]
-
   ],
-
 
   fries:[
-
     ["None",1],
-
     ["Classic Fries",5],
-
     ["Waffle Fries",7],
-
     ["Curly Fries",9],
-
     ["Cajun Fries",11],
-
     ["Loaded Fries",13],
-
     ["Bacon Fries",15],
-
     ["Cheese Fries",17],
-
     ["Truffle Fries",19],
-
     ["Ultimate Fries",20]
-
   ],
 
-
   side:[
-
     ["No Side",1],
-
     ["Mozzarella Sticks",7],
-
     ["Onion Rings",9],
-
     ["Wings",11],
-
     ["Chicken Tenders",13],
-
     ["Loaded Nachos",15],
-
     ["Jalapeño Poppers",17],
-
     ["Mac & Cheese Bites",19],
-
     ["Loaded Pretzel Bites",20]
-
   ]
 
 };
@@ -1895,35 +1933,20 @@ const categoryNames = {
 const upgradeData = [
 
   ["Super Grill",.02],
-
   ["Turbo Fryer",.02],
-
   ["Speed Chef",.015],
-
   ["Bigger Kitchen",.02],
-
   ["Advertising",.025],
-
   ["Premium Pricing",.02],
-
   ["Fast Service",.015],
-
   ["Burger Mastery",.03],
-
   ["Combo Bonus",.025],
-
   ["Golden Luck",.01],
-
   ["Superstar Chef",.035],
-
   ["Cash Register",.02],
-
   ["Kitchen Heat",.025],
-
   ["Crowd Builder",.03],
-
   ["Secret Recipe",.04],
-
   ["Mega Burger",.05]
 
 ];
@@ -1936,23 +1959,14 @@ const upgradeData = [
 const locationData = [
 
   ["Desmond's Kitchen",0],
-
   ["Beach Burger",.05],
-
   ["Downtown",.10],
-
   ["Stadium Grill",.15],
-
   ["Fun Park",.20],
-
   ["Mountain Grill",.25],
-
   ["Big City",.30],
-
   ["Highway Stop",.35],
-
   ["Night Market",.40],
-
   ["Burger Island",.50]
 
 ];
@@ -2004,18 +2018,13 @@ function load(){
 
           {
             bun:"Classic Bun",
-
             patty:"Beef Patty",
-
             cheese:"None",
-
             toppings:[],
-
             sauce:"Ketchup",
-
             fries:"None",
-
             side:"No Side"
+
           },
 
           saved.build || {}
@@ -2036,18 +2045,150 @@ function load(){
   }
 
 
-  if(!state.shiftRemaining ||
-     state.shiftRemaining < 1){
+  /*
+     Repair invalid old shift data.
+
+     Valid maximum is 8 hours.
+     If an old save contains something ridiculous
+     such as 1500 hours, reset to 15 minutes.
+  */
+
+  if(
+    !Number.isFinite(
+      state.shiftRemaining
+    ) ||
+
+    state.shiftRemaining < 900 ||
+
+    state.shiftRemaining > 28800
+  ){
 
     state.shiftRemaining=900;
 
   }
 
 
+  /*
+     Make sure the saved value is a valid
+     15-minute/30-minute progression.
+  */
+
+  state.shiftRemaining =
+    normalizeShiftLength(
+      state.shiftRemaining
+    );
+
+
   processOffline();
 
   state.lastTick =
     Date.now();
+
+}
+
+
+/* =====================================================
+   SHIFT LENGTH SYSTEM
+   ===================================================== */
+
+/*
+   Valid progression:
+
+   15 minutes
+   30 minutes
+   45 minutes
+   60 minutes
+   90 minutes
+   120 minutes
+   150 minutes
+   180 minutes
+   ...
+   480 minutes / 8 hours
+*/
+
+function normalizeShiftLength(
+  seconds
+){
+
+  seconds =
+    Number(seconds);
+
+
+  if(
+    !Number.isFinite(seconds) ||
+    seconds<900 ||
+    seconds>28800
+  ){
+
+    return 900;
+
+  }
+
+
+  /*
+     Before one hour:
+     round down to the nearest 15 minutes.
+  */
+
+  if(seconds<3600){
+
+    return (
+      Math.floor(
+        seconds/900
+      )*900
+    );
+
+  }
+
+
+  /*
+     At or above one hour:
+     use 30-minute increments.
+  */
+
+  return (
+    Math.round(
+      seconds/1800
+    )*1800
+  );
+
+}
+
+
+function getNextShiftLength(){
+
+  const current =
+    normalizeShiftLength(
+      state.shiftRemaining
+    );
+
+
+  /*
+     15 -> 30
+     30 -> 45
+     45 -> 60
+  */
+
+  if(current<3600){
+
+    return Math.min(
+      current+900,
+      3600
+    );
+
+  }
+
+
+  /*
+     60 -> 90
+     90 -> 120
+     etc.
+  */
+
+  return Math.min(
+    current+1800,
+    28800
+  );
 
 }
 
@@ -2334,7 +2475,10 @@ function updateDisplay(){
     document.getElementById(
       "shiftStatus"
     ).textContent =
-      "Your kitchen is waiting for you!";
+      "Your kitchen is waiting! Next shift: "+
+      formatTime(
+        state.shiftRemaining
+      );
 
   }
 
@@ -3129,11 +3273,6 @@ function compareOrders(){
   state.ordersServed++;
 
 
-  /*
-    XP:
-    every completed burger gives XP.
-  */
-
   state.xp++;
 
 
@@ -3267,33 +3406,6 @@ function clearBurger(){
    SHIFT
    ===================================================== */
 
-function getNextShiftLength(){
-
-  const previous =
-    state.shiftRemaining ||
-    900;
-
-
-  if(
-    previous<3600
-  ){
-
-    return Math.min(
-      previous+900,
-      3600
-    );
-
-  }
-
-
-  return Math.min(
-    previous+1800,
-    28800
-  );
-
-}
-
-
 function startShift(){
 
   if(
@@ -3310,18 +3422,14 @@ function startShift(){
 
 
   /*
-    FIRST SHIFT = EXACTLY 15 MINUTES
+     Always repair the stored duration before
+     starting a new shift.
   */
 
-  if(
-    !state.shiftRemaining ||
-    state.shiftRemaining<900
-  ){
-
-    state.shiftRemaining=
-      900;
-
-  }
+  state.shiftRemaining =
+    normalizeShiftLength(
+      state.shiftRemaining
+    );
 
 
   const length =
@@ -3340,11 +3448,6 @@ function startShift(){
     Date.now();
 
 
-  /*
-    Immediately display 15:00
-    on a brand-new shift.
-  */
-
   document.getElementById(
     "shiftStatus"
   ).textContent =
@@ -3361,7 +3464,9 @@ function startShift(){
 
 
   showMessage(
-    "🔥 15 minute shift started!"
+    "🔥 "+
+    formatTime(length)+
+    " shift started!"
   );
 
 
@@ -4275,7 +4380,14 @@ setInterval(
         state.shiftActive=false;
 
 
-        state.shiftRemaining=
+        /*
+           Move to the next valid shift:
+
+           15 -> 30 -> 45 -> 60
+           -> 90 -> 120 -> 150...
+        */
+
+        state.shiftRemaining =
           getNextShiftLength();
 
 
@@ -4290,7 +4402,10 @@ setInterval(
 
 
         showMessage(
-          "🔥 SHIFT COMPLETE!"
+          "🔥 SHIFT COMPLETE! Next: "+
+          formatTime(
+            state.shiftRemaining
+          )
         );
 
       }
