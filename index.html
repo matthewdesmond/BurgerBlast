@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
 <title>Desmond's Burger Blast</title>
 
 <style>
@@ -53,8 +54,6 @@ button{
   pointer-events:none;
 }
 
-/* HEADER */
-
 .header{
   flex:0 0 auto;
   padding:8px 10px 7px;
@@ -70,7 +69,6 @@ button{
   font-weight:900;
   color:#ffd54f;
   text-shadow:2px 2px 0 #7b2d00;
-  letter-spacing:.5px;
 }
 
 .logo span{
@@ -97,8 +95,6 @@ button{
   color:#ffd54f;
 }
 
-/* MAIN */
-
 .main{
   flex:1;
   min-height:0;
@@ -119,8 +115,6 @@ button{
   flex-direction:column;
 }
 
-/* CARDS */
-
 .card{
   background:linear-gradient(145deg,#302017,#21150f);
   border:2px solid #63381d;
@@ -130,13 +124,13 @@ button{
 }
 
 .windowTitle{
-  flex:0 0 auto;
   font-size:18px;
   font-weight:900;
   color:#ffd54f;
   margin-bottom:7px;
   text-align:center;
 }
+
 
 /* HOME */
 
@@ -240,6 +234,7 @@ button{
   font-weight:900;
 }
 
+
 /* ORDERS */
 
 .orderLayout{
@@ -262,16 +257,19 @@ button{
 
 .recipe{
   font-size:12px;
-  line-height:1.45;
+  line-height:1.4;
 }
 
 .recipe strong{
   color:#ffd54f;
 }
 
+
+/* COOKING TABS */
+
 .stationTabs{
   display:grid;
-  grid-template-columns:repeat(5,1fr);
+  grid-template-columns:repeat(3,1fr);
   gap:4px;
 }
 
@@ -306,6 +304,30 @@ button{
   flex-direction:column;
 }
 
+
+/* BURGER STATION */
+
+.burgerStation{
+  height:100%;
+  min-height:0;
+  display:grid;
+  grid-template-rows:1fr 1fr;
+  gap:7px;
+}
+
+.ingredientWindow{
+  min-height:0;
+  overflow:hidden;
+}
+
+.ingredientTitle{
+  color:#ffd54f;
+  font-weight:900;
+  font-size:13px;
+  text-align:center;
+  margin-bottom:6px;
+}
+
 .choiceGrid{
   display:grid;
   grid-template-columns:1fr 1fr;
@@ -315,7 +337,7 @@ button{
 }
 
 .choice{
-  min-height:45px;
+  min-height:42px;
   border:1px solid #68401f;
   border-radius:9px;
   background:#24170f;
@@ -339,6 +361,9 @@ button{
 .choice.locked:after{
   content:" 🔒";
 }
+
+
+/* SUMMARY */
 
 .builderBottom{
   display:grid;
@@ -380,13 +405,13 @@ button{
   overflow:hidden;
 }
 
+
 /* UPGRADES */
 
 .upgradeWindow{
   flex:1;
   min-height:0;
   overflow:auto;
-  padding-right:2px;
 }
 
 .upgradeGrid{
@@ -438,6 +463,7 @@ button{
   color:#777;
 }
 
+
 /* MORE */
 
 .moreGrid{
@@ -476,9 +502,6 @@ button{
   line-height:1.4;
 }
 
-.lockText{
-  color:#aaa;
-}
 
 /* NAV */
 
@@ -533,42 +556,72 @@ button{
   display:block;
 }
 
-/* SMALL SCREENS */
-
-@media(max-height:650px){
-  .header{padding:5px 7px;}
-  .logo{font-size:19px;}
-  .stat{font-size:9px;padding:2px 5px;}
-  .main{padding:5px;}
-  .card{padding:7px;}
-  .windowTitle{font-size:15px;margin-bottom:4px;}
-  .bigButton{padding:9px;font-size:15px;}
-  .homeStat{padding:5px;}
-  .homeStat .number{font-size:15px;}
-  .choice{min-height:38px;font-size:10px;padding:5px 2px;}
-  .stationTab{padding:6px 1px;font-size:9px;}
-  .smallButton{padding:7px 2px;}
-  .navButton{padding:7px 2px;}
-}
-
-/* ACCESSIBILITY */
-
 button:focus-visible{
   outline:3px solid #fff;
   outline-offset:2px;
 }
 
-.sr-only{
-  position:absolute;
-  width:1px;
-  height:1px;
-  padding:0;
-  margin:-1px;
-  overflow:hidden;
-  clip:rect(0,0,0,0);
-  white-space:nowrap;
-  border:0;
+@media(max-height:650px){
+
+  .header{
+    padding:5px 7px;
+  }
+
+  .logo{
+    font-size:19px;
+  }
+
+  .stat{
+    font-size:9px;
+    padding:2px 5px;
+  }
+
+  .main{
+    padding:5px;
+  }
+
+  .card{
+    padding:7px;
+  }
+
+  .windowTitle{
+    font-size:15px;
+    margin-bottom:4px;
+  }
+
+  .bigButton{
+    padding:9px;
+    font-size:15px;
+  }
+
+  .homeStat{
+    padding:5px;
+  }
+
+  .homeStat .number{
+    font-size:15px;
+  }
+
+  .choice{
+    min-height:36px;
+    font-size:10px;
+    padding:5px 2px;
+  }
+
+  .stationTab{
+    padding:6px 1px;
+    font-size:9px;
+  }
+
+  .smallButton{
+    padding:7px 2px;
+  }
+
+  .navButton{
+    padding:7px 2px;
+  }
 }
+
 </style>
 </head>
 
@@ -576,495 +629,809 @@ button:focus-visible{
 
 <div id="game">
 
-  <header class="header">
-    <div class="logo">🍔 DESMOND'S <span>BURGER BLAST</span> 🍟</div>
+<header class="header">
 
-    <div class="stats">
-      <div class="stat">💵 <strong id="money">$0.01</strong></div>
-      <div class="stat">🍔 <strong id="ordersServed">0</strong></div>
-      <div class="stat">⚡ <strong id="eps">$0.01/s</strong></div>
-      <div class="stat">⭐ Lv <strong id="recipeLevel">1</strong></div>
+  <div class="logo">
+    🍔 DESMOND'S <span>BURGER BLAST</span> 🍟
+  </div>
+
+  <div class="stats">
+
+    <div class="stat">
+      💵 <strong id="money">$0.01</strong>
     </div>
-  </header>
 
-  <main class="main">
+    <div class="stat">
+      🍔 <strong id="ordersServed">0</strong>
+    </div>
 
-    <!-- HOME -->
-    <section id="homeWindow" class="window active" aria-label="Home">
+    <div class="stat">
+      ⚡ <strong id="eps">$0.01/s</strong>
+    </div>
 
-      <div class="homeGrid">
+    <div class="stat">
+      ⭐ Lv <strong id="recipeLevel">1</strong>
+    </div>
 
-        <div class="card shiftCard">
-          <div class="windowTitle">🏠 HOME</div>
+  </div>
 
-          <div class="shiftStatus" id="shiftStatus">
-            No shift is running
-          </div>
+</header>
 
-          <div class="shiftTime" id="shiftTime">
-            15:00
-          </div>
 
-          <button class="bigButton" id="shiftButton">
-            ▶️ START SHIFT
-          </button>
+<main class="main">
 
-          <button class="bigButton orderButton" id="takeOrderHome">
-            🍔 TAKE ORDER
-          </button>
+
+<!-- =====================================================
+     HOME
+===================================================== -->
+
+<section id="homeWindow" class="window active">
+
+  <div class="homeGrid">
+
+    <div class="card shiftCard">
+
+      <div class="windowTitle">
+        🏠 HOME
+      </div>
+
+      <div class="shiftStatus" id="shiftStatus">
+        No shift is running
+      </div>
+
+      <div class="shiftTime" id="shiftTime">
+        15:00
+      </div>
+
+      <button
+        class="bigButton"
+        id="shiftButton">
+        ▶️ START SHIFT
+      </button>
+
+      <button
+        class="bigButton orderButton"
+        id="takeOrderHome">
+        🍔 TAKE ORDER
+      </button>
+
+    </div>
+
+
+    <div class="homeStats">
+
+      <div class="card homeStat">
+        <span
+          class="number"
+          id="shiftEarnings">
+          $0.00
+        </span>
+
+        <span class="label">
+          SHIFT EARNINGS
+        </span>
+      </div>
+
+      <div class="card homeStat">
+        <span
+          class="number"
+          id="ordersThisShift">
+          0
+        </span>
+
+        <span class="label">
+          SHIFT ORDERS
+        </span>
+      </div>
+
+      <div class="card homeStat">
+        <span
+          class="number"
+          id="bucks">
+          0
+        </span>
+
+        <span class="label">
+          BURGER BUCKS
+        </span>
+      </div>
+
+      <div class="card homeStat">
+        <span
+          class="number"
+          id="crowns">
+          0
+        </span>
+
+        <span class="label">
+          BURGER CROWNS
+        </span>
+      </div>
+
+    </div>
+
+
+    <div class="card progressCard">
+
+      <div class="windowTitle">
+        📈 PROGRESS
+      </div>
+
+      <div class="progressRows">
+
+        <div class="progressRow">
+          <span>Recipe Level</span>
+          <span
+            class="progressValue"
+            id="progressRecipe">
+            1
+          </span>
         </div>
 
-        <div class="homeStats">
-
-          <div class="card homeStat">
-            <span class="number" id="shiftEarnings">$0.00</span>
-            <span class="label">SHIFT EARNINGS</span>
-          </div>
-
-          <div class="card homeStat">
-            <span class="number" id="ordersThisShift">0</span>
-            <span class="label">SHIFT ORDERS</span>
-          </div>
-
-          <div class="card homeStat">
-            <span class="number" id="bucks">0</span>
-            <span class="label">BURGER BUCKS</span>
-          </div>
-
-          <div class="card homeStat">
-            <span class="number" id="crowns">0</span>
-            <span class="label">BURGER CROWNS</span>
-          </div>
-
+        <div class="progressRow">
+          <span>Next Unlock</span>
+          <span
+            class="progressValue"
+            id="nextUnlock">
+            10 orders
+          </span>
         </div>
 
-        <div class="card progressCard">
-          <div class="windowTitle">📈 PROGRESS</div>
+        <div class="progressRow">
+          <span>Current Shift</span>
+          <span
+            class="progressValue"
+            id="currentShiftLength">
+            15 min
+          </span>
+        </div>
 
-          <div class="progressRows">
+        <div class="progressRow">
+          <span>Food Truck Bonus</span>
+          <span
+            class="progressValue"
+            id="truckBonus">
+            +0%
+          </span>
+        </div>
 
-            <div class="progressRow">
-              <span>Recipe Level</span>
-              <span class="progressValue" id="progressRecipe">1</span>
-            </div>
-
-            <div class="progressRow">
-              <span>Next Unlock</span>
-              <span class="progressValue" id="nextUnlock">10 orders</span>
-            </div>
-
-            <div class="progressRow">
-              <span>Current Shift</span>
-              <span class="progressValue" id="currentShiftLength">15 min</span>
-            </div>
-
-            <div class="progressRow">
-              <span>Food Truck Bonus</span>
-              <span class="progressValue" id="truckBonus">+0%</span>
-            </div>
-
-            <div class="progressRow">
-              <span>Permanent Bonus</span>
-              <span class="progressValue" id="prestigeBonus">+0%</span>
-            </div>
-
-          </div>
+        <div class="progressRow">
+          <span>Permanent Bonus</span>
+          <span
+            class="progressValue"
+            id="prestigeBonus">
+            +0%
+          </span>
         </div>
 
       </div>
-    </section>
+
+    </div>
+
+  </div>
+
+</section>
 
 
-    <!-- ORDERS -->
-    <section id="ordersWindow" class="window" aria-label="Orders">
+<!-- =====================================================
+     ORDERS
+===================================================== -->
 
-      <div class="orderLayout">
+<section id="ordersWindow" class="window">
 
-        <div class="card orderCard">
+  <div class="orderLayout">
 
-          <div class="windowTitle">👨‍🍳 CUSTOMER ORDER</div>
 
-          <div class="customer" id="customerName">
-            No customer yet
+    <div class="card orderCard">
+
+      <div class="windowTitle">
+        👨‍🍳 CUSTOMER ORDER
+      </div>
+
+      <div
+        class="customer"
+        id="customerName">
+        No customer yet
+      </div>
+
+      <div
+        class="recipe"
+        id="customerOrder">
+        Start a shift and take an order.
+      </div>
+
+    </div>
+
+
+    <!-- MAIN COOKING TABS -->
+
+    <div
+      class="stationTabs"
+      role="tablist">
+
+      <button
+        class="stationTab active"
+        data-station="burger">
+        🍔 BURGER
+      </button>
+
+      <button
+        class="stationTab"
+        data-station="cheese">
+        🧀 CHEESE
+      </button>
+
+      <button
+        class="stationTab"
+        data-station="toppings">
+        🥬 TOPPINGS
+      </button>
+
+      <button
+        class="stationTab"
+        data-station="sauces">
+        🥫 SAUCES
+      </button>
+
+      <button
+        class="stationTab"
+        data-station="fries">
+        🍟 FRIES
+      </button>
+
+      <button
+        class="stationTab"
+        data-station="sides">
+        🍗 SIDES
+      </button>
+
+    </div>
+
+
+    <div class="stationPanel">
+
+
+      <!-- =================================================
+           BURGER TAB
+      ================================================= -->
+
+      <div
+        class="station active"
+        id="station-burger">
+
+        <div class="burgerStation">
+
+
+          <!-- BUN WINDOW -->
+
+          <div class="card ingredientWindow">
+
+            <div class="ingredientTitle">
+              🍞 CHOOSE YOUR BUN
+            </div>
+
+            <div class="choiceGrid">
+
+              <button
+                class="choice"
+                data-type="bun"
+                data-value="Classic Bun">
+                🍞 Classic Bun
+              </button>
+
+              <button
+                class="choice locked"
+                data-type="bun"
+                data-value="Brioche Bun"
+                data-unlock="3">
+                🍞 Brioche Bun 🔒
+              </button>
+
+              <button
+                class="choice locked"
+                data-type="bun"
+                data-value="Pretzel Bun"
+                data-unlock="7">
+                🥨 Pretzel Bun 🔒
+              </button>
+
+              <button
+                class="choice locked"
+                data-type="bun"
+                data-value="Sesame Bun"
+                data-unlock="10">
+                🌾 Sesame Bun 🔒
+              </button>
+
+            </div>
+
           </div>
 
-          <div class="recipe" id="customerOrder">
-            Start a shift and take an order.
+
+          <!-- PATTY WINDOW -->
+
+          <div class="card ingredientWindow">
+
+            <div class="ingredientTitle">
+              🥩 CHOOSE YOUR PATTY
+            </div>
+
+            <div class="choiceGrid">
+
+              <button
+                class="choice"
+                data-type="patty"
+                data-value="Beef Patty">
+                🥩 Beef Patty
+              </button>
+
+              <button
+                class="choice locked"
+                data-type="patty"
+                data-value="Crispy Chicken"
+                data-unlock="4">
+                🍗 Crispy Chicken 🔒
+              </button>
+
+              <button
+                class="choice locked"
+                data-type="patty"
+                data-value="Double Beef Patty"
+                data-unlock="6">
+                🥩 Double Beef 🔒
+              </button>
+
+              <button
+                class="choice locked"
+                data-type="patty"
+                data-value="Veggie Patty"
+                data-unlock="8">
+                🌱 Veggie Patty 🔒
+              </button>
+
+              <button
+                class="choice locked"
+                data-type="patty"
+                data-value="Spicy Chicken"
+                data-unlock="12">
+                🌶️ Spicy Chicken 🔒
+              </button>
+
+              <button
+                class="choice locked"
+                data-type="patty"
+                data-value="Bacon Burger Patty"
+                data-unlock="15">
+                🥓 Bacon Patty 🔒
+              </button>
+
+            </div>
+
           </div>
 
         </div>
 
-        <!-- ACTUAL COOKING TABS -->
-        <div class="stationTabs" role="tablist" aria-label="Burger cooking stations">
+      </div>
 
-          <button class="stationTab active" data-station="burger">
-            🍔 BURGER
-          </button>
 
-          <button class="stationTab" data-station="cheese">
+      <!-- =================================================
+           CHEESE
+      ================================================= -->
+
+      <div
+        class="station"
+        id="station-cheese">
+
+        <div
+          class="card"
+          style="height:100%;overflow:hidden">
+
+          <div class="windowTitle">
             🧀 CHEESE
-          </button>
+          </div>
 
-          <button class="stationTab" data-station="toppings">
+          <div class="choiceGrid">
+
+            <button
+              class="choice"
+              data-type="cheese"
+              data-value="None">
+              🚫 No Cheese
+            </button>
+
+            <button
+              class="choice locked"
+              data-type="cheese"
+              data-value="American Cheese"
+              data-unlock="2">
+              🧀 American Cheese 🔒
+            </button>
+
+            <button
+              class="choice locked"
+              data-type="cheese"
+              data-value="Cheddar"
+              data-unlock="5">
+              🧀 Cheddar 🔒
+            </button>
+
+            <button
+              class="choice locked"
+              data-type="cheese"
+              data-value="Swiss Cheese"
+              data-unlock="8">
+              🧀 Swiss 🔒
+            </button>
+
+            <button
+              class="choice locked"
+              data-type="cheese"
+              data-value="Pepper Jack"
+              data-unlock="10">
+              🌶️ Pepper Jack 🔒
+            </button>
+
+            <button
+              class="choice locked"
+              data-type="cheese"
+              data-value="Provolone"
+              data-unlock="13">
+              🧀 Provolone 🔒
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- =================================================
+           TOPPINGS
+      ================================================= -->
+
+      <div
+        class="station"
+        id="station-toppings">
+
+        <div
+          class="card"
+          style="height:100%;overflow:hidden">
+
+          <div class="windowTitle">
             🥬 TOPPINGS
-          </button>
+          </div>
 
-          <button class="stationTab" data-station="sauces">
-            🥫 SAUCES
-          </button>
+          <div class="choiceGrid">
 
-          <button class="stationTab" data-station="fries">
+            <button
+              class="choice"
+              data-type="topping"
+              data-value="Lettuce">
+              🥬 Lettuce
+            </button>
+
+            <button
+              class="choice"
+              data-type="topping"
+              data-value="Tomato">
+              🍅 Tomato
+            </button>
+
+            <button
+              class="choice locked"
+              data-type="topping"
+              data-value="Pickles"
+              data-unlock="2">
+              🥒 Pickles 🔒
+            </button>
+
+            <button
+              class="choice locked"
+              data-type="topping"
+              data-value="Onions"
+              data-unlock="2">
+              🧅 Onions 🔒
+            </button>
+
+            <button
+              class="choice locked"
+              data-type="topping"
+              data-value="Jalapeños"
+              data-unlock="5">
+              🌶️ Jalapeños 🔒
+            </button>
+
+            <button
+              class="choice locked"
+              data-type="topping"
+              data-value="Mushrooms"
+              data-unlock="7">
+              🍄 Mushrooms 🔒
+            </button>
+
+            <button
+              class="choice locked"
+              data-type="topping"
+              data-value="Bacon"
+              data-unlock="9">
+              🥓 Bacon 🔒
+            </button>
+
+            <button
+              class="choice locked"
+              data-type="topping"
+              data-value="Fried Egg"
+              data-unlock="12">
+              🍳 Fried Egg 🔒
+            </button>
+
+            <button
+              class="choice locked"
+              data-type="topping"
+              data-value="Avocado"
+              data-unlock="15">
+              🥑 Avocado 🔒
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- =================================================
+           SAUCES
+      ================================================= -->
+
+      <div
+        class="station"
+        id="station-sauces">
+
+        <div
+          class="card"
+          style="height:100%;overflow:hidden">
+
+          <div class="windowTitle">
+            🥫 SAUCES & CONDIMENTS
+          </div>
+
+          <div class="choiceGrid">
+
+            <button
+              class="choice"
+              data-type="sauce"
+              data-value="Ketchup">
+              🍅 Ketchup
+            </button>
+
+            <button
+              class="choice"
+              data-type="sauce"
+              data-value="Mustard">
+              🟡 Mustard
+            </button>
+
+            <button
+              class="choice locked"
+              data-type="sauce"
+              data-value="Mayonnaise"
+              data-unlock="2">
+              🤍 Mayo 🔒
+            </button>
+
+            <button
+              class="choice locked"
+              data-type="sauce"
+              data-value="BBQ Sauce"
+              data-unlock="5">
+              🍖 BBQ Sauce 🔒
+            </button>
+
+            <button
+              class="choice locked"
+              data-type="sauce"
+              data-value="Ranch"
+              data-unlock="7">
+              🥛 Ranch 🔒
+            </button>
+
+            <button
+              class="choice locked"
+              data-type="sauce"
+              data-value="Buffalo Sauce"
+              data-unlock="10">
+              🔥 Buffalo 🔒
+            </button>
+
+            <button
+              class="choice locked"
+              data-type="sauce"
+              data-value="Special Sauce"
+              data-unlock="12">
+              ⭐ Special Sauce 🔒
+            </button>
+
+            <button
+              class="choice locked"
+              data-type="sauce"
+              data-value="Honey Mustard"
+              data-unlock="15">
+              🍯 Honey Mustard 🔒
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- =================================================
+           FRIES
+      ================================================= -->
+
+      <div
+        class="station"
+        id="station-fries">
+
+        <div
+          class="card"
+          style="height:100%;overflow:hidden">
+
+          <div class="windowTitle">
             🍟 FRIES
-          </button>
+          </div>
 
-        </div>
+          <div class="choiceGrid">
 
-        <div class="stationPanel">
+            <!-- NO FRIES UNTIL LEVEL 5 -->
 
-          <!-- BURGER STATION -->
-          <div class="station active" id="station-burger">
+            <button
+              class="choice locked"
+              data-type="fries"
+              data-value="Classic Fries"
+              data-unlock="5">
+              🍟 Classic Fries 🔒
+            </button>
 
-            <div class="card" style="height:100%;overflow:hidden">
+            <button
+              class="choice locked"
+              data-type="fries"
+              data-value="Waffle Fries"
+              data-unlock="8">
+              🧇 Waffle Fries 🔒
+            </button>
 
-              <div class="windowTitle">🍔 BURGER</div>
+            <button
+              class="choice locked"
+              data-type="fries"
+              data-value="Loaded Fries"
+              data-unlock="11">
+              🧀 Loaded Fries 🔒
+            </button>
 
-              <div class="choiceGrid" id="burgerChoices">
+            <button
+              class="choice locked"
+              data-type="fries"
+              data-value="Cajun Fries"
+              data-unlock="14">
+              🌶️ Cajun Fries 🔒
+            </button>
 
-                <button class="choice" data-type="bun" data-value="Classic Bun">
-                  🍞 Classic Bun
-                </button>
+            <button
+              class="choice locked"
+              data-type="fries"
+              data-value="Bacon Fries"
+              data-unlock="17">
+              🥓 Bacon Fries 🔒
+            </button>
 
-                <button class="choice locked"
-                        data-type="bun"
-                        data-value="Brioche Bun"
-                        data-unlock="2"
-                        aria-disabled="true">
-                  🍞 Brioche Bun
-                </button>
-
-                <button class="choice locked"
-                        data-type="bun"
-                        data-value="Pretzel Bun"
-                        data-unlock="5"
-                        aria-disabled="true">
-                  🥨 Pretzel Bun
-                </button>
-
-                <button class="choice" data-type="patty" data-value="Beef Patty">
-                  🥩 Beef Patty
-                </button>
-
-                <button class="choice locked"
-                        data-type="patty"
-                        data-value="Crispy Chicken"
-                        data-unlock="4"
-                        aria-disabled="true">
-                  🍗 Crispy Chicken
-                </button>
-
-                <button class="choice locked"
-                        data-type="patty"
-                        data-value="Double Beef Patty"
-                        data-unlock="5"
-                        aria-disabled="true">
-                  🥩 Double Beef
-                </button>
-
-                <button class="choice locked"
-                        data-type="patty"
-                        data-value="Veggie Patty"
-                        data-unlock="6"
-                        aria-disabled="true">
-                  🌱 Veggie Patty
-                </button>
-
-              </div>
-
-            </div>
+            <button
+              class="choice locked"
+              data-type="fries"
+              data-value="Truffle Fries"
+              data-unlock="20">
+              🍄 Truffle Fries 🔒
+            </button>
 
           </div>
 
-
-          <!-- CHEESE STATION -->
-          <div class="station" id="station-cheese">
-
-            <div class="card" style="height:100%;overflow:hidden">
-
-              <div class="windowTitle">🧀 CHEESE</div>
-
-              <div class="choiceGrid">
-
-                <button class="choice"
-                        data-type="cheese"
-                        data-value="None">
-                  🚫 No Cheese
-                </button>
-
-                <button class="choice locked"
-                        data-type="cheese"
-                        data-value="American Cheese"
-                        data-unlock="2"
-                        aria-disabled="true">
-                  🧀 American
-                </button>
-
-                <button class="choice locked"
-                        data-type="cheese"
-                        data-value="Cheddar"
-                        data-unlock="3"
-                        aria-disabled="true">
-                  🧀 Cheddar
-                </button>
-
-                <button class="choice locked"
-                        data-type="cheese"
-                        data-value="Swiss Cheese"
-                        data-unlock="4"
-                        aria-disabled="true">
-                  🧀 Swiss
-                </button>
-
-                <button class="choice locked"
-                        data-type="cheese"
-                        data-value="Pepper Jack"
-                        data-unlock="5"
-                        aria-disabled="true">
-                  🌶️ Pepper Jack
-                </button>
-
-              </div>
-
-            </div>
-
-          </div>
-
-
-          <!-- TOPPINGS STATION -->
-          <div class="station" id="station-toppings">
-
-            <div class="card" style="height:100%;overflow:hidden">
-
-              <div class="windowTitle">🥬 TOPPINGS</div>
-
-              <div class="choiceGrid">
-
-                <button class="choice"
-                        data-type="topping"
-                        data-value="Lettuce">
-                  🥬 Lettuce
-                </button>
-
-                <button class="choice"
-                        data-type="topping"
-                        data-value="Tomato">
-                  🍅 Tomato
-                </button>
-
-                <button class="choice locked"
-                        data-type="topping"
-                        data-value="Pickles"
-                        data-unlock="2"
-                        aria-disabled="true">
-                  🥒 Pickles
-                </button>
-
-                <button class="choice locked"
-                        data-type="topping"
-                        data-value="Onions"
-                        data-unlock="2"
-                        aria-disabled="true">
-                  🧅 Onions
-                </button>
-
-                <button class="choice locked"
-                        data-type="topping"
-                        data-value="Jalapeños"
-                        data-unlock="3"
-                        aria-disabled="true">
-                  🌶️ Jalapeños
-                </button>
-
-                <button class="choice locked"
-                        data-type="topping"
-                        data-value="Mushrooms"
-                        data-unlock="4"
-                        aria-disabled="true">
-                  🍄 Mushrooms
-                </button>
-
-                <button class="choice locked"
-                        data-type="topping"
-                        data-value="Bacon"
-                        data-unlock="5"
-                        aria-disabled="true">
-                  🥓 Bacon
-                </button>
-
-                <button class="choice locked"
-                        data-type="topping"
-                        data-value="Fried Egg"
-                        data-unlock="6"
-                        aria-disabled="true">
-                  🍳 Fried Egg
-                </button>
-
-              </div>
-
-            </div>
-
-          </div>
-
-
-          <!-- SAUCES STATION -->
-          <div class="station" id="station-sauces">
-
-            <div class="card" style="height:100%;overflow:hidden">
-
-              <div class="windowTitle">🥫 SAUCES & CONDIMENTS</div>
-
-              <div class="choiceGrid">
-
-                <button class="choice"
-                        data-type="sauce"
-                        data-value="Ketchup">
-                  🍅 Ketchup
-                </button>
-
-                <button class="choice"
-                        data-type="sauce"
-                        data-value="Mustard">
-                  🟡 Mustard
-                </button>
-
-                <button class="choice locked"
-                        data-type="sauce"
-                        data-value="Mayonnaise"
-                        data-unlock="2"
-                        aria-disabled="true">
-                  🤍 Mayo
-                </button>
-
-                <button class="choice locked"
-                        data-type="sauce"
-                        data-value="BBQ Sauce"
-                        data-unlock="3"
-                        aria-disabled="true">
-                  🍖 BBQ
-                </button>
-
-                <button class="choice locked"
-                        data-type="sauce"
-                        data-value="Ranch"
-                        data-unlock="4"
-                        aria-disabled="true">
-                  🥛 Ranch
-                </button>
-
-                <button class="choice locked"
-                        data-type="sauce"
-                        data-value="Special Sauce"
-                        data-unlock="6"
-                        aria-disabled="true">
-                  ⭐ Special Sauce
-                </button>
-
-              </div>
-
-            </div>
-
-          </div>
-
-
-          <!-- FRIES STATION -->
-          <div class="station" id="station-fries">
-
-            <div class="card" style="height:100%;overflow:hidden">
-
-              <div class="windowTitle">🍟 FRIES</div>
-
-              <div class="choiceGrid">
-
-                <button class="choice"
-                        data-type="fries"
-                        data-value="Classic Fries">
-                  🍟 Classic Fries
-                </button>
-
-                <button class="choice locked"
-                        data-type="fries"
-                        data-value="Waffle Fries"
-                        data-unlock="2"
-                        aria-disabled="true">
-                  🧇 Waffle Fries
-                </button>
-
-                <button class="choice locked"
-                        data-type="fries"
-                        data-value="Loaded Fries"
-                        data-unlock="3"
-                        aria-disabled="true">
-                  🧀 Loaded Fries
-                </button>
-
-                <button class="choice locked"
-                        data-type="fries"
-                        data-value="Poutine"
-                        data-unlock="4"
-                        aria-disabled="true">
-                  🇨🇦 Poutine
-                </button>
-
-                <button class="choice locked"
-                        data-type="fries"
-                        data-value="Bacon Fries"
-                        data-unlock="5"
-                        aria-disabled="true">
-                  🥓 Bacon Fries
-                </button>
-
-                <button class="choice locked"
-                        data-type="fries"
-                        data-value="Cajun Fries"
-                        data-unlock="6"
-                        aria-disabled="true">
-                  🌶️ Cajun Fries
-                </button>
-
-                <button class="choice locked"
-                        data-type="fries"
-                        data-value="Truffle Fries"
-                        data-unlock="8"
-                        aria-disabled="true">
-                  🍄 Truffle Fries
-                </button>
-
-              </div>
-
-            </div>
-
+          <div
+            style="
+              text-align:center;
+              font-size:11px;
+              color:#aaa;
+              margin-top:8px;
+            ">
+            🍟 Fries unlock at Recipe Level 5.
           </div>
 
         </div>
 
+      </div>
 
-        <div>
 
-          <div class="buildSummary" id="buildSummary">
-            Build your burger from scratch.
+      <!-- =================================================
+           SIDES / APPETIZERS
+      ================================================= -->
+
+      <div
+        class="station"
+        id="station-sides">
+
+        <div
+          class="card"
+          style="height:100%;overflow:hidden">
+
+          <div class="windowTitle">
+            🍗 SIDES & APPETIZERS
           </div>
 
-          <div class="builderBottom" style="margin-top:5px">
+          <div class="choiceGrid">
 
-            <button class="smallButton repeatButton" id="repeatOrder">
-              🔊 REPEAT
+            <button
+              class="choice"
+              data-type="side"
+              data-value="No Side">
+              🚫 No Side
             </button>
 
-            <button class="smallButton clearButton" id="clearBuild">
-              🗑️ CLEAR
+            <button
+              class="choice locked"
+              data-type="side"
+              data-value="Mozzarella Sticks"
+              data-unlock="7">
+              🧀 Mozz Sticks 🔒
             </button>
 
-            <button class="smallButton serveButton" id="serveOrder">
-              🍔 SERVE
+            <button
+              class="choice locked"
+              data-type="side"
+              data-value="Onion Rings"
+              data-unlock="9">
+              🧅 Onion Rings 🔒
+            </button>
+
+            <button
+              class="choice locked"
+              data-type="side"
+              data-value="Chicken Wings"
+              data-unlock="11">
+              🍗 Chicken Wings 🔒
+            </button>
+
+            <button
+              class="choice locked"
+              data-type="side"
+              data-value="Chicken Tenders"
+              data-unlock="13">
+              🍗 Chicken Tenders 🔒
+            </button>
+
+            <button
+              class="choice locked"
+              data-type="side"
+              data-value="Loaded Nachos"
+              data-unlock="15">
+              🧀 Loaded Nachos 🔒
+            </button>
+
+            <button
+              class="choice locked"
+              data-type="side"
+              data-value="Jalapeño Poppers"
+              data-unlock="17">
+              🌶️ Jalapeño Poppers 🔒
+            </button>
+
+            <button
+              class="choice locked"
+              data-type="side"
+              data-value="Mac and Cheese Bites"
+              data-unlock="19">
+              🧀 Mac Bites 🔒
             </button>
 
           </div>
@@ -1073,632 +1440,1117 @@ button:focus-visible{
 
       </div>
 
-    </section>
+    </div>
 
 
-    <!-- UPGRADES -->
-    <section id="upgradesWindow" class="window" aria-label="Upgrades">
+    <div>
 
-      <div class="card" style="height:100%;min-height:0;display:flex;flex-direction:column">
+      <div
+        class="buildSummary"
+        id="buildSummary">
+        Build your burger from scratch.
+      </div>
 
-        <div class="windowTitle">⬆️ UPGRADES</div>
+      <div
+        class="builderBottom"
+        style="margin-top:5px">
 
-        <div class="upgradeWindow">
+        <button
+          class="smallButton repeatButton"
+          id="repeatOrder">
+          🔊 REPEAT
+        </button>
 
-          <div class="upgradeGrid">
+        <button
+          class="smallButton clearButton"
+          id="clearBuild">
+          🗑️ CLEAR
+        </button>
 
-            <div class="upgrade">
-              <div class="upgradeName">🔥 Grill Speed</div>
-              <div class="upgradeDesc">Earn more from every completed order.</div>
-              <div class="upgradeLevel">Level <span id="grillLevel">1</span>/20</div>
-              <button class="upgradeButton" data-upgrade="grill">UPGRADE</button>
-            </div>
+        <button
+          class="smallButton serveButton"
+          id="serveOrder">
+          🍔 SERVE
+        </button>
 
-            <div class="upgrade">
-              <div class="upgradeName">🍟 Fryer</div>
-              <div class="upgradeDesc">Increase the value of every order.</div>
-              <div class="upgradeLevel">Level <span id="fryerLevel">1</span>/20</div>
-              <button class="upgradeButton" data-upgrade="fryer">UPGRADE</button>
-            </div>
+      </div>
 
-            <div class="upgrade">
-              <div class="upgradeName">📖 Recipes</div>
-              <div class="upgradeDesc">Unlock new burger ingredients.</div>
-              <div class="upgradeLevel">Level <span id="recipeUpgradeLevel">1</span>/20</div>
-              <button class="upgradeButton" data-upgrade="recipes">UPGRADE</button>
-            </div>
+    </div>
 
-            <div class="upgrade">
-              <div class="upgradeName">👨‍🍳 Helper</div>
-              <div class="upgradeDesc">Increase earnings per second.</div>
-              <div class="upgradeLevel">Level <span id="helperLevel">0</span>/20</div>
-              <button class="upgradeButton" data-upgrade="helper">UPGRADE</button>
-            </div>
+  </div>
 
-            <div class="upgrade">
-              <div class="upgradeName">🏪 Restaurant</div>
-              <div class="upgradeDesc">Increase all burger earnings.</div>
-              <div class="upgradeLevel">Level <span id="restaurantLevel">0</span>/20</div>
-              <button class="upgradeButton" data-upgrade="restaurant">UPGRADE</button>
-            </div>
+</section>
 
-            <div class="upgrade">
-              <div class="upgradeName">📣 Advertising</div>
-              <div class="upgradeDesc">Bring in more customers.</div>
-              <div class="upgradeLevel">Level <span id="advertisingLevel">0</span>/20</div>
-              <button class="upgradeButton" data-upgrade="advertising">UPGRADE</button>
-            </div>
 
+<!-- =====================================================
+     UPGRADES
+===================================================== -->
+
+<section id="upgradesWindow" class="window">
+
+  <div
+    class="card"
+    style="
+      height:100%;
+      min-height:0;
+      display:flex;
+      flex-direction:column;
+    ">
+
+    <div class="windowTitle">
+      ⬆️ UPGRADES
+    </div>
+
+    <div class="upgradeWindow">
+
+      <div class="upgradeGrid">
+
+        <div class="upgrade">
+
+          <div class="upgradeName">
+            🔥 Grill Speed
           </div>
+
+          <div class="upgradeDesc">
+            Earn more from every completed burger.
+          </div>
+
+          <div class="upgradeLevel">
+            Level
+            <span id="grillLevel">1</span>/20
+          </div>
+
+          <button
+            class="upgradeButton"
+            data-upgrade="grill">
+            UPGRADE
+          </button>
+
+        </div>
+
+
+        <div class="upgrade">
+
+          <div class="upgradeName">
+            🍟 Fryer
+          </div>
+
+          <div class="upgradeDesc">
+            Increase side and fries earnings.
+          </div>
+
+          <div class="upgradeLevel">
+            Level
+            <span id="fryerLevel">1</span>/20
+          </div>
+
+          <button
+            class="upgradeButton"
+            data-upgrade="fryer">
+            UPGRADE
+          </button>
+
+        </div>
+
+
+        <div class="upgrade">
+
+          <div class="upgradeName">
+            📖 Recipes
+          </div>
+
+          <div class="upgradeDesc">
+            Unlock new burgers and ingredients.
+          </div>
+
+          <div class="upgradeLevel">
+            Level
+            <span id="recipeUpgradeLevel">1</span>/20
+          </div>
+
+          <button
+            class="upgradeButton"
+            data-upgrade="recipes">
+            UPGRADE
+          </button>
+
+        </div>
+
+
+        <div class="upgrade">
+
+          <div class="upgradeName">
+            👨‍🍳 Helper
+          </div>
+
+          <div class="upgradeDesc">
+            Increase earnings per second.
+          </div>
+
+          <div class="upgradeLevel">
+            Level
+            <span id="helperLevel">0</span>/20
+          </div>
+
+          <button
+            class="upgradeButton"
+            data-upgrade="helper">
+            UPGRADE
+          </button>
+
+        </div>
+
+
+        <div class="upgrade">
+
+          <div class="upgradeName">
+            🏪 Restaurant
+          </div>
+
+          <div class="upgradeDesc">
+            Increase all restaurant earnings.
+          </div>
+
+          <div class="upgradeLevel">
+            Level
+            <span id="restaurantLevel">0</span>/20
+          </div>
+
+          <button
+            class="upgradeButton"
+            data-upgrade="restaurant">
+            UPGRADE
+          </button>
+
+        </div>
+
+
+        <div class="upgrade">
+
+          <div class="upgradeName">
+            📣 Advertising
+          </div>
+
+          <div class="upgradeDesc">
+            Bring in more customers.
+          </div>
+
+          <div class="upgradeLevel">
+            Level
+            <span id="advertisingLevel">0</span>/20
+          </div>
+
+          <button
+            class="upgradeButton"
+            data-upgrade="advertising">
+            UPGRADE
+          </button>
 
         </div>
 
       </div>
 
-    </section>
+    </div>
+
+  </div>
+
+</section>
 
 
-    <!-- MORE -->
-    <section id="moreWindow" class="window" aria-label="More">
+<!-- =====================================================
+     MORE
+===================================================== -->
 
-      <div class="card" style="height:100%;min-height:0;display:flex;flex-direction:column">
+<section id="moreWindow" class="window">
 
-        <div class="windowTitle">⭐ MORE</div>
+  <div
+    class="card"
+    style="
+      height:100%;
+      min-height:0;
+      display:flex;
+      flex-direction:column;
+    ">
 
-        <div class="moreGrid">
+    <div class="windowTitle">
+      ⭐ MORE
+    </div>
 
-          <button class="moreButton" id="burgerSong">
-            <span>🎵</span>
-            BURGER SONG
-          </button>
+    <div class="moreGrid">
 
-          <button class="moreButton" id="mysteryButton">
-            <span>❓</span>
-            MYSTERY BURGERS
-          </button>
+      <!-- BURGER RAP -->
 
-          <button class="moreButton" id="specialButton">
-            <span>🌌</span>
-            SPECIALS
-          </button>
+      <button
+        class="moreButton"
+        id="burgerRap">
 
-          <button class="moreButton" id="prestigeButton">
-            <span>👑</span>
-            PRESTIGE
-          </button>
+        <span>🎤</span>
+        BURGER RAP
 
-          <button class="moreButton" id="truckButton">
-            <span>🚚</span>
-            FOOD TRUCKS
-          </button>
+      </button>
 
-          <button class="moreButton" id="statsButton">
-            <span>📊</span>
-            STATS
-          </button>
 
-          <div class="infoBox" id="moreInfo">
-            <strong>🍔 Burger Blast</strong><br>
-            Keep serving customers to unlock new ingredients, recipes, fries, special burgers, and food trucks.
-          </div>
+      <button
+        class="moreButton"
+        id="mysteryButton">
 
-        </div>
+        <span>❓</span>
+        MYSTERY BURGERS
+
+      </button>
+
+
+      <button
+        class="moreButton"
+        id="specialButton">
+
+        <span>🌌</span>
+        SPECIALS
+
+      </button>
+
+
+      <button
+        class="moreButton"
+        id="prestigeButton">
+
+        <span>👑</span>
+        PRESTIGE
+
+      </button>
+
+
+      <button
+        class="moreButton"
+        id="truckButton">
+
+        <span>🚚</span>
+        FOOD TRUCKS
+
+      </button>
+
+
+      <button
+        class="moreButton"
+        id="statsButton">
+
+        <span>📊</span>
+        STATS
+
+      </button>
+
+
+      <div
+        class="infoBox"
+        id="moreInfo">
+
+        <strong>🍔 Burger Blast</strong><br>
+
+        Start with the basics and keep serving
+        customers to unlock new burgers,
+        toppings, appetizers, fries and specials.
 
       </div>
 
-    </section>
+    </div>
 
-  </main>
+  </div>
+
+</section>
 
 
-  <div class="status" id="status"></div>
+</main>
 
 
-  <nav class="nav" aria-label="Main navigation">
+<div
+  class="status"
+  id="status">
+</div>
 
-    <button class="navButton active" data-window="homeWindow">
-      🏠<br>HOME
-    </button>
 
-    <button class="navButton" data-window="ordersWindow">
-      🍔<br>ORDERS
-    </button>
+<nav
+  class="nav"
+  aria-label="Main navigation">
 
-    <button class="navButton" data-window="upgradesWindow">
-      ⬆️<br>UPGRADES
-    </button>
+  <button
+    class="navButton active"
+    data-window="homeWindow">
+    🏠<br>HOME
+  </button>
 
-    <button class="navButton" data-window="moreWindow">
-      ⭐<br>MORE
-    </button>
+  <button
+    class="navButton"
+    data-window="ordersWindow">
+    🍔<br>ORDERS
+  </button>
 
-  </nav>
+  <button
+    class="navButton"
+    data-window="upgradesWindow">
+    ⬆️<br>UPGRADES
+  </button>
+
+  <button
+    class="navButton"
+    data-window="moreWindow">
+    ⭐<br>MORE
+  </button>
+
+</nav>
 
 </div>
 
 
 <script>
 
-/* =========================================================
+/* =====================================================
    DESMOND'S BURGER BLAST
-   ========================================================= */
+===================================================== */
 
-const SAVE_KEY = "desmondBurgerBlastSaveV1";
+const SAVE_KEY =
+  "desmondBurgerBlastSaveV3";
 
 
 let game = {
-  money: 0.01,
-  burgerBucks: 0,
-  crowns: 0,
 
-  ordersServed: 0,
-  shiftOrders: 0,
-  shiftEarnings: 0,
+  money:0.01,
 
-  recipeLevel: 1,
+  burgerBucks:0,
 
-  shiftSeconds: 900,
-  shiftRemaining: 900,
-  shiftActive: false,
+  crowns:0,
 
-  currentOrder: null,
+  ordersServed:0,
 
-  build: {
-    bun: null,
-    patty: null,
-    cheese: "None",
-    toppings: [],
-    sauces: [],
-    fries: null
+  shiftOrders:0,
+
+  shiftEarnings:0,
+
+  recipeLevel:1,
+
+  shiftSeconds:900,
+
+  shiftRemaining:900,
+
+  shiftActive:false,
+
+  currentOrder:null,
+
+  build:{
+
+    bun:null,
+
+    patty:null,
+
+    cheese:"None",
+
+    toppings:[],
+
+    sauces:[],
+
+    fries:null,
+
+    side:"No Side"
+
   },
 
-  upgrades: {
-    grill: 1,
-    fryer: 1,
-    recipes: 1,
-    helper: 0,
-    restaurant: 0,
-    advertising: 0
+  upgrades:{
+
+    grill:1,
+
+    fryer:1,
+
+    recipes:1,
+
+    helper:0,
+
+    restaurant:0,
+
+    advertising:0
+
   },
 
-  trucks: 0,
+  trucks:0,
 
-  galacticActiveUntil: 0,
+  galacticActiveUntil:0,
 
-  mysteryUnlocked: 0
+  mysteryUnlocked:0
+
 };
 
 
-/* =========================================================
-   BASIC HELPERS
-   ========================================================= */
+/* =====================================================
+   MONEY
+===================================================== */
 
 function money(value){
-  return "$" + Number(value).toFixed(2);
+
+  return "$" +
+    Number(value).toFixed(2);
+
 }
+
 
 function formatTime(seconds){
-  seconds = Math.max(0,Math.floor(seconds));
 
-  const h = Math.floor(seconds / 3600);
-  const m = Math.floor((seconds % 3600) / 60);
-  const s = seconds % 60;
+  seconds =
+    Math.max(
+      0,
+      Math.floor(seconds)
+    );
 
-  if(h > 0){
-    return h + ":" +
-      String(m).padStart(2,"0") + ":" +
-      String(s).padStart(2,"0");
+  const hours =
+    Math.floor(seconds / 3600);
+
+  const minutes =
+    Math.floor(
+      (seconds % 3600) / 60
+    );
+
+  const secs =
+    seconds % 60;
+
+
+  if(hours > 0){
+
+    return (
+      hours +
+      ":" +
+      String(minutes).padStart(2,"0") +
+      ":" +
+      String(secs).padStart(2,"0")
+    );
+
   }
 
-  return String(m).padStart(2,"0") + ":" +
-         String(s).padStart(2,"0");
+
+  return (
+    String(minutes).padStart(2,"0") +
+    ":" +
+    String(secs).padStart(2,"0")
+  );
+
 }
 
-function showStatus(message){
-  const box = document.getElementById("status");
 
-  box.textContent = message;
-  box.classList.add("show");
-
-  clearTimeout(showStatus.timer);
-
-  showStatus.timer = setTimeout(()=>{
-    box.classList.remove("show");
-  },3500);
-}
+/* =====================================================
+   VOICE
+===================================================== */
 
 function speak(message){
-  if(!("speechSynthesis" in window)) return;
+
+  if(!("speechSynthesis" in window)){
+    return;
+  }
 
   window.speechSynthesis.cancel();
 
-  const utterance = new SpeechSynthesisUtterance(message);
-  utterance.rate = .95;
-  utterance.pitch = 1;
+  const voice =
+    new SpeechSynthesisUtterance(
+      message
+    );
 
-  window.speechSynthesis.speak(utterance);
+  voice.rate=.94;
+  voice.pitch=1;
+
+  window.speechSynthesis.speak(
+    voice
+  );
+
 }
 
 
-/* =========================================================
-   SAVE / LOAD
-   ========================================================= */
+/* =====================================================
+   STATUS
+===================================================== */
+
+function showStatus(message){
+
+  const status =
+    document.getElementById("status");
+
+  status.textContent =
+    message;
+
+  status.classList.add("show");
+
+  clearTimeout(
+    showStatus.timer
+  );
+
+  showStatus.timer =
+    setTimeout(
+      ()=>{
+        status.classList.remove("show");
+      },
+      3500
+    );
+
+}
+
+
+/* =====================================================
+   SAVE
+===================================================== */
 
 function saveGame(){
+
   try{
+
     localStorage.setItem(
       SAVE_KEY,
       JSON.stringify(game)
     );
-  }catch(e){}
+
+  }catch(error){}
+
 }
+
+
+/* =====================================================
+   LOAD
+===================================================== */
 
 function loadGame(){
 
   try{
 
     const saved =
-      JSON.parse(localStorage.getItem(SAVE_KEY));
+      JSON.parse(
+        localStorage.getItem(
+          SAVE_KEY
+        )
+      );
 
-    if(!saved) return;
 
-    game = Object.assign(game,saved);
+    if(!saved){
+      return;
+    }
+
+
+    game =
+      Object.assign(
+        game,
+        saved
+      );
+
 
     game.upgrades =
-      Object.assign({
-        grill:1,
-        fryer:1,
-        recipes:1,
-        helper:0,
-        restaurant:0,
-        advertising:0
-      },saved.upgrades || {});
+      Object.assign(
+        {
+          grill:1,
+          fryer:1,
+          recipes:1,
+          helper:0,
+          restaurant:0,
+          advertising:0
+        },
+        saved.upgrades || {}
+      );
+
 
     game.build =
-      Object.assign({
-        bun:null,
-        patty:null,
-        cheese:"None",
-        toppings:[],
-        sauces:[],
-        fries:null
-      },saved.build || {});
+      Object.assign(
+        {
+          bun:null,
+          patty:null,
+          cheese:"None",
+          toppings:[],
+          sauces:[],
+          fries:null,
+          side:"No Side"
+        },
+        saved.build || {}
+      );
+
 
     /*
-      Do not continue an old timer after the page closes.
-      Progress is saved, but active shifts restart safely.
+      Do not keep a timer running while
+      the page is closed.
     */
-    game.shiftActive = false;
-    game.shiftRemaining = game.shiftSeconds;
 
-  }catch(e){}
+    game.shiftActive=false;
+
+    game.shiftRemaining =
+      game.shiftSeconds;
+
+  }catch(error){}
+
 }
 
 
-/* =========================================================
-   NAVIGATION
-   ========================================================= */
+/* =====================================================
+   MAIN NAVIGATION
+===================================================== */
 
-document.querySelectorAll(".navButton").forEach(button=>{
+document
+  .querySelectorAll(".navButton")
+  .forEach(button=>{
 
-  button.addEventListener("click",()=>{
+    button.addEventListener(
+      "click",
+      ()=>{
 
-    const target =
-      button.dataset.window;
+        openWindow(
+          button.dataset.window
+        );
 
-    document.querySelectorAll(".window")
-      .forEach(window=>{
-        window.classList.remove("active");
-      });
+      }
+    );
 
-    document.getElementById(target)
-      .classList.add("active");
-
-    document.querySelectorAll(".navButton")
-      .forEach(btn=>{
-        btn.classList.remove("active");
-      });
-
-    button.classList.add("active");
-
-    if(target === "ordersWindow"){
-      speakOrderIfAvailable();
-    }
   });
-
-});
 
 
 function openWindow(id){
 
-  document.querySelectorAll(".window")
+  document
+    .querySelectorAll(".window")
     .forEach(window=>{
-      window.classList.remove("active");
+      window.classList.remove(
+        "active"
+      );
     });
 
-  document.getElementById(id)
+
+  document
+    .getElementById(id)
     .classList.add("active");
 
-  document.querySelectorAll(".navButton")
+
+  document
+    .querySelectorAll(".navButton")
     .forEach(button=>{
+
       button.classList.toggle(
         "active",
         button.dataset.window === id
       );
+
     });
+
+
+  if(
+    id === "ordersWindow" &&
+    game.currentOrder
+  ){
+
+    speakOrder();
+
+  }
+
 }
 
 
-/* =========================================================
+/* =====================================================
    COOKING STATION TABS
-   ========================================================= */
+===================================================== */
 
-document.querySelectorAll(".stationTab")
+document
+  .querySelectorAll(".stationTab")
   .forEach(button=>{
 
-    button.addEventListener("click",()=>{
+    button.addEventListener(
+      "click",
+      ()=>{
 
-      const station =
-        button.dataset.station;
+        const station =
+          button.dataset.station;
 
-      document.querySelectorAll(".stationTab")
-        .forEach(btn=>{
-          btn.classList.remove("active");
-        });
 
-      button.classList.add("active");
+        document
+          .querySelectorAll(".stationTab")
+          .forEach(tab=>{
+            tab.classList.remove(
+              "active"
+            );
+          });
 
-      document.querySelectorAll(".station")
-        .forEach(panel=>{
-          panel.classList.remove("active");
-        });
 
-      document
-        .getElementById("station-" + station)
-        .classList.add("active");
+        button.classList.add(
+          "active"
+        );
 
-    });
+
+        document
+          .querySelectorAll(".station")
+          .forEach(panel=>{
+            panel.classList.remove(
+              "active"
+            );
+          });
+
+
+        document
+          .getElementById(
+            "station-" + station
+          )
+          .classList.add("active");
+
+      }
+    );
 
   });
 
 
-/* =========================================================
-   UNLOCK SYSTEM
-   ========================================================= */
+/* =====================================================
+   UNLOCK CHECK
+===================================================== */
 
 function isUnlocked(button){
 
-  const required =
-    Number(button.dataset.unlock || 1);
+  const level =
+    Number(
+      button.dataset.unlock || 1
+    );
 
-  return game.recipeLevel >= required;
+  return (
+    game.recipeLevel >= level
+  );
+
 }
+
+
+/* =====================================================
+   UPDATE LOCKS
+===================================================== */
 
 function updateLocks(){
 
-  document.querySelectorAll(".choice[data-unlock]")
+  document
+    .querySelectorAll(
+      ".choice[data-unlock]"
+    )
     .forEach(button=>{
 
       const unlocked =
         isUnlocked(button);
+
 
       button.classList.toggle(
         "locked",
         !unlocked
       );
 
+
       button.setAttribute(
         "aria-disabled",
-        unlocked ? "false" : "true"
+        unlocked
+          ? "false"
+          : "true"
       );
 
     });
+
 }
 
 
-/* =========================================================
-   BUILDING THE BURGER
-   ========================================================= */
+/* =====================================================
+   BUILD BUTTONS
+===================================================== */
 
-document.querySelectorAll(".choice")
+document
+  .querySelectorAll(".choice")
   .forEach(button=>{
 
-    button.addEventListener("click",()=>{
+    button.addEventListener(
+      "click",
+      ()=>{
 
-      if(!isUnlocked(button)){
+        if(
+          !isUnlocked(button)
+        ){
 
-        const required =
-          Number(button.dataset.unlock);
-
-        const name =
-          button.textContent
-            .replace("🔒","")
-            .trim();
-
-        const message =
-          name +
-          " is locked. Reach recipe level " +
-          required +
-          " to unlock it.";
-
-        showStatus(message);
-        speak(message);
-
-        return;
-      }
-
-      const type =
-        button.dataset.type;
-
-      const value =
-        button.dataset.value;
-
-      if(type === "topping"){
-
-        if(game.build.toppings.includes(value)){
-
-          game.build.toppings =
-            game.build.toppings.filter(
-              item=>item !== value
+          const required =
+            Number(
+              button.dataset.unlock
             );
 
-          button.classList.remove("selected");
 
-        }else{
+          const name =
+            button.dataset.value;
 
-          game.build.toppings.push(value);
-          button.classList.add("selected");
 
+          const message =
+            name +
+            " is locked. Reach recipe level " +
+            required +
+            " to unlock it.";
+
+
+          showStatus(message);
+
+          speak(message);
+
+          return;
         }
 
-      }else if(type === "sauce"){
 
-        if(game.build.sauces.includes(value)){
+        const type =
+          button.dataset.type;
 
-          game.build.sauces =
-            game.build.sauces.filter(
-              item=>item !== value
-            );
+        const value =
+          button.dataset.value;
 
-          button.classList.remove("selected");
-
-        }else{
-
-          game.build.sauces.push(value);
-          button.classList.add("selected");
-
-        }
-
-      }else{
 
         /*
-          Bun, patty, cheese and fries
-          are one-choice stations.
+          Toppings and sauces can have
+          multiple selections.
         */
 
-        document.querySelectorAll(
-          '.choice[data-type="' + type + '"]'
-        ).forEach(btn=>{
-          btn.classList.remove("selected");
-        });
+        if(
+          type === "topping"
+        ){
 
-        game.build[type] = value;
+          if(
+            game.build.toppings
+              .includes(value)
+          ){
 
-        button.classList.add("selected");
+            game.build.toppings =
+              game.build.toppings
+                .filter(
+                  item=>item !== value
+                );
+
+            button.classList.remove(
+              "selected"
+            );
+
+          }else{
+
+            game.build.toppings
+              .push(value);
+
+            button.classList.add(
+              "selected"
+            );
+
+          }
+
+        }
+
+
+        else if(
+          type === "sauce"
+        ){
+
+          if(
+            game.build.sauces
+              .includes(value)
+          ){
+
+            game.build.sauces =
+              game.build.sauces
+                .filter(
+                  item=>item !== value
+                );
+
+            button.classList.remove(
+              "selected"
+            );
+
+          }else{
+
+            game.build.sauces
+              .push(value);
+
+            button.classList.add(
+              "selected"
+            );
+
+          }
+
+        }
+
+
+        else{
+
+          /*
+            Bun, patty, cheese, fries
+            and side are one-choice
+            selections.
+          */
+
+          document
+            .querySelectorAll(
+              '.choice[data-type="' +
+              type +
+              '"]'
+            )
+            .forEach(
+              other=>{
+                other.classList.remove(
+                  "selected"
+                );
+              }
+            );
+
+
+          game.build[type] =
+            value;
+
+
+          button.classList.add(
+            "selected"
+          );
+
+        }
+
+
+        updateBuildSummary();
+
       }
-
-      updateBuildSummary();
-
-    });
+    );
 
   });
 
 
+/* =====================================================
+   BUILD SUMMARY
+===================================================== */
+
 function updateBuildSummary(){
 
-  const b = game.build;
+  const b =
+    game.build;
+
 
   const toppings =
     b.toppings.length
       ? b.toppings.join(", ")
       : "none";
 
+
   const sauces =
     b.sauces.length
       ? b.sauces.join(", ")
       : "none";
 
-  const text =
-    "Bun: " + (b.bun || "none") +
-    " • Patty: " + (b.patty || "none") +
-    " • Cheese: " + (b.cheese || "none") +
-    " • Toppings: " + toppings +
-    " • Sauces: " + sauces +
-    " • Fries: " + (b.fries || "none");
 
   document.getElementById(
     "buildSummary"
-  ).textContent = text;
+  ).textContent =
+
+    "Bun: " +
+    (b.bun || "none") +
+
+    " • Patty: " +
+    (b.patty || "none") +
+
+    " • Cheese: " +
+    (b.cheese || "none") +
+
+    " • Toppings: " +
+    toppings +
+
+    " • Sauces: " +
+    sauces +
+
+    " • Fries: " +
+    (b.fries || "none") +
+
+    " • Side: " +
+    (b.side || "No Side");
+
 }
 
+
+/* =====================================================
+   CLEAR BURGER
+===================================================== */
 
 function clearBuild(){
 
   game.build = {
+
     bun:null,
+
     patty:null,
+
     cheese:"None",
+
     toppings:[],
+
     sauces:[],
-    fries:null
+
+    fries:null,
+
+    side:"No Side"
+
   };
 
-  document.querySelectorAll(".choice")
+
+  document
+    .querySelectorAll(".choice")
     .forEach(button=>{
-      button.classList.remove("selected");
+      button.classList.remove(
+        "selected"
+      );
     });
 
+
   updateBuildSummary();
+
 }
 
 
-/* =========================================================
-   ORDER GENERATION
-   ========================================================= */
-
-const customers = [
-  "Alex",
-  "Jordan",
-  "Sam",
-  "Taylor",
-  "Riley",
-  "Casey",
-  "Jamie",
-  "Morgan",
-  "Cameron",
-  "Avery"
-];
-
+/* =====================================================
+   UNLOCKED CHOICES
+===================================================== */
 
 function unlockedChoices(type){
 
-  const buttons =
+  const choices =
     document.querySelectorAll(
-      '.choice[data-type="' + type + '"]'
+      '.choice[data-type="' +
+      type +
+      '"]'
     );
 
-  const choices = [];
 
-  buttons.forEach(button=>{
+  const result=[];
 
-    if(isUnlocked(button)){
-      choices.push(
+
+  choices.forEach(button=>{
+
+    if(
+      isUnlocked(button)
+    ){
+
+      result.push(
         button.dataset.value
       );
+
     }
 
   });
 
-  return choices;
+
+  return result;
+
 }
 
 
 function randomItem(array){
 
-  if(!array.length) return null;
+  if(!array.length){
+    return null;
+  }
 
   return array[
-    Math.floor(Math.random()*array.length)
+    Math.floor(
+      Math.random() *
+      array.length
+    )
   ];
+
 }
 
 
-function generateOrder(){
+/* =====================================================
+   CUSTOMER ORDERS
+===================================================== */
 
-  /*
-    Only currently unlocked ingredients
-    can ever appear in customer orders.
-  */
+function generateOrder(){
 
   const buns =
     unlockedChoices("bun");
@@ -1715,84 +2567,199 @@ function generateOrder(){
   const sauces =
     unlockedChoices("sauce");
 
-  const fries =
-    unlockedChoices("fries");
-
-
-  let cheese = "None";
 
   /*
-    No cheese orders are common early.
-    Once cheese is unlocked, some customers
-    begin requesting it.
+    FRIES ARE NOT AVAILABLE TO
+    CUSTOMERS UNTIL LEVEL 5.
   */
 
-  if(game.recipeLevel >= 2 &&
-     Math.random() < .55){
+  const fries =
+    game.recipeLevel >= 5
+      ? unlockedChoices("fries")
+      : [];
+
+
+  const sides =
+    unlockedChoices("side");
+
+
+  let cheese="None";
+
+
+  if(
+    game.recipeLevel >= 2 &&
+    Math.random() < .55
+  ){
+
+    const cheeseChoices =
+      cheeses.filter(
+        item=>item !== "None"
+      );
+
 
     cheese =
       randomItem(
-        cheeses.filter(
-          item=>item !== "None"
-        )
+        cheeseChoices
       ) || "None";
+
   }
 
 
-  const requestedToppings = [];
+  const requestedToppings=[];
+
 
   toppings.forEach(item=>{
 
-    if(Math.random() < .30){
-      requestedToppings.push(item);
+    if(
+      Math.random() < .30
+    ){
+
+      requestedToppings.push(
+        item
+      );
+
     }
 
   });
 
 
-  const requestedSauces = [];
+  const requestedSauces=[];
+
 
   sauces.forEach(item=>{
 
-    if(Math.random() < .30){
-      requestedSauces.push(item);
+    if(
+      Math.random() < .30
+    ){
+
+      requestedSauces.push(
+        item
+      );
+
     }
 
   });
 
 
   /*
-    Basic starting orders are intentionally
-    simple so the player can learn the game.
+    Starting customers are simple.
   */
 
-  if(game.recipeLevel === 1){
+  if(
+    game.recipeLevel === 1
+  ){
 
-    requestedToppings.length = 0;
-    requestedSauces.length = 0;
+    requestedToppings.length=0;
+    requestedSauces.length=0;
 
-    if(Math.random() < .5){
-      requestedToppings.push("Lettuce");
+
+    if(
+      Math.random() < .5
+    ){
+
+      requestedToppings.push(
+        "Lettuce"
+      );
+
     }
 
-    if(Math.random() < .5){
-      requestedToppings.push("Tomato");
+
+    if(
+      Math.random() < .5
+    ){
+
+      requestedToppings.push(
+        "Tomato"
+      );
+
     }
 
-    if(Math.random() < .5){
-      requestedSauces.push("Ketchup");
+
+    if(
+      Math.random() < .5
+    ){
+
+      requestedSauces.push(
+        "Ketchup"
+      );
+
     }
 
-    if(Math.random() < .5){
-      requestedSauces.push("Mustard");
+
+    if(
+      Math.random() < .5
+    ){
+
+      requestedSauces.push(
+        "Mustard"
+      );
+
     }
+
+  }
+
+
+  /*
+    Fries become part of customer orders
+    beginning at level 5.
+  */
+
+  let requestedFries=null;
+
+
+  if(
+    game.recipeLevel >= 5
+  ){
+
+    requestedFries =
+      randomItem(fries);
+
+  }
+
+
+  /*
+    Appetizers begin later.
+  */
+
+  let requestedSide =
+    "No Side";
+
+
+  if(
+    game.recipeLevel >= 7 &&
+    sides.length > 1 &&
+    Math.random() < .30
+  ){
+
+    const availableSides =
+      sides.filter(
+        item=>item !== "No Side"
+      );
+
+
+    requestedSide =
+      randomItem(
+        availableSides
+      ) || "No Side";
 
   }
 
 
   return {
+
     customer:
-      randomItem(customers),
+      randomItem([
+        "Alex",
+        "Jordan",
+        "Sam",
+        "Taylor",
+        "Riley",
+        "Casey",
+        "Jamie",
+        "Morgan",
+        "Cameron",
+        "Avery"
+      ]),
 
     bun:
       randomItem(buns),
@@ -1800,7 +2767,7 @@ function generateOrder(){
     patty:
       randomItem(patties),
 
-    cheese,
+    cheese:cheese,
 
     toppings:
       requestedToppings.sort(),
@@ -1809,138 +2776,260 @@ function generateOrder(){
       requestedSauces.sort(),
 
     fries:
-      randomItem(fries),
+      requestedFries,
+
+    side:
+      requestedSide,
 
     golden:
       game.recipeLevel >= 5 &&
       Math.random() < .01
+
   };
+
 }
 
 
-/* =========================================================
-   ORDER DISPLAY
-   ========================================================= */
+/* =====================================================
+   DISPLAY ORDER
+===================================================== */
 
 function displayOrder(){
 
-  if(!game.currentOrder){
+  if(
+    !game.currentOrder
+  ){
 
     document.getElementById(
       "customerName"
     ).textContent =
       "No customer yet";
 
+
     document.getElementById(
       "customerOrder"
     ).textContent =
       "Start a shift and take an order.";
 
+
     return;
+
   }
 
-  const o = game.currentOrder;
+
+  const o =
+    game.currentOrder;
+
 
   document.getElementById(
     "customerName"
   ).textContent =
-    "Customer: " + o.customer;
+    "Customer: " +
+    o.customer;
+
 
   let text =
-    "<strong>Bun:</strong> " + o.bun +
-    "<br><strong>Patty:</strong> " + o.patty +
-    "<br><strong>Cheese:</strong> " + o.cheese +
-    "<br><strong>Toppings:</strong> " +
-    (o.toppings.length
-      ? o.toppings.join(", ")
-      : "None") +
-    "<br><strong>Sauces:</strong> " +
-    (o.sauces.length
-      ? o.sauces.join(", ")
-      : "None") +
-    "<br><strong>Fries:</strong> " + o.fries;
 
-  if(o.golden){
+    "<strong>Bun:</strong> " +
+    o.bun +
+
+    "<br><strong>Patty:</strong> " +
+    o.patty +
+
+    "<br><strong>Cheese:</strong> " +
+    o.cheese +
+
+    "<br><strong>Toppings:</strong> " +
+    (
+      o.toppings.length
+        ? o.toppings.join(", ")
+        : "None"
+    ) +
+
+    "<br><strong>Sauces:</strong> " +
+    (
+      o.sauces.length
+        ? o.sauces.join(", ")
+        : "None"
+    );
+
+
+  if(
+    o.fries
+  ){
+
+    text +=
+      "<br><strong>Fries:</strong> " +
+      o.fries;
+
+  }else{
+
+    text +=
+      "<br><strong>Fries:</strong> None";
+
+  }
+
+
+  text +=
+    "<br><strong>Side:</strong> " +
+    (
+      o.side || "No Side"
+    );
+
+
+  if(
+    o.golden
+  ){
+
     text =
       "✨ GOLDEN BURGER ORDER! ✨<br>" +
       text;
+
   }
+
 
   document.getElementById(
     "customerOrder"
-  ).innerHTML = text;
+  ).innerHTML =
+    text;
 
 }
 
 
-function speakOrderIfAvailable(){
+/* =====================================================
+   SPEAK ORDER
+===================================================== */
 
-  if(!game.currentOrder) return;
+function speakOrder(){
 
-  const o = game.currentOrder;
-
-  let message =
-    o.customer +
-    " wants a burger with " +
-    o.bun +
-    ", " +
-    o.patty +
-    ", " +
-    o.cheese +
-    ", toppings " +
-    (o.toppings.length
-      ? o.toppings.join(" and ")
-      : "none") +
-    ", sauces " +
-    (o.sauces.length
-      ? o.sauces.join(" and ")
-      : "none") +
-    ", and " +
-    o.fries +
-    ".";
-
-  if(o.golden){
-    message =
-      "Golden Burger order! " + message;
-  }
-
-  speak(message);
-}
-
-
-/* =========================================================
-   TAKE ORDER
-   ========================================================= */
-
-function takeOrder(){
-
-  if(!game.shiftActive){
-
-    showStatus(
-      "Start your shift before taking an order."
-    );
+  if(
+    !game.currentOrder
+  ){
 
     speak(
-      "Start your shift before taking an order."
+      "There is no customer order."
     );
 
     return;
+
   }
+
+
+  const o =
+    game.currentOrder;
+
+
+  let message =
+
+    o.customer +
+    " wants a " +
+    o.bun +
+    " with " +
+    o.patty +
+    ", " +
+    o.cheese +
+    ", toppings ";
+
+
+  message +=
+
+    o.toppings.length
+      ? o.toppings.join(" and ")
+      : "none";
+
+
+  message +=
+    ", sauces ";
+
+
+  message +=
+
+    o.sauces.length
+      ? o.sauces.join(" and ")
+      : "none";
+
+
+  if(
+    o.fries
+  ){
+
+    message +=
+      ", " +
+      o.fries;
+
+  }else{
+
+    message +=
+      ", no fries";
+
+  }
+
+
+  message +=
+    ", and " +
+    (
+      o.side || "no side"
+    ) +
+    ".";
+
+
+  if(
+    o.golden
+  ){
+
+    message =
+      "Golden Burger order! " +
+      message;
+
+  }
+
+
+  speak(message);
+
+}
+
+
+/* =====================================================
+   TAKE ORDER
+===================================================== */
+
+function takeOrder(){
+
+  if(
+    !game.shiftActive
+  ){
+
+    const message =
+      "Start your shift before taking an order.";
+
+    showStatus(message);
+    speak(message);
+
+    return;
+
+  }
+
 
   game.currentOrder =
     generateOrder();
 
+
   clearBuild();
+
   displayOrder();
-  openWindow("ordersWindow");
-  speakOrderIfAvailable();
+
+  openWindow(
+    "ordersWindow"
+  );
+
+  speakOrder();
 
 }
 
 
-/* =========================================================
-   ORDER CHECKING
-   ========================================================= */
+/* =====================================================
+   ARRAYS
+===================================================== */
 
 function sameArray(a,b){
 
@@ -1949,98 +3038,175 @@ function sameArray(a,b){
   ) === JSON.stringify(
     [...b].sort()
   );
+
 }
 
 
+/* =====================================================
+   SERVE ORDER
+===================================================== */
+
 function serveOrder(){
 
-  if(!game.shiftActive){
+  if(
+    !game.shiftActive
+  ){
 
-    showStatus(
-      "There is no active shift."
-    );
+    const message =
+      "There is no active shift.";
 
-    speak(
-      "There is no active shift."
-    );
-
-    return;
-  }
-
-  if(!game.currentOrder){
-
-    showStatus(
-      "Take an order first."
-    );
-
-    speak(
-      "Take an order first."
-    );
+    showStatus(message);
+    speak(message);
 
     return;
+
   }
+
+
+  if(
+    !game.currentOrder
+  ){
+
+    const message =
+      "Take an order first.";
+
+    showStatus(message);
+    speak(message);
+
+    return;
+
+  }
+
 
   const order =
     game.currentOrder;
 
+
   const build =
     game.build;
 
-  const problems = [];
+
+  const problems=[];
 
 
-  if(build.bun !== order.bun){
-    problems.push("bun");
-  }
+  if(
+    build.bun !== order.bun
+  ){
 
-  if(build.patty !== order.patty){
-    problems.push("patty");
-  }
+    problems.push(
+      "bun"
+    );
 
-  if(build.cheese !== order.cheese){
-    problems.push("cheese");
-  }
-
-  if(!sameArray(
-    build.toppings,
-    order.toppings
-  )){
-    problems.push("toppings");
-  }
-
-  if(!sameArray(
-    build.sauces,
-    order.sauces
-  )){
-    problems.push("sauces");
-  }
-
-  if(build.fries !== order.fries){
-    problems.push("fries");
   }
 
 
-  if(problems.length){
+  if(
+    build.patty !== order.patty
+  ){
+
+    problems.push(
+      "patty"
+    );
+
+  }
+
+
+  if(
+    build.cheese !== order.cheese
+  ){
+
+    problems.push(
+      "cheese"
+    );
+
+  }
+
+
+  if(
+    !sameArray(
+      build.toppings,
+      order.toppings
+    )
+  ){
+
+    problems.push(
+      "toppings"
+    );
+
+  }
+
+
+  if(
+    !sameArray(
+      build.sauces,
+      order.sauces
+    )
+  ){
+
+    problems.push(
+      "sauces"
+    );
+
+  }
+
+
+  if(
+    build.fries !==
+    order.fries
+  ){
+
+    problems.push(
+      "fries"
+    );
+
+  }
+
+
+  if(
+    build.side !==
+    order.side
+  ){
+
+    problems.push(
+      "side"
+    );
+
+  }
+
+
+  if(
+    problems.length
+  ){
 
     const message =
       "That order is not correct. Check: " +
       problems.join(", ") +
       ".";
 
+
     showStatus(message);
     speak(message);
 
     return;
+
   }
 
 
-  /* CORRECT ORDER */
+  /* ===================================================
+     CORRECT ORDER
+  =================================================== */
 
   let payout =
     0.01 +
-    game.upgrades.grill * 0.005 +
-    game.upgrades.fryer * 0.003 +
-    game.upgrades.restaurant * 0.01;
+
+    game.upgrades.grill *
+    0.005 +
+
+    game.upgrades.fryer *
+    0.003 +
+
+    game.upgrades.restaurant *
+    0.01;
 
 
   payout *=
@@ -2053,24 +3219,38 @@ function serveOrder(){
     game.crowns * .02;
 
 
-  if(game.galacticActiveUntil > Date.now()){
-    payout *= 2;
+  if(
+    game.galacticActiveUntil >
+    Date.now()
+  ){
+
+    payout *=2;
+
   }
 
 
-  if(order.golden){
-    payout *= 10;
+  if(
+    order.golden
+  ){
+
+    payout *=10;
+
   }
 
 
-  game.money += payout;
+  game.money +=
+    payout;
 
-  game.shiftEarnings += payout;
+
+  game.shiftEarnings +=
+    payout;
+
 
   game.ordersServed++;
+
   game.shiftOrders++;
 
-  game.burgerBucks += 1;
+  game.burgerBucks++;
 
 
   const oldLevel =
@@ -2080,27 +3260,32 @@ function serveOrder(){
   updateRecipeLevel();
 
 
-  const leveledUp =
-    game.recipeLevel > oldLevel;
-
-
   let message =
     "Order complete! You earned " +
     money(payout) +
     " and 1 Burger Buck.";
 
 
-  if(order.golden){
+  if(
+    order.golden
+  ){
+
     message +=
       " Golden Burger bonus!";
+
   }
 
 
-  if(leveledUp){
+  if(
+    game.recipeLevel >
+    oldLevel
+  ){
+
     message +=
       " Recipe level " +
       game.recipeLevel +
       " unlocked!";
+
   }
 
 
@@ -2108,27 +3293,32 @@ function serveOrder(){
   speak(message);
 
 
-  game.currentOrder = null;
+  game.currentOrder =
+    null;
+
 
   clearBuild();
+
   displayOrder();
 
   updateUI();
+
   saveGame();
 
 }
 
 
-/* =========================================================
-   RECIPE LEVELS
-   ========================================================= */
+/* =====================================================
+   RECIPE PROGRESSION
+===================================================== */
 
 function updateRecipeLevel(){
 
   /*
-    Slow progression.
-    Every 10 completed orders gives another
-    recipe level, up to level 20.
+    Every 10 completed orders raises
+    the recipe level.
+
+    This is intentionally slow.
   */
 
   const newLevel =
@@ -2140,56 +3330,67 @@ function updateRecipeLevel(){
       )
     );
 
+
   game.recipeLevel =
     Math.max(
       game.recipeLevel,
       newLevel
     );
 
+
   updateLocks();
 
   updateShiftLength();
+
 }
 
 
-/* =========================================================
-   SHIFT LENGTH PROGRESSION
-   ========================================================= */
+/* =====================================================
+   SHIFT PROGRESSION
+===================================================== */
 
 function updateShiftLength(){
 
-  let seconds = 900;
+  let seconds=900;
 
-  /*
-    15 min starting shift.
-
-    +15 minutes every 10 orders
-    until reaching 1 hour.
-
-    After 1 hour:
-    +30 minutes every 25 orders.
-
-    This makes the path to an 8-hour shift
-    intentionally long.
-  */
 
   const orders =
     game.ordersServed;
 
 
-  if(orders < 30){
+  /*
+    15 minutes to 1 hour:
+    +15 minutes every 10 orders.
+  */
+
+  if(
+    orders < 30
+  ){
 
     seconds =
       900 +
-      Math.floor(orders / 10) * 900;
+      Math.floor(
+        orders / 10
+      ) *
+      900;
 
-  }else{
+  }
+
+  /*
+    After 1 hour:
+    +30 minutes every 25 orders.
+
+    This makes 8 hours a very long-term goal.
+  */
+
+  else{
 
     seconds =
       3600 +
       Math.floor(
         (orders - 30) / 25
-      ) * 1800;
+      ) *
+      1800;
 
   }
 
@@ -2208,167 +3409,239 @@ function updateShiftLength(){
     );
 
 
-  if(!game.shiftActive){
+  if(
+    !game.shiftActive
+  ){
+
     game.shiftRemaining =
       game.shiftSeconds;
+
   }
 
 }
 
 
-/* =========================================================
-   START / STOP SHIFT
-   ========================================================= */
+/* =====================================================
+   START SHIFT
+===================================================== */
 
 function startShift(){
 
-  if(game.shiftActive){
+  if(
+    game.shiftActive
+  ){
 
-    game.shiftActive = false;
+    game.shiftActive=false;
+
 
     showStatus(
       "Shift ended."
     );
 
+
     speak(
       "Shift ended."
     );
 
+
     updateUI();
+
     saveGame();
 
     return;
+
   }
 
 
-  game.shiftActive = true;
+  game.shiftActive=true;
+
   game.shiftRemaining =
     game.shiftSeconds;
 
-  game.shiftOrders = 0;
-  game.shiftEarnings = 0;
+  game.shiftOrders=0;
 
-  showStatus(
-    "Shift started! You can now take orders."
-  );
+  game.shiftEarnings=0;
 
-  speak(
-    "Shift started. You can now take orders."
-  );
+
+  const message =
+    "Shift started! You can now take orders.";
+
+
+  showStatus(message);
+
+  speak(message);
 
   updateUI();
+
 }
 
 
-/* =========================================================
-   PASSIVE SHIFT EARNINGS
-   ========================================================= */
+/* =====================================================
+   EARNINGS PER SECOND
+===================================================== */
 
 function calculateEPS(){
 
-  let eps =
-    0.01;
+  let eps=.01;
+
 
   eps +=
     game.upgrades.helper *
-    0.01;
+    .01;
+
 
   eps +=
     game.upgrades.restaurant *
-    0.01;
+    .01;
+
 
   eps +=
     game.upgrades.advertising *
-    0.005;
+    .005;
+
 
   eps *=
     1 +
-    game.trucks * .05;
+    game.trucks*.05;
+
 
   eps *=
     1 +
-    game.crowns * .02;
+    game.crowns*.02;
 
 
-  if(game.galacticActiveUntil > Date.now()){
-    eps *= 2;
+  if(
+    game.galacticActiveUntil >
+    Date.now()
+  ){
+
+    eps*=2;
+
   }
 
+
   return eps;
+
 }
 
 
-setInterval(()=>{
+/* =====================================================
+   SHIFT TIMER
+===================================================== */
 
-  if(!game.shiftActive) return;
+setInterval(
 
-  const eps =
-    calculateEPS();
+  ()=>{
 
-  game.money += eps;
-  game.shiftEarnings += eps;
+    if(
+      !game.shiftActive
+    ){
 
-  game.shiftRemaining--;
+      return;
 
-  if(game.shiftRemaining <= 0){
-
-    game.shiftRemaining = 0;
-    game.shiftActive = false;
-
-    showStatus(
-      "Shift complete! Great work."
-    );
-
-    speak(
-      "Shift complete. Great work!"
-    );
-
-    saveGame();
-  }
-
-  updateUI();
-
-},1000);
+    }
 
 
-/* =========================================================
+    const eps =
+      calculateEPS();
+
+
+    game.money +=
+      eps;
+
+
+    game.shiftEarnings +=
+      eps;
+
+
+    game.shiftRemaining--;
+
+
+    if(
+      game.shiftRemaining <= 0
+    ){
+
+      game.shiftRemaining=0;
+
+      game.shiftActive=false;
+
+
+      showStatus(
+        "Shift complete! Great work."
+      );
+
+
+      speak(
+        "Shift complete. Great work!"
+      );
+
+
+      saveGame();
+
+    }
+
+
+    updateUI();
+
+  },
+
+  1000
+
+);
+
+
+/* =====================================================
    UPGRADES
-   ========================================================= */
+===================================================== */
 
-const upgradeBaseCosts = {
-  grill: .10,
-  fryer: .15,
-  recipes: .25,
-  helper: .50,
-  restaurant: 1.00,
-  advertising: 2.00
+const upgradeBaseCosts={
+
+  grill:.10,
+
+  fryer:.15,
+
+  recipes:.25,
+
+  helper:.50,
+
+  restaurant:1.00,
+
+  advertising:2.00
+
 };
 
 
-const upgradeNames = {
+const upgradeNames={
+
   grill:"Grill Speed",
+
   fryer:"Fryer",
+
   recipes:"Recipes",
+
   helper:"Helper",
+
   restaurant:"Restaurant",
+
   advertising:"Advertising"
+
 };
 
 
-document.querySelectorAll(
-  ".upgradeButton"
-).forEach(button=>{
+document
+  .querySelectorAll(".upgradeButton")
+  .forEach(button=>{
 
-  button.addEventListener("click",()=>{
-
-    const type =
-      button.dataset.upgrade;
-
-    buyUpgrade(type);
+    button.addEventListener(
+      "click",
+      ()=>{
+        buyUpgrade(
+          button.dataset.upgrade
+        );
+      }
+    );
 
   });
-
-});
 
 
 function upgradeCost(type){
@@ -2376,10 +3649,15 @@ function upgradeCost(type){
   const level =
     game.upgrades[type];
 
+
   return (
     upgradeBaseCosts[type] *
-    Math.pow(1.65,level)
+    Math.pow(
+      1.65,
+      level
+    )
   );
+
 }
 
 
@@ -2388,7 +3666,10 @@ function buyUpgrade(type){
   const level =
     game.upgrades[type];
 
-  if(level >= 20){
+
+  if(
+    level >=20
+  ){
 
     showStatus(
       upgradeNames[type] +
@@ -2396,6 +3677,7 @@ function buyUpgrade(type){
     );
 
     return;
+
   }
 
 
@@ -2403,7 +3685,9 @@ function buyUpgrade(type){
     upgradeCost(type);
 
 
-  if(game.money < cost){
+  if(
+    game.money < cost
+  ){
 
     const message =
       "You need " +
@@ -2412,14 +3696,18 @@ function buyUpgrade(type){
       upgradeNames[type] +
       ".";
 
+
     showStatus(message);
     speak(message);
 
     return;
+
   }
 
 
-  game.money -= cost;
+  game.money -=
+    cost;
+
 
   game.upgrades[type]++;
 
@@ -2430,72 +3718,108 @@ function buyUpgrade(type){
     game.upgrades[type] +
     ".";
 
+
   showStatus(message);
   speak(message);
 
+
   updateUI();
+
   saveGame();
 
 }
 
 
-/* =========================================================
-   GALACTIC BURGER
-   ========================================================= */
+/* =====================================================
+   BURGER RAP
+===================================================== */
 
-function activateGalactic(){
-
-  if(game.recipeLevel < 6){
-
-    const message =
-      "Galactic Burger unlocks at recipe level 6.";
-
-    showStatus(message);
-    speak(message);
-
-    return;
-  }
+document
+  .getElementById("burgerRap")
+  .addEventListener(
+    "click",
+    playBurgerRap
+  );
 
 
-  game.galacticActiveUntil =
-    Date.now() +
-    60 * 60 * 1000;
+function playBurgerRap(){
+
+  const rap =
+
+    "Yo, yo, yo, it's Burger Blast time! " +
+
+    "Stack that bun, make that burger shine! " +
+
+    "Beef on the grill, cheese on top, " +
+
+    "Flip that patty, never stop! " +
+
+    "Lettuce, tomato, ketchup on the side, " +
+
+    "Load up the fries and take that ride! " +
+
+    "Mozz sticks later, wings in the mix, " +
+
+    "Onion rings too, now we're cooking up tricks! " +
+
+    "Flip it, stack it, serve that cash, " +
+
+    "Desmond's Burger Blast is a tasty smash! " +
+
+    "Burger Blast, Burger Blast, " +
+
+    "Build it right and earn real fast!";
 
 
-  const message =
-    "Galactic Burger power activated! Double earnings for one hour.";
+  speak(rap);
 
-  showStatus(message);
-  speak(message);
-
-  updateUI();
-  saveGame();
 }
 
 
-/* =========================================================
+/* =====================================================
    MYSTERY BURGERS
-   ========================================================= */
+===================================================== */
 
-const mysteryItems = [
+const mysteryItems=[
+
   "Spicy Inferno Burger",
+
   "Mac and Cheese Burger",
+
   "Buffalo Chicken Burger",
+
   "BBQ Bacon Burger",
+
   "Jalapeño Popper Burger",
+
   "Breakfast Burger",
+
   "Triple Cheese Burger",
+
   "Firehouse Burger",
+
   "Loaded Bacon Burger",
+
   "Western Burger",
+
   "Pizza Burger",
+
   "Big Desmond Burger"
+
 ];
+
+
+document
+  .getElementById("mysteryButton")
+  .addEventListener(
+    "click",
+    showMystery
+  );
 
 
 function showMystery(){
 
-  let unlocked =
+  const unlocked =
     Math.min(
       mysteryItems.length,
       Math.floor(
@@ -2504,8 +3828,8 @@ function showMystery(){
     );
 
 
-  let message =
-    "Mystery Burgers. " +
+  let text =
+    "Mystery Burgers: " +
     unlocked +
     " of " +
     mysteryItems.length +
@@ -2515,21 +3839,10 @@ function showMystery(){
   mysteryItems.forEach(
     (item,index)=>{
 
-      if(index < unlocked){
-
-        message +=
-          "Unlocked: " +
-          item +
-          ".\n";
-
-      }else{
-
-        message +=
-          "Locked: " +
-          item +
-          ".\n";
-
-      }
+      text +=
+        index < unlocked
+          ? "Unlocked: " + item + ".\n"
+          : "Locked: " + item + ".\n";
 
     }
   );
@@ -2537,7 +3850,9 @@ function showMystery(){
 
   document.getElementById(
     "moreInfo"
-  ).textContent = message;
+  ).textContent =
+    text;
+
 
   speak(
     "Mystery Burgers. " +
@@ -2546,146 +3861,243 @@ function showMystery(){
     mysteryItems.length +
     " unlocked."
   );
+
 }
 
 
-/* =========================================================
-   BURGER SONG
-   ========================================================= */
+/* =====================================================
+   SPECIALS
+===================================================== */
 
-document.getElementById(
-  "burgerSong"
-).addEventListener(
-  "click",
-  playBurgerSong
-);
-
-
-function playBurgerSong(){
-
-  const song =
-    "Flip that burger, stack it high, " +
-    "cheese goes melting by and by! " +
-    "Fries are crispy, orders fly, " +
-    "Desmond's Burger Blast is why! " +
-    "Ketchup, mustard, buns so neat, " +
-    "serve that customer something sweet! " +
-    "Flip it, grill it, make that cash, " +
-    "Burger Blast is one big smash!";
+document
+  .getElementById("specialButton")
+  .addEventListener(
+    "click",
+    showSpecials
+  );
 
 
-  speak(song);
+function showSpecials(){
+
+  let text =
+    "Special Burgers.\n\n";
+
+
+  if(
+    game.recipeLevel >=6
+  ){
+
+    text +=
+      "Galactic Burger is unlocked. " +
+      "It can activate double earnings for one hour.\n\n";
+
+  }else{
+
+    text +=
+      "Galactic Burger unlocks at recipe level 6.\n\n";
+
+  }
+
+
+  if(
+    game.recipeLevel >=5
+  ){
+
+    text +=
+      "Golden Burger is unlocked. " +
+      "There is a rare chance of getting one and earning 10 times the normal payout.";
+
+  }else{
+
+    text +=
+      "Golden Burger unlocks at recipe level 5.";
+
+  }
+
+
+  document.getElementById(
+    "moreInfo"
+  ).textContent =
+    text;
+
+
+  speak(text);
+
 }
 
 
-/* =========================================================
+/* =====================================================
+   GALACTIC BURGER
+===================================================== */
+
+function activateGalactic(){
+
+  if(
+    game.recipeLevel <6
+  ){
+
+    const message =
+      "Galactic Burger unlocks at recipe level 6.";
+
+    showStatus(message);
+    speak(message);
+
+    return;
+
+  }
+
+
+  game.galacticActiveUntil =
+    Date.now() +
+    60*60*1000;
+
+
+  const message =
+    "Galactic Burger activated. Double earnings for one hour.";
+
+
+  showStatus(message);
+  speak(message);
+
+  updateUI();
+
+  saveGame();
+
+}
+
+
+/* =====================================================
    PRESTIGE
-   ========================================================= */
+===================================================== */
 
-document.getElementById(
-  "prestigeButton"
-).addEventListener(
-  "click",
-  prestige
-);
+document
+  .getElementById("prestigeButton")
+  .addEventListener(
+    "click",
+    prestige
+  );
 
 
 function prestige(){
 
-  const cost = 150;
+  const cost=150;
 
 
-  if(game.money < cost){
+  if(
+    game.money < cost
+  ){
 
     const message =
       "Prestige requires " +
       money(cost) +
       ".";
 
+
     showStatus(message);
     speak(message);
 
     return;
+
   }
 
 
-  game.money = 0.01;
+  game.money=.01;
 
-  game.ordersServed = 0;
-  game.shiftOrders = 0;
-  game.shiftEarnings = 0;
+  game.ordersServed=0;
 
-  game.recipeLevel = 1;
+  game.shiftOrders=0;
 
-  game.shiftSeconds = 900;
-  game.shiftRemaining = 900;
+  game.shiftEarnings=0;
 
-  game.burgerBucks = 0;
+  game.recipeLevel=1;
 
-  game.upgrades = {
+  game.shiftSeconds=900;
+
+  game.shiftRemaining=900;
+
+  game.burgerBucks=0;
+
+  game.upgrades={
+
     grill:1,
+
     fryer:1,
+
     recipes:1,
+
     helper:0,
+
     restaurant:0,
+
     advertising:0
+
   };
 
-  game.trucks = 0;
+  game.trucks=0;
 
-  game.currentOrder = null;
+  game.currentOrder=null;
 
   game.crowns++;
+
+
+  clearBuild();
+
+  updateLocks();
+
+  updateUI();
+
+  saveGame();
 
 
   const message =
     "Prestige complete! You earned a Burger Crown. Your permanent earnings bonus increased.";
 
+
   showStatus(message);
   speak(message);
-
-  clearBuild();
-  updateLocks();
-  updateUI();
-  saveGame();
 
 }
 
 
-/* =========================================================
+/* =====================================================
    FOOD TRUCKS
-   ========================================================= */
+===================================================== */
 
-document.getElementById(
-  "truckButton"
-).addEventListener(
-  "click",
-  buyTruck
-);
+document
+  .getElementById("truckButton")
+  .addEventListener(
+    "click",
+    buyTruck
+  );
 
 
 function truckCost(){
 
   return (
     25 *
-    Math.pow(2,game.trucks)
+    Math.pow(
+      2,
+      game.trucks
+    )
   );
+
 }
 
 
 function buyTruck(){
 
-  if(game.trucks >= 10){
+  if(
+    game.trucks >=10
+  ){
 
-    showStatus(
-      "You own all 10 food trucks."
-    );
+    const message =
+      "You own all 10 food trucks.";
 
-    speak(
-      "You own all ten food trucks."
-    );
+    showStatus(message);
+    speak(message);
 
     return;
+
   }
 
 
@@ -2693,169 +4105,177 @@ function buyTruck(){
     truckCost();
 
 
-  if(game.money < cost){
+  if(
+    game.money < cost
+  ){
 
     const message =
       "The next food truck costs " +
       money(cost) +
       ".";
 
+
     showStatus(message);
     speak(message);
 
     return;
+
   }
 
 
-  game.money -= cost;
+  game.money -=
+    cost;
+
+
   game.trucks++;
 
 
   const message =
     "Food truck " +
     game.trucks +
-    " unlocked. Total truck bonus is " +
-    (game.trucks * 5) +
+    " unlocked. Your truck bonus is now " +
+    game.trucks*5 +
     " percent.";
+
 
   showStatus(message);
   speak(message);
 
   updateUI();
+
   saveGame();
-}
-
-
-/* =========================================================
-   SPECIALS
-   ========================================================= */
-
-document.getElementById(
-  "specialButton"
-).addEventListener(
-  "click",
-  showSpecials
-);
-
-
-function showSpecials(){
-
-  const active =
-    game.galacticActiveUntil >
-    Date.now();
-
-
-  let message =
-    "Specials.\n\n";
-
-
-  if(game.recipeLevel >= 6){
-
-    message +=
-      "Galactic Burger: UNLOCKED. " +
-      (active
-        ? "Power is currently active."
-        : "Tap this option to activate double earnings for one hour.") +
-      "\n\n";
-
-  }else{
-
-    message +=
-      "Galactic Burger: Locked until recipe level 6.\n\n";
-
-  }
-
-
-  if(game.recipeLevel >= 5){
-
-    message +=
-      "Golden Burger: UNLOCKED. " +
-      "There is a rare chance for a Golden Burger order worth 10 times the normal payout.";
-
-  }else{
-
-    message +=
-      "Golden Burger: Locked until recipe level 5.";
-
-  }
-
-
-  document.getElementById(
-    "moreInfo"
-  ).textContent = message;
-
-
-  if(game.recipeLevel >= 6 &&
-     !active){
-
-    /*
-      Make the same button activate it
-      after the player opens Specials.
-    */
-
-    document.getElementById(
-      "specialButton"
-    ).textContent =
-      "🌌 ACTIVATE GALACTIC";
-
-    document.getElementById(
-      "specialButton"
-    ).onclick =
-      activateGalactic;
-
-  }
 
 }
 
 
-/* =========================================================
+/* =====================================================
    STATS
-   ========================================================= */
+===================================================== */
 
-document.getElementById(
-  "statsButton"
-).addEventListener(
-  "click",
-  showStats
-);
+document
+  .getElementById("statsButton")
+  .addEventListener(
+    "click",
+    showStats
+  );
 
 
 function showStats(){
 
   const message =
-    "Game Stats.\n\n" +
+
+    "Game Stats. " +
+
     "Orders served: " +
     game.ordersServed +
-    "\n" +
-    "Recipe level: " +
+
+    ". Recipe level: " +
     game.recipeLevel +
-    "\n" +
-    "Burger Bucks: " +
+
+    ". Burger Bucks: " +
     game.burgerBucks +
-    "\n" +
-    "Burger Crowns: " +
+
+    ". Burger Crowns: " +
     game.crowns +
-    "\n" +
-    "Food trucks: " +
+
+    ". Food trucks: " +
     game.trucks +
-    " of 10\n" +
-    "Shift length: " +
-    formatTime(game.shiftSeconds) +
-    "\n" +
-    "Earnings per second: " +
-    money(calculateEPS());
+    " of 10. " +
+
+    "Current shift length: " +
+    formatTime(
+      game.shiftSeconds
+    ) +
+
+    ". Earnings per second: " +
+    money(
+      calculateEPS()
+    );
+
 
   document.getElementById(
     "moreInfo"
-  ).textContent = message;
+  ).textContent =
+    message;
+
 
   speak(message);
+
 }
 
 
-/* =========================================================
-   UI UPDATE
-   ========================================================= */
+/* =====================================================
+   MORE BUTTON - TRUCK / SPECIAL INFO
+===================================================== */
+
+document
+  .getElementById("truckButton")
+  .addEventListener(
+    "dblclick",
+    ()=>{
+      document.getElementById(
+        "moreInfo"
+      ).textContent =
+        "Food Trucks: " +
+        game.trucks +
+        " of 10 unlocked. Each truck adds 5 percent to your earnings.";
+    }
+  );
+
+
+/* =====================================================
+   SHIFT BUTTONS
+===================================================== */
+
+document
+  .getElementById("shiftButton")
+  .addEventListener(
+    "click",
+    startShift
+  );
+
+
+document
+  .getElementById("takeOrderHome")
+  .addEventListener(
+    "click",
+    takeOrder
+  );
+
+
+/* =====================================================
+   ORDER CONTROLS
+===================================================== */
+
+document
+  .getElementById("repeatOrder")
+  .addEventListener(
+    "click",
+    ()=>{
+      speakOrder();
+    }
+  );
+
+
+document
+  .getElementById("clearBuild")
+  .addEventListener(
+    "click",
+    clearBuild
+  );
+
+
+document
+  .getElementById("serveOrder")
+  .addEventListener(
+    "click",
+    serveOrder
+  );
+
+
+/* =====================================================
+   UPDATE UI
+===================================================== */
 
 function updateUI(){
 
@@ -2874,7 +4294,9 @@ function updateUI(){
   document.getElementById(
     "eps"
   ).textContent =
-    money(calculateEPS()) +
+    money(
+      calculateEPS()
+    ) +
     "/s";
 
 
@@ -2887,7 +4309,9 @@ function updateUI(){
   document.getElementById(
     "shiftEarnings"
   ).textContent =
-    money(game.shiftEarnings);
+    money(
+      game.shiftEarnings
+    );
 
 
   document.getElementById(
@@ -2914,19 +4338,18 @@ function updateUI(){
     game.recipeLevel;
 
 
-  const nextOrder =
-    game.recipeLevel * 10;
+  const next =
+    game.recipeLevel*10;
 
 
   document.getElementById(
     "nextUnlock"
   ).textContent =
-    game.ordersServed >= 200
-      ? "Max recipe progress"
+    game.recipeLevel >=20
+      ? "Maximum"
       : Math.max(
           0,
-          nextOrder -
-          game.ordersServed
+          next-game.ordersServed
         ) +
         " orders";
 
@@ -2934,14 +4357,16 @@ function updateUI(){
   document.getElementById(
     "currentShiftLength"
   ).textContent =
-    formatTime(game.shiftSeconds);
+    formatTime(
+      game.shiftSeconds
+    );
 
 
   document.getElementById(
     "truckBonus"
   ).textContent =
     "+" +
-    (game.trucks * 5) +
+    game.trucks*5 +
     "%";
 
 
@@ -2949,7 +4374,7 @@ function updateUI(){
     "prestigeBonus"
   ).textContent =
     "+" +
-    (game.crowns * 2) +
+    game.crowns*2 +
     "%";
 
 
@@ -3015,135 +4440,67 @@ function updateUI(){
     game.upgrades.advertising;
 
 
-  document.querySelectorAll(
-    ".upgradeButton"
-  ).forEach(button=>{
+  document
+    .querySelectorAll(
+      ".upgradeButton"
+    )
+    .forEach(button=>{
 
-    const type =
-      button.dataset.upgrade;
+      const type =
+        button.dataset.upgrade;
 
-    const level =
-      game.upgrades[type];
 
-    const cost =
-      upgradeCost(type);
+      const level =
+        game.upgrades[type];
 
-    button.textContent =
-      level >= 20
-        ? "MAX LEVEL"
-        : "UPGRADE " +
-          money(cost);
 
-    button.disabled =
-      level >= 20 ||
-      game.money < cost;
+      const cost =
+        upgradeCost(type);
 
-  });
+
+      button.textContent =
+        level >=20
+          ? "MAX LEVEL"
+          : "UPGRADE " +
+            money(cost);
+
+
+      button.disabled =
+        level >=20 ||
+        game.money < cost;
+
+    });
 
 
   updateLocks();
+
 }
 
 
-/* =========================================================
-   BUTTON EVENTS
-   ========================================================= */
-
-document.getElementById(
-  "shiftButton"
-).addEventListener(
-  "click",
-  startShift
-);
-
-
-document.getElementById(
-  "takeOrderHome"
-).addEventListener(
-  "click",
-  takeOrder
-);
-
-
-document.getElementById(
-  "repeatOrder"
-).addEventListener(
-  "click",
-  ()=>{
-
-    if(!game.currentOrder){
-
-      speak(
-        "There is no current order."
-      );
-
-      return;
-    }
-
-    speakOrderIfAvailable();
-
-  }
-);
-
-
-document.getElementById(
-  "clearBuild"
-).addEventListener(
-  "click",
-  clearBuild
-);
-
-
-document.getElementById(
-  "serveOrder"
-).addEventListener(
-  "click",
-  serveOrder
-);
-
-
-document.getElementById(
-  "mysteryButton"
-).addEventListener(
-  "click",
-  showMystery
-);
-
-
-/* =========================================================
+/* =====================================================
    INITIALIZE
-   ========================================================= */
+===================================================== */
 
 loadGame();
 
 updateRecipeLevel();
+
 updateLocks();
+
 updateBuildSummary();
+
 displayOrder();
+
 updateUI();
 
 
-/*
-  Autosave.
-*/
+/* =====================================================
+   AUTOSAVE
+===================================================== */
 
-setInterval(()=>{
-  saveGame();
-},5000);
-
-
-/*
-  If the page becomes visible again,
-  refresh the display.
-*/
-
-document.addEventListener(
-  "visibilitychange",
-  ()=>{
-    if(!document.hidden){
-      updateUI();
-    }
-  }
+setInterval(
+  saveGame,
+  5000
 );
 
 </script>
