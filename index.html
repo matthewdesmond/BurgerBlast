@@ -2,1026 +2,504 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-
-<meta name="viewport"
-content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="theme-color" content="#e53935">
 <title>Desmond's Burger Blast</title>
 
 <style>
-
-*{
-  box-sizing:border-box;
-  -webkit-tap-highlight-color:transparent;
-}
-
-html,
-body{
-  margin:0;
-  width:100%;
-  height:100%;
-  overflow:hidden;
-  font-family:Arial,sans-serif;
-  background:#ffc72c;
-  color:#35160d;
-}
-
-button{
-  font:inherit;
-  touch-action:manipulation;
-  cursor:pointer;
-}
-
-button:focus{
-  outline:4px solid #fff;
-  outline-offset:2px;
-}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;width:100%;height:100%;overflow:hidden;font-family:Arial,sans-serif;background:#ffc72c;color:#35160d}
+button{font:inherit;touch-action:manipulation;cursor:pointer}
+button:focus{outline:4px solid #fff;outline-offset:2px}
 
 #game{
-  height:100%;
-  display:flex;
-  flex-direction:column;
-  overflow:hidden;
-  position:relative;
-
-  background:
-    linear-gradient(
-      160deg,
-      #ffd84a 0%,
-      #ffb52f 24%,
-      #f36b35 47%,
-      #e4473d 66%,
-      #55b94d 100%
-    );
-
-  background-size:350% 350%;
-  animation:burgerWorld 18s ease-in-out infinite;
+height:100%;
+display:flex;
+flex-direction:column;
+overflow:hidden;
+position:relative;
+background:linear-gradient(150deg,#ffd83d,#ff9f28 35%,#e94a32 68%,#4caf50);
+background-size:250% 250%;
+animation:bg 16s ease-in-out infinite
 }
 
-@keyframes burgerWorld{
-  0%{background-position:0% 0%}
-  50%{background-position:100% 100%}
-  100%{background-position:0% 0%}
+@keyframes bg{
+50%{background-position:100% 100%}
 }
 
-/* --------------------------------
-   BACKGROUND FOOD
--------------------------------- */
-
-.foodLayer{
-  position:absolute;
-  inset:0;
-  overflow:hidden;
-  pointer-events:none;
-  z-index:0;
+.float{
+position:absolute;
+z-index:0;
+pointer-events:none;
+opacity:.25;
+font-size:42px;
+animation:float 7s ease-in-out infinite
 }
 
-.food{
-  position:absolute;
-  font-size:42px;
-  opacity:.28;
-  animation:floatFood 7s ease-in-out infinite;
-  user-select:none;
+.float:nth-child(1){left:3%;top:12%}
+.float:nth-child(2){right:5%;top:19%;animation-delay:1s}
+.float:nth-child(3){left:8%;bottom:20%;animation-delay:2s}
+.float:nth-child(4){right:10%;bottom:25%;animation-delay:3s}
+.float:nth-child(5){left:45%;top:9%;animation-delay:1.5s}
+
+@keyframes float{
+50%{transform:translateY(-20px) rotate(8deg)}
 }
 
-.food:nth-child(1){
-  left:4%;
-  top:12%;
-  animation-delay:0s;
-}
-
-.food:nth-child(2){
-  right:6%;
-  top:17%;
-  animation-delay:1s;
-}
-
-.food:nth-child(3){
-  left:10%;
-  bottom:22%;
-  animation-delay:2s;
-}
-
-.food:nth-child(4){
-  right:12%;
-  bottom:18%;
-  animation-delay:3s;
-}
-
-.food:nth-child(5){
-  left:45%;
-  top:8%;
-  animation-delay:1.5s;
-}
-
-.food:nth-child(6){
-  left:70%;
-  top:42%;
-  animation-delay:2.5s;
-}
-
-.food:nth-child(7){
-  left:25%;
-  top:54%;
-  animation-delay:4s;
-}
-
-.food:nth-child(8){
-  right:25%;
-  bottom:30%;
-  animation-delay:5s;
-}
-
-@keyframes floatFood{
-  0%,100%{
-    transform:translateY(0) rotate(-5deg);
-  }
-
-  50%{
-    transform:translateY(-22px) rotate(8deg);
-  }
-}
-
-/* --------------------------------
-   HEADER
--------------------------------- */
-
-.header{
-  position:relative;
-  z-index:5;
-
-  flex-shrink:0;
-
-  padding:
-    10px
-    12px
-    8px;
-
-  background:
-    linear-gradient(
-      180deg,
-      #e53935,
-      #c62828
-    );
-
-  border-bottom:
-    5px solid #ffd43b;
-
-  box-shadow:
-    0 5px 0 rgba(80,20,0,.25);
-
-  text-align:center;
+header{
+position:relative;
+z-index:5;
+flex-shrink:0;
+text-align:center;
+padding:9px 8px 7px;
+background:linear-gradient(#e83b32,#b9221f);
+border-bottom:5px solid #ffd43b;
+box-shadow:0 4px #7c2415
 }
 
 .logo{
-  display:block;
-
-  color:#fff;
-
-  font-size:
-    clamp(20px,6vw,32px);
-
-  font-weight:1000;
-
-  letter-spacing:
-    .5px;
-
-  text-shadow:
-    3px 3px 0 #7b180f,
-    0 0 8px rgba(255,215,0,.35);
+font-size:clamp(20px,6vw,31px);
+font-weight:1000;
+color:#fff;
+text-shadow:3px 3px #74180f
 }
 
 .subtitle{
-  margin-top:3px;
-
-  color:#ffe66d;
-
-  font-size:12px;
-
-  font-weight:900;
-
-  letter-spacing:1px;
+font-size:11px;
+font-weight:900;
+color:#ffe66d;
+margin-top:2px;
+letter-spacing:1px
 }
 
-/* --------------------------------
-   PAGE AREA
--------------------------------- */
-
 #pages{
-  position:relative;
-  z-index:3;
-
-  flex:1;
-  min-height:0;
-
-  overflow:hidden;
+position:relative;
+z-index:3;
+flex:1;
+min-height:0;
+overflow:hidden
 }
 
 .page{
-  position:absolute;
-  inset:0;
-
-  display:none;
-
-  overflow:hidden;
-
-  padding:
-    8px
-    9px
-    76px;
-
-  z-index:3;
+position:absolute;
+inset:0;
+display:none;
+overflow:hidden;
+padding:8px 9px 76px
 }
 
 .page.active{
-  display:block;
+display:block
 }
 
-/* --------------------------------
-   PANELS
--------------------------------- */
+.scroll{
+height:100%;
+overflow-y:auto;
+overflow-x:hidden;
+padding-bottom:8px;
+-webkit-overflow-scrolling:touch
+}
 
 .panel{
-  position:relative;
-  z-index:3;
-
-  background:
-    linear-gradient(
-      180deg,
-      #fff9df,
-      #ffe7a3
-    );
-
-  border:
-    4px solid #8d2c16;
-
-  border-radius:18px;
-
-  box-shadow:
-    0 5px 0 #68200f,
-    0 8px 18px rgba(0,0,0,.2);
-
-  padding:10px;
-
-  margin-bottom:8px;
+background:linear-gradient(#fff9df,#ffe4a0);
+border:4px solid #8c2b16;
+border-radius:18px;
+box-shadow:0 5px #651f10,0 9px 18px #0003;
+padding:10px;
+margin-bottom:8px
 }
 
-.panelTitle{
-  text-align:center;
-
-  font-weight:1000;
-
-  font-size:
-    clamp(18px,5vw,25px);
-
-  color:#9d2618;
-
-  margin-bottom:8px;
-
-  text-shadow:
-    1px 1px 0 #ffd75a;
+.title{
+text-align:center;
+font-size:clamp(18px,5vw,25px);
+font-weight:1000;
+color:#a32a19;
+text-shadow:1px 1px #ffd65b;
+margin-bottom:8px
 }
 
-/* --------------------------------
-   STATS
--------------------------------- */
-
-.statsGrid{
-  display:grid;
-
-  grid-template-columns:
-    repeat(2,1fr);
-
-  gap:7px;
+.stats{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:7px
 }
 
 .stat{
-  background:#fff;
-
-  border:
-    3px solid #e14a24;
-
-  border-radius:13px;
-
-  padding:7px;
-
-  text-align:center;
-
-  min-width:0;
+background:#fff;
+border:3px solid #df4925;
+border-radius:13px;
+padding:7px;
+text-align:center
 }
 
 .statLabel{
-  font-size:10px;
-
-  font-weight:900;
-
-  color:#713017;
+font-size:10px;
+font-weight:1000;
+color:#713017
 }
 
 .statValue{
-  margin-top:2px;
-
-  font-size:
-    clamp(16px,4.7vw,23px);
-
-  font-weight:1000;
-
-  color:#d62e1f;
-
-  white-space:nowrap;
+font-size:clamp(16px,4.8vw,23px);
+font-weight:1000;
+color:#d22f20;
+white-space:nowrap;
+margin-top:2px
 }
 
-/* --------------------------------
-   BUTTONS
--------------------------------- */
-
-.bigButton{
-  position:relative;
-  z-index:11;
-
-  width:100%;
-
-  min-height:58px;
-
-  border:0;
-
-  border-radius:17px;
-
-  margin-top:8px;
-
-  padding:10px;
-
-  font-size:
-    clamp(17px,5vw,23px);
-
-  font-weight:1000;
-
-  color:#fff;
-
-  background:
-    linear-gradient(
-      180deg,
-      #36b94a,
-      #15852c
-    );
-
-  border-bottom:
-    5px solid #0b5d1d;
-
-  box-shadow:
-    0 4px 10px rgba(0,0,0,.22);
-
-  pointer-events:auto;
+.shift{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:8px;
+margin-top:8px
 }
 
-.bigButton:active{
-  transform:translateY(3px);
-
-  border-bottom-width:2px;
+.big{
+width:100%;
+min-height:56px;
+border:0;
+border-radius:16px;
+padding:9px;
+color:#fff;
+font-weight:1000;
+font-size:clamp(16px,4.8vw,22px);
+background:linear-gradient(#35bd4d,#13852c);
+border-bottom:5px solid #0b5c1c;
+box-shadow:0 4px 10px #0003
 }
 
-.bigButton.orange{
-  background:
-    linear-gradient(
-      180deg,
-      #ffb52e,
-      #f07819
-    );
-
-  border-bottom-color:#9d3e0b;
+.big:active{
+transform:translateY(3px);
+border-bottom-width:2px
 }
 
-.bigButton.red{
-  background:
-    linear-gradient(
-      180deg,
-      #f34c43,
-      #c72525
-    );
-
-  border-bottom-color:#751313;
+.orange{
+background:linear-gradient(#ffbd35,#ed7417);
+border-bottom-color:#963908
 }
 
-.bigButton.blue{
-  background:
-    linear-gradient(
-      180deg,
-      #39a8f4,
-      #176dcc
-    );
-
-  border-bottom-color:#0d4380;
+.blue{
+background:linear-gradient(#43b0f4,#1a70cf);
+border-bottom-color:#0d4380
 }
 
-.bigButton.purple{
-  background:
-    linear-gradient(
-      180deg,
-      #a866ef,
-      #7136bc
-    );
-
-  border-bottom-color:#452078;
+.purple{
+background:linear-gradient(#ad6af0,#7036ba);
+border-bottom-color:#472077
 }
 
-/* --------------------------------
-   SHIFT CONTROLS
--------------------------------- */
-
-.shiftControls{
-  position:relative;
-  z-index:10;
-
-  display:grid;
-
-  grid-template-columns:
-    1fr 1fr;
-
-  gap:8px;
-
-  margin-top:8px;
+.status{
+text-align:center;
+font-weight:1000;
+color:#9d2918;
+margin-top:6px
 }
 
-.shiftControls .bigButton{
-  margin-top:0;
+.preview{
+background:#fff;
+border:3px solid #e14a24;
+border-radius:15px;
+padding:9px;
+text-align:center;
+font-weight:900;
+white-space:pre-line
 }
 
-/* --------------------------------
-   ORDER BOX
--------------------------------- */
-
-.orderBox{
-  position:relative;
-  z-index:12;
-
-  pointer-events:auto;
-
-  background:
-    linear-gradient(
-      135deg,
-      #fff,
-      #fff1bd
-    );
-
-  border:
-    4px dashed #e23d24;
-
-  border-radius:17px;
-
-  padding:10px;
-
-  margin-top:8px;
-
-  box-shadow:
-    0 4px 10px rgba(0,0,0,.18);
+.preview strong{
+display:block;
+color:#a32a19;
+font-size:17px;
+margin-bottom:4px
 }
 
-.orderBox[hidden]{
-  display:none;
+.order{
+font-size:18px;
+line-height:1.45;
+text-align:center;
+padding:12px;
+background:#fff;
+border:3px solid #e14a24;
+border-radius:15px;
+min-height:150px;
+white-space:pre-line
 }
 
-.orderTitle{
-  text-align:center;
-
-  color:#c62d1f;
-
-  font-size:18px;
-
-  font-weight:1000;
-
-  margin-bottom:6px;
+.actions{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:8px;
+margin-top:8px
 }
 
-.orderText{
-  text-align:center;
-
-  font-size:15px;
-
-  line-height:1.4;
-
-  font-weight:800;
+.actions .big{
+margin:0
 }
 
-.orderTotal{
-  text-align:center;
-
-  margin-top:5px;
-
-  color:#168531;
-
-  font-size:16px;
-
-  font-weight:1000;
+.note{
+text-align:center;
+font-size:12px;
+font-weight:800;
+color:#6d3018;
+margin:5px 0 8px
 }
 
-/* --------------------------------
-   ORDERS PAGE
--------------------------------- */
-
-.ordersLarge{
-  font-size:
-    clamp(18px,5vw,26px);
-
-  line-height:1.45;
-
-  text-align:center;
-
-  padding:10px;
-
-  background:#fff;
-
-  border:
-    3px solid #e14a24;
-
-  border-radius:15px;
-
-  min-height:120px;
-
-  display:flex;
-
-  align-items:center;
-
-  justify-content:center;
-
-  flex-direction:column;
+.tabs{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:5px;
+margin-bottom:7px
 }
 
-.ordersActions{
-  display:grid;
-
-  grid-template-columns:
-    1fr 1fr;
-
-  gap:8px;
-
-  margin-top:8px;
+.tab{
+border:3px solid #7d2917;
+border-radius:12px;
+background:#ffd447;
+color:#542014;
+min-height:44px;
+padding:5px;
+font-size:11px;
+font-weight:1000
 }
 
-.ordersActions .bigButton{
-  margin-top:0;
+.tab.active{
+background:#e63b27;
+color:#fff
 }
 
-.ordersBuild{
-  margin-top:8px;
-}
-
-/* --------------------------------
-   BUILDER
--------------------------------- */
-
-.builder{
-  position:relative;
-  z-index:3;
-}
-
-.builderTabs{
-  display:grid;
-
-  grid-template-columns:
-    repeat(3,1fr);
-
-  gap:5px;
-
-  margin-bottom:7px;
-}
-
-.builderTab{
-  position:relative;
-  z-index:3;
-
-  min-height:42px;
-
-  border:
-    3px solid #7d2917;
-
-  border-radius:12px;
-
-  background:#ffd447;
-
-  color:#542014;
-
-  font-size:12px;
-
-  font-weight:1000;
-
-  padding:5px;
-
-  pointer-events:auto;
-}
-
-.builderTab.active{
-  background:#e63b27;
-
-  color:#fff;
-
-  transform:scale(1.02);
-}
-
-.choiceGrid{
-  display:grid;
-
-  grid-template-columns:
-    repeat(2,1fr);
-
-  gap:7px;
+.choices{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:7px
 }
 
 .choice{
-  position:relative;
-  z-index:3;
-
-  min-height:58px;
-
-  border:
-    3px solid #9b351b;
-
-  border-radius:14px;
-
-  background:#fff;
-
-  color:#3d190e;
-
-  padding:7px;
-
-  font-weight:900;
-
-  pointer-events:auto;
-
-  box-shadow:
-    0 3px 0 rgba(125,40,15,.3);
+min-height:64px;
+border:3px solid #9b351b;
+border-radius:14px;
+background:#fff;
+color:#3d190e;
+padding:6px;
+font-weight:900;
+box-shadow:0 3px #7d280f4d
 }
 
 .choice.selected{
-  background:#b9ef9f;
+background:#b9ef9f;
+border-color:#16852f;
+box-shadow:0 0 0 3px #fff,0 0 0 6px #16852f
+}
 
-  border-color:#16852f;
-
-  box-shadow:
-    0 0 0 3px #fff,
-    0 0 0 6px #16852f;
+.choice .emoji{
+font-size:22px;
+display:block
 }
 
 .choice small{
-  display:block;
-
-  font-size:10px;
-
-  opacity:.75;
-
-  margin-top:3px;
+display:block;
+font-size:10px;
+opacity:.75;
+margin-top:2px
 }
 
-.clearBurger,
-.submitBurger{
-  position:relative;
-  z-index:3;
-
-  width:100%;
-
-  min-height:52px;
-
-  border:0;
-
-  border-radius:15px;
-
-  margin-top:8px;
-
-  font-weight:1000;
-
-  font-size:17px;
-
-  pointer-events:auto;
+.clear,.serve{
+width:100%;
+min-height:52px;
+margin-top:8px;
+border-radius:14px;
+font-weight:1000
 }
 
-.clearBurger{
-  background:#ffcc45;
-
-  color:#5d260e;
-
-  border:
-    3px solid #a94b18;
+.clear{
+border:3px solid #a94b18;
+background:#ffce42;
+color:#5d260e
 }
 
-.submitBurger{
-  background:
-    linear-gradient(
-      180deg,
-      #31b94c,
-      #16852d
-    );
-
-  color:#fff;
-
-  border-bottom:
-    5px solid #0b5c1c;
+.serve{
+border:0;
+background:linear-gradient(#32bc4d,#16852d);
+border-bottom:5px solid #0b5c1c;
+color:#fff;
+font-size:18px
 }
 
-/* --------------------------------
-   UPGRADE / LOCATION CARDS
--------------------------------- */
-
-.cardGrid{
-  display:grid;
-
-  grid-template-columns:
-    1fr;
-
-  gap:8px;
+.card{
+background:#fff;
+border:3px solid #d94a24;
+border-radius:15px;
+padding:10px;
+margin-bottom:8px
 }
 
-.upgradeCard,
-.locationCard{
-  background:#fff;
-
-  border:
-    3px solid #d94a24;
-
-  border-radius:15px;
-
-  padding:10px;
+.name{
+font-size:17px;
+font-weight:1000;
+color:#9f2919
 }
 
-.cardName{
-  font-size:17px;
-
-  font-weight:1000;
-
-  color:#9f2919;
+.desc{
+font-size:12px;
+font-weight:700;
+margin-top:4px;
+line-height:1.3
 }
 
-.cardDesc{
-  font-size:12px;
-
-  font-weight:700;
-
-  margin-top:4px;
-
-  line-height:1.3;
+.bottom{
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:8px;
+margin-top:8px
 }
 
-.cardBottom{
-  display:flex;
-
-  align-items:center;
-
-  justify-content:space-between;
-
-  gap:8px;
-
-  margin-top:8px;
+.price{
+font-weight:1000;
+color:#16852d
 }
 
-.cardPrice{
-  font-weight:1000;
-
-  color:#13812d;
+.small{
+border:0;
+border-radius:11px;
+padding:9px 12px;
+background:#ef4428;
+color:#fff;
+font-weight:1000
 }
 
-.smallButton{
-  border:0;
-
-  border-radius:11px;
-
-  padding:9px 12px;
-
-  background:#ef4428;
-
-  color:#fff;
-
-  font-weight:1000;
+.small:disabled{
+opacity:.45
 }
 
-.smallButton:disabled{
-  opacity:.45;
-
-  cursor:not-allowed;
+.food{
+position:relative
 }
 
-/* --------------------------------
-   MORE
--------------------------------- */
-
-.moreGrid{
-  display:grid;
-
-  grid-template-columns:
-    1fr 1fr;
-
-  gap:8px;
+.badge{
+position:absolute;
+right:9px;
+top:9px;
+font-size:10px;
+font-weight:1000;
+padding:5px 7px;
+border-radius:9px;
+background:#b9ef9f;
+color:#116524
 }
 
-.moreButton{
-  min-height:72px;
-
-  border:
-    3px solid #8c2c18;
-
-  border-radius:15px;
-
-  background:#fff;
-
-  font-weight:1000;
-
-  color:#63220f;
+.badge.locked{
+background:#ddd;
+color:#555
 }
 
-.moreButton:active{
-  transform:scale(.97);
+.info{
+background:#fff4c9;
+border:3px solid #e39b25;
+border-radius:13px;
+padding:8px;
+font-weight:800;
+font-size:12px;
+line-height:1.35
 }
 
-/* --------------------------------
-   TOAST
--------------------------------- */
-
-#message{
-  position:fixed;
-
-  left:50%;
-
-  bottom:78px;
-
-  transform:
-    translateX(-50%)
-    translateY(20px);
-
-  width:
-    min(92%,430px);
-
-  padding:11px 14px;
-
-  background:
-    rgba(45,20,10,.94);
-
-  color:#fff;
-
-  border:
-    3px solid #ffd54a;
-
-  border-radius:15px;
-
-  text-align:center;
-
-  font-weight:900;
-
-  opacity:0;
-
-  pointer-events:none;
-
-  z-index:100;
-
-  transition:
-    opacity .2s,
-    transform .2s;
+.power{
+background:#fff;
+border:3px solid #d94a24;
+border-radius:15px;
+padding:10px;
+margin-bottom:8px
 }
 
-#message.show{
-  opacity:1;
-
-  transform:
-    translateX(-50%)
-    translateY(0);
+.powerIcon{
+font-size:34px;
+float:left;
+margin-right:9px
 }
 
-/* --------------------------------
-   NAVIGATION
--------------------------------- */
+.powerName{
+font-weight:1000;
+font-size:18px;
+color:#9f2919
+}
+
+.powerDesc{
+font-size:12px;
+font-weight:800;
+margin-top:4px;
+line-height:1.35
+}
+
+.clearFloat{
+clear:both
+}
+
+#toast{
+position:fixed;
+left:50%;
+bottom:78px;
+transform:translate(-50%,20px);
+width:min(92%,430px);
+padding:11px 14px;
+background:#2d140aee;
+color:#fff;
+border:3px solid #ffd54a;
+border-radius:15px;
+text-align:center;
+font-weight:900;
+opacity:0;
+pointer-events:none;
+z-index:100;
+transition:.2s
+}
+
+#toast.show{
+opacity:1;
+transform:translate(-50%,0)
+}
 
 .nav{
-  position:absolute;
-
-  z-index:20;
-
-  left:0;
-  right:0;
-  bottom:0;
-
-  height:70px;
-
-  display:grid;
-
-  grid-template-columns:
-    repeat(5,1fr);
-
-  gap:4px;
-
-  padding:5px;
-
-  background:
-    linear-gradient(
-      180deg,
-      #7d2516,
-      #4b160e
-    );
-
-  border-top:
-    4px solid #ffd447;
+position:absolute;
+z-index:30;
+left:0;
+right:0;
+bottom:0;
+height:70px;
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:5px;
+padding:5px;
+background:linear-gradient(#7d2516,#4b160e);
+border-top:4px solid #ffd447
 }
 
-.navButton{
-  border:0;
-
-  border-radius:12px;
-
-  background:#ffe6a1;
-
-  color:#64200e;
-
-  font-size:10px;
-
-  font-weight:1000;
-
-  padding:4px;
-
-  min-width:0;
+.nav button{
+border:0;
+border-radius:12px;
+background:#ffe6a1;
+color:#64200e;
+font-size:10px;
+font-weight:1000;
+padding:4px
 }
 
-.navButton.active{
-  background:#ffcf35;
-
-  color:#a22316;
-
-  box-shadow:
-    inset 0 -4px 0 #e13c23;
+.nav button.active{
+background:#ffcf35;
+color:#a22316;
+box-shadow:inset 0 -4px #e13c23
 }
 
 .navIcon{
-  display:block;
-
-  font-size:23px;
-
-  line-height:25px;
+display:block;
+font-size:23px;
+line-height:25px
 }
-
-/* --------------------------------
-   SPECIAL EFFECTS
--------------------------------- */
-
-.sparkle{
-  position:absolute;
-
-  pointer-events:none;
-
-  z-index:1;
-
-  opacity:.45;
-
-  animation:sparkle 4s linear infinite;
-}
-
-@keyframes sparkle{
-  0%{
-    transform:scale(.7) rotate(0);
-    opacity:0;
-  }
-
-  50%{
-    opacity:.55;
-  }
-
-  100%{
-    transform:scale(1.4) rotate(180deg);
-    opacity:0;
-  }
-}
-
-/* --------------------------------
-   MOBILE
--------------------------------- */
 
 @media(max-height:700px){
-
-  .header{
-    padding:6px 8px;
-  }
-
-  .subtitle{
-    display:none;
-  }
-
-  .page{
-    padding-top:5px;
-  }
-
-  .panel{
-    padding:7px;
-    margin-bottom:5px;
-  }
-
-  .bigButton{
-    min-height:49px;
-    margin-top:5px;
-  }
-
-  .choice{
-    min-height:49px;
-    padding:5px;
-  }
-
-  .nav{
-    height:64px;
-  }
+header{padding:6px 8px}
+.subtitle{display:none}
+.panel{padding:7px}
+.big{min-height:49px}
+.choice{min-height:52px}
+.nav{height:64px}
 }
-
 </style>
 </head>
 
@@ -1029,740 +507,807 @@ button:focus{
 
 <div id="game">
 
-  <div class="foodLayer" aria-hidden="true">
-
-    <div class="food">🍔</div>
-    <div class="food">🍟</div>
-    <div class="food">🍔</div>
-    <div class="food">🍟</div>
-    <div class="food">⭐</div>
-    <div class="food">✨</div>
-    <div class="food">🍔</div>
-    <div class="food">🍟</div>
-
-  </div>
-
-  <header class="header">
-
-    <div class="logo">
-      🍔 DESMOND'S BURGER BLAST 🍟
-    </div>
-
-    <div class="subtitle">
-      BUILD • SERVE • EARN • BLAST
-    </div>
-
-  </header>
-
-  <main id="pages">
-
-    <section
-      id="page-home"
-      class="page active"
-      aria-label="Home"
-    >
-
-      <div class="panel">
-
-        <div class="panelTitle">
-          🍔 BURGER BLAST 🍟
-        </div>
-
-        <div class="statsGrid">
-
-          <div class="stat">
-            <div class="statLabel">
-              MONEY
-            </div>
-            <div
-              class="statValue"
-              id="moneyDisplay"
-            >
-              $0.00
-            </div>
-          </div>
-
-          <div class="stat">
-            <div class="statLabel">
-              EARNINGS / SEC
-            </div>
-            <div
-              class="statValue"
-              id="epsDisplay"
-            >
-              $0.00
-            </div>
-          </div>
-
-          <div class="stat">
-            <div class="statLabel">
-              BURGERS
-            </div>
-            <div
-              class="statValue"
-              id="burgersDisplay"
-            >
-              0
-            </div>
-          </div>
-
-          <div class="stat">
-            <div class="statLabel">
-              ORDERS
-            </div>
-            <div
-              class="statValue"
-              id="ordersDisplay"
-            >
-              0
-            </div>
-          </div>
-
-          <div class="stat">
-            <div class="statLabel">
-              LEVEL
-            </div>
-            <div
-              class="statValue"
-              id="levelDisplay"
-            >
-              1
-            </div>
-          </div>
-
-          <div class="stat">
-            <div class="statLabel">
-              XP
-            </div>
-            <div
-              class="statValue"
-              id="xpDisplay"
-            >
-              0
-            </div>
-          </div>
-
-        </div>
-
-        <div class="shiftControls">
-
-          <button
-            id="startShiftBtn"
-            class="bigButton"
-          >
-            ▶️ START SHIFT
-          </button>
-
-          <button
-            id="takeOrderBtn"
-            class="bigButton orange"
-          >
-            🍔 TAKE ORDER
-          </button>
-
-        </div>
-
-        <div
-          id="shiftStatus"
-          style="
-            text-align:center;
-            font-weight:1000;
-            margin-top:6px;
-            color:#9d2918;
-          "
-        >
-          Shift ready!
-        </div>
-
-      </div>
-
-      <div
-        id="homeOrderBox"
-        class="orderBox"
-        hidden
-      >
-
-        <div class="orderTitle">
-          👨‍🍳 CURRENT CUSTOMER
-        </div>
-
-        <div
-          id="homeOrderText"
-          class="orderText"
-        >
-          No order yet.
-        </div>
-
-      </div>
-
-      <div class="panel builder">
-
-        <div class="panelTitle">
-          🍔 BUILD YOUR BURGER
-        </div>
-
-        <div
-          id="builderTabs"
-          class="builderTabs"
-        ></div>
-
-        <div
-          id="choiceGrid"
-          class="choiceGrid"
-        ></div>
-
-        <button
-          id="clearBurgerBtn"
-          class="clearBurger"
-        >
-          🧹 CLEAR BURGER
-        </button>
-
-        <button
-          id="submitBurgerBtn"
-          class="submitBurger"
-        >
-          🍔 SERVE BURGER
-        </button>
-
-      </div>
-
-    </section>
-
-
-    <section
-      id="page-orders"
-      class="page"
-      aria-label="Customer Orders"
-    >
-
-      <div class="panel">
-
-        <div class="panelTitle">
-          🍔 CUSTOMER ORDERS
-        </div>
-
-        <div
-          id="ordersLarge"
-          class="ordersLarge"
-        >
-          <strong>
-            No active order
-          </strong>
-
-          <span style="font-size:14px;margin-top:6px">
-            Start a shift and take a customer order.
-          </span>
-        </div>
-
-        <div class="ordersActions">
-
-          <button
-            id="repeatOrderBtn"
-            class="bigButton blue"
-          >
-            🔁 REPEAT ORDER
-          </button>
-
-          <button
-            id="newOrderBtn"
-            class="bigButton orange"
-          >
-            👨‍🍳 TAKE NEW ORDER
-          </button>
-
-        </div>
-
-        <button
-          id="goBuildBtn"
-          class="bigButton ordersBuild"
-        >
-          🍔 GO BUILD THIS BURGER
-        </button>
-
-      </div>
-
-    </section>
-
-
-    <section
-      id="page-upgrades"
-      class="page"
-      aria-label="Upgrades"
-    >
-
-      <div class="panel">
-
-        <div class="panelTitle">
-          ⚙️ UPGRADES
-        </div>
-
-        <div
-          id="upgradeList"
-          class="cardGrid"
-        ></div>
-
-      </div>
-
-    </section>
-
-
-    <section
-      id="page-locations"
-      class="page"
-      aria-label="Locations"
-    >
-
-      <div class="panel">
-
-        <div class="panelTitle">
-          📍 LOCATIONS
-        </div>
-
-        <div
-          id="locationList"
-          class="cardGrid"
-        ></div>
-
-      </div>
-
-    </section>
-
-
-    <section
-      id="page-more"
-      class="page"
-      aria-label="More"
-    >
-
-      <div class="panel">
-
-        <div class="panelTitle">
-          ⭐ MORE
-        </div>
-
-        <div class="moreGrid">
-
-          <button
-            id="burgerRapBtn"
-            class="moreButton"
-          >
-            🎤<br>
-            BURGER RAP
-          </button>
-
-          <button
-            id="mysteryBtn"
-            class="moreButton"
-          >
-            ❓<br>
-            MYSTERY
-          </button>
-
-          <button
-            id="prestigeBtn"
-            class="moreButton"
-          >
-            👑<br>
-            PRESTIGE
-          </button>
-
-          <button
-            id="powerBtn"
-            class="moreButton"
-          >
-            ⚡<br>
-            POWER-UPS
-          </button>
-
-        </div>
-
-      </div>
-
-    </section>
-
-  </main>
-
-
-  <nav
-    class="nav"
-    aria-label="Main navigation"
-  >
-
-    <button
-      class="navButton active"
-      data-page="home"
-    >
-      <span class="navIcon">🏠</span>
-      HOME
-    </button>
-
-    <button
-      class="navButton"
-      data-page="orders"
-    >
-      <span class="navIcon">🧾</span>
-      ORDERS
-    </button>
-
-    <button
-      class="navButton"
-      data-page="upgrades"
-    >
-      <span class="navIcon">⚙️</span>
-      UPGRADES
-    </button>
-
-    <button
-      class="navButton"
-      data-page="locations"
-    >
-      <span class="navIcon">📍</span>
-      LOCATIONS
-    </button>
-
-    <button
-      class="navButton"
-      data-page="more"
-    >
-      <span class="navIcon">⭐</span>
-      MORE
-    </button>
-
-  </nav>
-
-
-  <div
-    id="message"
-    role="status"
-    aria-live="polite"
-  ></div>
-
-</div><script>
-
-"use strict";
-
-/* =========================================
-   DESMOND'S BURGER BLAST
-   GAME DATA
-========================================= */
-
-const SAVE_KEY = "desmondBurgerBlastV13";
+<div aria-hidden="true">
+<div class="float">🍔</div>
+<div class="float">🍟</div>
+<div class="float">🍔</div>
+<div class="float">🍟</div>
+<div class="float">⭐</div>
+</div>
+
+<header>
+<div class="logo">🍔 DESMOND'S BURGER BLAST 🍟</div>
+<div class="subtitle">BUILD • SERVE • EARN • BLAST</div>
+</header>
+
+<main id="pages">
+
+<section id="home" class="page active">
+<div class="scroll">
+
+<div class="panel">
+
+<div class="title">🍔 BURGER BLAST 🍟</div>
+
+<div class="stats">
+
+<div class="stat">
+<div class="statLabel">DOLLARS</div>
+<div class="statValue" id="money">$0.00</div>
+</div>
+
+<div class="stat">
+<div class="statLabel">EARNINGS / SEC</div>
+<div class="statValue" id="eps">$0.01</div>
+</div>
+
+<div class="stat">
+<div class="statLabel">BURGERS</div>
+<div class="statValue" id="burgers">0</div>
+</div>
+
+<div class="stat">
+<div class="statLabel">ORDERS</div>
+<div class="statValue" id="orders">0</div>
+</div>
+
+<div class="stat">
+<div class="statLabel">LEVEL</div>
+<div class="statValue" id="level">1</div>
+</div>
+
+<div class="stat">
+<div class="statLabel">XP</div>
+<div class="statValue" id="xp">0/25</div>
+</div>
+
+</div>
+
+<div class="shift">
+
+<button id="shiftBtn" class="big orange">
+▶️ START SHIFT
+</button>
+
+<button id="takeOrder" class="big orange">
+🧾 TAKE ORDER
+</button>
+
+</div>
+
+<div id="shiftStatus" class="status">
+Next shift: 15:00
+</div>
+
+</div>
+
+<div class="panel">
+
+<div class="title">🧾 CUSTOMER MEAL</div>
+
+<div id="homeOrder" class="preview">
+
+<strong>No order yet</strong>
+
+Take an order to open the full meal builder.
+
+</div>
+
+<button id="homeClear" class="clear">
+🧹 CLEAR BURGER
+</button>
+
+</div>
+
+<div class="panel">
+
+<div class="title">📈 SHOP PROGRESS</div>
+
+<div class="info">
+Complete customer meals to earn dollars, Baker Bucks and XP.
+Passive earnings only run while a shift is active.
+</div>
+
+</div>
+
+</div>
+</section>
+
+<section id="orderPage" class="page">
+
+<div class="scroll">
+
+<div class="panel">
+
+<div class="title">🧾 BUILD CUSTOMER MEAL</div>
+
+<div id="customerOrder" class="order">
+No active order.
+</div>
+
+<div class="actions">
+
+<button id="repeat" class="big blue">
+🔁 REPEAT
+</button>
+
+<button id="newOrder" class="big orange">
+🧾 NEW ORDER
+</button>
+
+</div>
+
+</div>
+
+<div class="panel">
+
+<div class="title">🍔 BUILD EVERY PART</div>
+
+<div class="note">
+Nothing is pre-selected. Choose the bun, patty, cheese, toppings, condiments and sides/apps yourself.
+</div>
+
+<div id="tabs" class="tabs"></div>
+
+<div id="choices" class="choices"></div>
+
+<button id="clear" class="clear">
+🧹 CLEAR ALL
+</button>
+
+<button id="serve" class="serve">
+🍔 SERVE COMPLETE MEAL
+</button>
+
+</div>
+
+</div>
+</section>
+
+<section id="powerups" class="page">
+
+<div class="scroll">
+
+<div class="panel">
+
+<div class="title">⚡ POWER-UPS</div>
+
+<div class="power">
+
+<div class="powerIcon">🍔</div>
+
+<div class="powerName">
+SUPERSIZED MEAL
+</div>
+
+<div class="powerDesc">
+Unlocks at Level 6. Gives 2× earnings for 1 hour.
+</div>
+
+<div class="clearFloat"></div>
+
+<button id="super" class="big orange">
+🍔 ACTIVATE 2×
+</button>
+
+</div>
+
+<div class="power">
+
+<div class="powerIcon">🚀</div>
+
+<div class="powerName">
+GALACTIC BURGER
+</div>
+
+<div class="powerDesc">
+Unlocks at Level 12. Gives 2× earnings for 1 hour.
+</div>
+
+<div class="clearFloat"></div>
+
+<button id="galactic" class="big purple">
+🚀 ACTIVATE 2×
+</button>
+
+</div>
+
+<div id="powerStatus" class="note"></div>
+
+</div>
+
+</div>
+</section>
+
+<section id="locations" class="page">
+
+<div class="scroll">
+
+<div class="panel">
+
+<div class="title">📍 LOCATIONS</div>
+
+<div class="note">
+Unlock burger worlds for permanent earnings bonuses.
+</div>
+
+<div id="locationList"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<section id="food" class="page">
+
+<div class="scroll">
+
+<div class="panel">
+
+<div class="title">🍔🍟 FOOD</div>
+
+<div class="note">
+All burgers and fries are listed here. Locked foods show their unlock level.
+</div>
+
+<div id="foodList"></div>
+
+</div>
+
+</div>
+
+</section>
+
+</main>
+
+<nav class="nav">
+
+<button class="active" data-page="home">
+<span class="navIcon">🏠</span>
+HOME
+</button>
+
+<button data-page="powerups">
+<span class="navIcon">⚡</span>
+POWERUPS
+</button>
+
+<button data-page="locations">
+<span class="navIcon">📍</span>
+LOCATIONS
+</button>
+
+<button data-page="food">
+<span class="navIcon">🍔</span>
+FOOD
+</button>
+
+</nav>
+
+<div id="toast" role="status" aria-live="polite"></div>
+
+</div>
+
+<script>"use strict";
+
+const SAVE_KEY = "desmondBurgerBlastV14";
 
 
 /* =========================================
-   INGREDIENTS
+   FOOD LIST
 ========================================= */
 
-const INGREDIENTS = {
-
-  buns: [
-    {
-      id:"classic",
-      name:"Classic Bun",
-      emoji:"🍞",
-      price:.01,
-      xp:1
-    },
-    {
-      id:"sesame",
-      name:"Sesame Bun",
-      emoji:"🥯",
-      price:.02,
-      xp:2
-    },
-    {
-      id:"brioche",
-      name:"Brioche Bun",
-      emoji:"🍞",
-      price:.04,
-      xp:3
-    },
-    {
-      id:"pretzel",
-      name:"Pretzel Bun",
-      emoji:"🥨",
-      price:.08,
-      xp:5
-    },
-    {
-      id:"everything",
-      name:"Everything Bun",
-      emoji:"🥯",
-      price:.12,
-      xp:7
-    }
-  ],
-
-  patties: [
-    {
-      id:"beef",
-      name:"Beef Patty",
-      emoji:"🥩",
-      price:.03,
-      xp:2
-    },
-    {
-      id:"doubleBeef",
-      name:"Double Beef",
-      emoji:"🥩🥩",
-      price:.07,
-      xp:4
-    },
-    {
-      id:"chicken",
-      name:"Chicken Patty",
-      emoji:"🍗",
-      price:.05,
-      xp:3
-    },
-    {
-      id:"veggie",
-      name:"Veggie Patty",
-      emoji:"🥬",
-      price:.06,
-      xp:3
-    },
-    {
-      id:"crispyChicken",
-      name:"Crispy Chicken",
-      emoji:"🍗",
-      price:.09,
-      xp:5
-    }
-  ],
-
-  cheese: [
-    {
-      id:"none",
-      name:"No Cheese",
-      emoji:"🚫",
-      price:0,
-      xp:0
-    },
-    {
-      id:"american",
-      name:"American",
-      emoji:"🧀",
-      price:.01,
-      xp:1
-    },
-    {
-      id:"cheddar",
-      name:"Cheddar",
-      emoji:"🧀",
-      price:.02,
-      xp:2
-    },
-    {
-      id:"swiss",
-      name:"Swiss",
-      emoji:"🧀",
-      price:.03,
-      xp:2
-    },
-    {
-      id:"pepperJack",
-      name:"Pepper Jack",
-      emoji:"🌶️🧀",
-      price:.04,
-      xp:3
-    }
-  ],
-
-  sauce: [
-    {
-      id:"ketchup",
-      name:"Ketchup",
-      emoji:"🍅",
-      price:.01,
-      xp:1
-    },
-    {
-      id:"mustard",
-      name:"Mustard",
-      emoji:"💛",
-      price:.01,
-      xp:1
-    },
-    {
-      id:"bbq",
-      name:"BBQ Sauce",
-      emoji:"🍖",
-      price:.02,
-      xp:2
-    },
-    {
-      id:"ranch",
-      name:"Ranch",
-      emoji:"🥛",
-      price:.03,
-      xp:2
-    },
-    {
-      id:"special",
-      name:"Special Sauce",
-      emoji:"⭐",
-      price:.05,
-      xp:4
-    }
-  ],
-
-  toppings: [
-    {
-      id:"lettuce",
-      name:"Lettuce",
-      emoji:"🥬",
-      price:.01,
-      xp:1
-    },
-    {
-      id:"tomato",
-      name:"Tomato",
-      emoji:"🍅",
-      price:.01,
-      xp:1
-    },
-    {
-      id:"onion",
-      name:"Onion",
-      emoji:"🧅",
-      price:.01,
-      xp:1
-    },
-    {
-      id:"pickle",
-      name:"Pickles",
-      emoji:"🥒",
-      price:.02,
-      xp:2
-    },
-    {
-      id:"bacon",
-      name:"Bacon",
-      emoji:"🥓",
-      price:.04,
-      xp:3
-    },
-    {
-      id:"jalapeno",
-      name:"Jalapeño",
-      emoji:"🌶️",
-      price:.03,
-      xp:2
-    },
-    {
-      id:"mushroom",
-      name:"Mushrooms",
-      emoji:"🍄",
-      price:.03,
-      xp:2
-    },
-    {
-      id:"crispyOnion",
-      name:"Crispy Onions",
-      emoji:"🧅",
-      price:.04,
-      xp:3
-    }
-  ]
-
-};
-
-
-/* =========================================
-   BUILDER CATEGORIES
-========================================= */
-
-const BUILDER_CATEGORIES = [
+const FOODS = [
 
   {
-    id:"buns",
-    name:"🍞 BUN",
-    multiple:false
+    id:"classicBurger",
+    name:"Classic Burger",
+    emoji:"🍔",
+    unlock:1,
+    desc:"Classic bun, beef patty, cheese and ketchup."
   },
 
   {
-    id:"patties",
-    name:"🥩 PATTY",
-    multiple:false
+    id:"doubleBurger",
+    name:"Double Burger",
+    emoji:"🍔🍔",
+    unlock:2,
+    desc:"Double beef for a bigger burger."
   },
 
   {
-    id:"cheese",
-    name:"🧀 CHEESE",
-    multiple:false
+    id:"baconCheese",
+    name:"Bacon Cheeseburger",
+    emoji:"🥓🍔",
+    unlock:3,
+    desc:"Beef, cheddar and crispy bacon."
   },
 
   {
-    id:"sauce",
-    name:"🍅 SAUCE",
-    multiple:false
+    id:"bbqBurger",
+    name:"BBQ Burger",
+    emoji:"🍖🍔",
+    unlock:4,
+    desc:"Beef, cheddar, BBQ sauce and toppings."
   },
 
   {
-    id:"toppings",
-    name:"🥬 TOPPINGS",
-    multiple:true
+    id:"crispyChicken",
+    name:"Crispy Chicken Burger",
+    emoji:"🍗🍔",
+    unlock:5,
+    desc:"Crispy chicken with cheese and toppings."
+  },
+
+  {
+    id:"jalapenoBurger",
+    name:"Jalapeño Burger",
+    emoji:"🌶️🍔",
+    unlock:7,
+    desc:"Pepper jack, jalapeños and special sauce."
+  },
+
+  {
+    id:"mushroomBurger",
+    name:"Mushroom Swiss",
+    emoji:"🍄🍔",
+    unlock:9,
+    desc:"Swiss cheese, mushrooms and special sauce."
+  },
+
+  {
+    id:"megaBurger",
+    name:"Mega Burger",
+    emoji:"💥🍔",
+    unlock:12,
+    desc:"A huge stacked burger for serious customers."
+  },
+
+  {
+    id:"monsterBurger",
+    name:"Monster Burger",
+    emoji:"👹🍔",
+    unlock:16,
+    desc:"A giant mystery-shop favorite."
+  },
+
+  {
+    id:"goldenBurger",
+    name:"Golden Burger",
+    emoji:"👑🍔",
+    unlock:20,
+    desc:"A rare premium burger."
+  },
+
+  {
+    id:"galacticBurger",
+    name:"Galactic Burger",
+    emoji:"🚀🍔",
+    unlock:25,
+    desc:"The ultimate burger with a special power."
+  },
+
+  {
+    id:"classicFries",
+    name:"Classic Fries",
+    emoji:"🍟",
+    unlock:1,
+    desc:"Golden crispy fries."
+  },
+
+  {
+    id:"cheeseFries",
+    name:"Cheese Fries",
+    emoji:"🧀🍟",
+    unlock:3,
+    desc:"Fries covered in cheese."
+  },
+
+  {
+    id:"loadedFries",
+    name:"Loaded Fries",
+    emoji:"🥓🍟",
+    unlock:6,
+    desc:"Loaded with bacon and toppings."
+  },
+
+  {
+    id:"megaFries",
+    name:"Mega Fries",
+    emoji:"💥🍟",
+    unlock:10,
+    desc:"A huge serving of fries."
+  },
+
+  {
+    id:"goldenFries",
+    name:"Golden Fries",
+    emoji:"👑🍟",
+    unlock:18,
+    desc:"A rare premium fry."
   }
 
 ];
 
 
 /* =========================================
-   UPGRADES
+   BURGER / MEAL BUILDING CATEGORIES
 ========================================= */
 
-const UPGRADES = [
+const CATEGORIES = [
 
   {
-    id:"grill",
-    name:"🔥 Better Grill",
-    description:
-      "Improves your burger earnings.",
-    baseCost:1,
-    multiplier:.10,
-    maxLevel:20
+    id:"bun",
+
+    label:"🍞 BUN",
+
+    multi:false,
+
+    items:[
+
+      [
+        "classic",
+        "Classic Bun",
+        "🍞",
+        1,
+        .01
+      ],
+
+      [
+        "sesame",
+        "Sesame Bun",
+        "🥯",
+        2,
+        .02
+      ],
+
+      [
+        "brioche",
+        "Brioche Bun",
+        "🍞",
+        4,
+        .04
+      ],
+
+      [
+        "pretzel",
+        "Pretzel Bun",
+        "🥨",
+        7,
+        .08
+      ],
+
+      [
+        "everything",
+        "Everything Bun",
+        "🥯",
+        10,
+        .12
+      ]
+
+    ]
   },
 
-  {
-    id:"register",
-    name:"💵 Faster Register",
-    description:
-      "Earn a little more from every order.",
-    baseCost:2,
-    multiplier:.12,
-    maxLevel:20
-  },
 
   {
-    id:"chef",
-    name:"👨‍🍳 Super Chef",
-    description:
-      "Boosts your overall earnings.",
-    baseCost:5,
-    multiplier:.15,
-    maxLevel:20
+    id:"patty",
+
+    label:"🥩 PATTY",
+
+    multi:false,
+
+    items:[
+
+      [
+        "beef",
+        "Beef Patty",
+        "🥩",
+        1,
+        .03
+      ],
+
+      [
+        "doubleBeef",
+        "Double Beef",
+        "🥩🥩",
+        2,
+        .07
+      ],
+
+      [
+        "chicken",
+        "Chicken Patty",
+        "🍗",
+        5,
+        .05
+      ],
+
+      [
+        "veggie",
+        "Veggie Patty",
+        "🥬",
+        8,
+        .06
+      ],
+
+      [
+        "crispyChicken",
+        "Crispy Chicken",
+        "🍗",
+        12,
+        .09
+      ]
+
+    ]
   },
 
-  {
-    id:"fries",
-    name:"🍟 Fries Station",
-    description:
-      "Adds bonus earnings to your shop.",
-    baseCost:10,
-    multiplier:.20,
-    maxLevel:20
-  },
 
   {
-    id:"combo",
-    name:"🍔 Combo Machine",
-    description:
-      "Makes every completed burger worth more.",
-    baseCost:25,
-    multiplier:.25,
-    maxLevel:20
+    id:"cheese",
+
+    label:"🧀 CHEESE",
+
+    multi:false,
+
+    items:[
+
+      [
+        "none",
+        "No Cheese",
+        "🚫",
+        1,
+        0
+      ],
+
+      [
+        "american",
+        "American",
+        "🧀",
+        1,
+        .01
+      ],
+
+      [
+        "cheddar",
+        "Cheddar",
+        "🧀",
+        3,
+        .02
+      ],
+
+      [
+        "swiss",
+        "Swiss",
+        "🧀",
+        6,
+        .03
+      ],
+
+      [
+        "pepperJack",
+        "Pepper Jack",
+        "🌶️🧀",
+        10,
+        .04
+      ]
+
+    ]
+  },
+
+
+  {
+    id:"toppings",
+
+    label:"🥬 TOPPINGS",
+
+    multi:true,
+
+    items:[
+
+      [
+        "lettuce",
+        "Lettuce",
+        "🥬",
+        1,
+        .01
+      ],
+
+      [
+        "tomato",
+        "Tomato",
+        "🍅",
+        1,
+        .01
+      ],
+
+      [
+        "onion",
+        "Onion",
+        "🧅",
+        2,
+        .01
+      ],
+
+      [
+        "pickle",
+        "Pickles",
+        "🥒",
+        3,
+        .02
+      ],
+
+      [
+        "bacon",
+        "Bacon",
+        "🥓",
+        4,
+        .04
+      ],
+
+      [
+        "jalapeno",
+        "Jalapeño",
+        "🌶️",
+        7,
+        .03
+      ],
+
+      [
+        "mushroom",
+        "Mushrooms",
+        "🍄",
+        9,
+        .03
+      ],
+
+      [
+        "crispyOnion",
+        "Crispy Onions",
+        "🧅",
+        12,
+        .04
+      ]
+
+    ]
+  },
+
+
+  {
+    id:"condiments",
+
+    label:"🍅 CONDIMENTS",
+
+    multi:true,
+
+    items:[
+
+      [
+        "ketchup",
+        "Ketchup",
+        "🍅",
+        1,
+        .01
+      ],
+
+      [
+        "mustard",
+        "Mustard",
+        "💛",
+        1,
+        .01
+      ],
+
+      [
+        "bbq",
+        "BBQ Sauce",
+        "🍖",
+        4,
+        .02
+      ],
+
+      [
+        "ranch",
+        "Ranch",
+        "🥛",
+        5,
+        .03
+      ],
+
+      [
+        "special",
+        "Special Sauce",
+        "⭐",
+        8,
+        .05
+      ],
+
+      [
+        "spicyRanch",
+        "Spicy Ranch",
+        "🌶️",
+        12,
+        .07
+      ]
+
+    ]
+  },
+
+
+  {
+    id:"sides",
+
+    label:"🍟 SIDES / APPS",
+
+    multi:true,
+
+    items:[
+
+      [
+        "fries",
+        "Classic Fries",
+        "🍟",
+        1,
+        .02
+      ],
+
+      [
+        "cheeseFries",
+        "Cheese Fries",
+        "🧀🍟",
+        3,
+        .04
+      ],
+
+      [
+        "loadedFries",
+        "Loaded Fries",
+        "🥓🍟",
+        6,
+        .07
+      ],
+
+      [
+        "megaFries",
+        "Mega Fries",
+        "💥🍟",
+        10,
+        .12
+      ],
+
+      [
+        "onionRings",
+        "Onion Rings",
+        "🧅",
+        4,
+        .04
+      ],
+
+      [
+        "mozzSticks",
+        "Mozzarella Sticks",
+        "🧀",
+        7,
+        .06
+      ],
+
+      [
+        "chickenBites",
+        "Chicken Bites",
+        "🍗",
+        9,
+        .08
+      ],
+
+      [
+        "megaApp",
+        "Mega App Combo",
+        "🍟🍗",
+        14,
+        .15
+      ]
+
+    ]
   }
 
 ];
@@ -1774,135 +1319,91 @@ const UPGRADES = [
 
 const LOCATIONS = [
 
-  {
-    id:"stand",
-    name:"🍔 Burger Stand",
-    description:
-      "Your first little burger stand.",
-    cost:0,
-    bonus:0
-  },
+  [
+    "stand",
+    "🍔 Burger Stand",
+    "Your first burger shop.",
+    0,
+    0
+  ],
 
-  {
-    id:"foodTruck",
-    name:"🚚 Burger Food Truck",
-    description:
-      "Take burgers on the road.",
-    cost:25,
-    bonus:.05
-  },
+  [
+    "truck",
+    "🚚 Burger Food Truck",
+    "Take burgers on the road.",
+    25,
+    .05
+  ],
 
-  {
-    id:"boardwalk",
-    name:"🎡 Boardwalk Burger",
-    description:
-      "Serve burgers by the boardwalk.",
-    cost:100,
-    bonus:.10
-  },
+  [
+    "boardwalk",
+    "🎡 Boardwalk Grill",
+    "Serve burgers and fries by the boardwalk.",
+    100,
+    .10
+  ],
 
-  {
-    id:"downtown",
-    name:"🏙️ Downtown Grill",
-    description:
-      "A busy city burger shop.",
-    cost:500,
-    bonus:.15
-  },
+  [
+    "downtown",
+    "🏙️ Downtown Grill",
+    "A busy city burger shop.",
+    500,
+    .15
+  ],
 
-  {
-    id:"stadium",
-    name:"🏟️ Stadium Grill",
-    description:
-      "Feed the hungry crowd.",
-    cost:2500,
-    bonus:.20
-  },
+  [
+    "stadium",
+    "🏟️ Stadium Grill",
+    "Feed the hungry crowd.",
+    2500,
+    .20
+  ],
 
-  {
-    id:"beach",
-    name:"🏖️ Beach Burger",
-    description:
-      "Burgers and fries by the beach.",
-    cost:10000,
-    bonus:.25
-  },
+  [
+    "beach",
+    "🏖️ Beach Burger",
+    "Burgers and fries by the beach.",
+    10000,
+    .25
+  ],
 
-  {
-    id:"arcade",
-    name:"🕹️ Burger Arcade",
-    description:
-      "Games, burgers and fries.",
-    cost:50000,
-    bonus:.30
-  },
+  [
+    "arcade",
+    "🕹️ Burger Arcade",
+    "Games, burgers and fries.",
+    50000,
+    .30
+  ],
 
-  {
-    id:"mega",
-    name:"🏪 Mega Burger",
-    description:
-      "A massive burger operation.",
-    cost:250000,
-    bonus:.40
-  },
+  [
+    "mega",
+    "🏪 Mega Burger",
+    "A massive burger operation.",
+    250000,
+    .40
+  ],
 
-  {
-    id:"island",
-    name:"🌴 Burger Island",
-    description:
-      "Your own tropical burger world.",
-    cost:1000000,
-    bonus:.50
-  },
+  [
+    "island",
+    "🌴 Burger Island",
+    "Your own tropical burger world.",
+    1000000,
+    .50
+  ],
 
-  {
-    id:"galaxy",
-    name:"🚀 Galactic Burger",
-    description:
-      "The ultimate burger destination.",
-    cost:10000000,
-    bonus:.75
-  }
+  [
+    "galaxy",
+    "🚀 Galactic Burger",
+    "The ultimate burger destination.",
+    10000000,
+    .75
+  ]
 
 ];
 
 
 /* =========================================
-   MYSTERY FLAVORS
-========================================= */
-
-const MYSTERY_FLAVORS = [
-
-  "🍯 Honey BBQ",
-  "🌶️ Fire Sauce",
-  "🧄 Garlic Mayo",
-  "🍍 Pineapple Sauce",
-  "🥓 Bacon Jam",
-  "🍔 Mega Sauce",
-  "🔥 Inferno Sauce",
-  "🍯 Sweet Heat",
-  "🧀 Cheese Sauce",
-  "🌶️ Spicy Ranch",
-  "🍎 Apple BBQ",
-  "🥒 Pickle Sauce",
-  "🍔 Secret Sauce",
-  "🌋 Volcano Sauce",
-  "⭐ Golden Sauce",
-  "👽 Alien Sauce",
-  "🌈 Rainbow Sauce",
-  "💥 Blast Sauce",
-  "🍟 Fry Sauce",
-  "👑 Royal Sauce",
-  "🚀 Space Sauce",
-  "🍔 Monster Sauce",
-  "⚡ Turbo Sauce",
-  "🎉 Party Sauce",
-  "💎 Diamond Sauce"
-];
-
-
-/* =========================================
-   DEFAULT STATE
+   DEFAULT GAME STATE
 ========================================= */
 
 const DEFAULT_STATE = {
@@ -1917,51 +1418,43 @@ const DEFAULT_STATE = {
 
   level:1,
 
-  burgersCompleted:0,
+  burgers:0,
 
-  ordersCompleted:0,
-
-  totalOrders:0,
-
-  shiftActive:false,
-
-  shiftStartedAt:0,
+  orders:0,
 
   shiftLength:900,
 
-  shiftEndsAt:0,
+  shiftActive:false,
 
-  currentPage:"home",
-
-  currentLocation:"stand",
-
-  unlockedLocations:[
-    "stand"
-  ],
-
-  upgrades:{
-    grill:0,
-    register:0,
-    chef:0,
-    fries:0,
-    combo:0
-  },
+  shiftEnd:0,
 
   build:{
-    buns:null,
-    patties:null,
+
+    bun:null,
+
+    patty:null,
+
     cheese:null,
-    sauce:null,
-    toppings:[]
+
+    toppings:[],
+
+    condiments:[],
+
+    sides:[]
+
   },
 
   order:null,
 
-  unlockedMystery:0,
+  locations:[
+    "stand"
+  ],
 
-  galacticUntil:0,
+  currentLocation:"stand",
 
   supersizedUntil:0,
+
+  galacticUntil:0,
 
   lastTick:Date.now()
 
@@ -1969,86 +1462,113 @@ const DEFAULT_STATE = {
 
 
 /* =========================================
-   LOAD STATE
+   LOAD GAME
 ========================================= */
 
-function loadState(){
+function clone(value){
+
+  return JSON.parse(
+    JSON.stringify(value)
+  );
+
+}
+
+
+function loadGame(){
 
   try{
 
     const saved =
-      localStorage.getItem(SAVE_KEY);
+      localStorage.getItem(
+        SAVE_KEY
+      );
 
     if(!saved){
 
-      return structuredClone
-        ? structuredClone(DEFAULT_STATE)
-        : JSON.parse(
-            JSON.stringify(DEFAULT_STATE)
-          );
+      return clone(
+        DEFAULT_STATE
+      );
+
     }
+
 
     const parsed =
       JSON.parse(saved);
 
-    const state =
+
+    const loaded =
       Object.assign(
-        {},
-        DEFAULT_STATE,
+        clone(DEFAULT_STATE),
         parsed
       );
 
-    state.upgrades =
-      Object.assign(
-        {},
-        DEFAULT_STATE.upgrades,
-        parsed.upgrades || {}
-      );
 
-    state.build =
+    loaded.build =
       Object.assign(
-        {},
-        DEFAULT_STATE.build,
+        clone(DEFAULT_STATE.build),
         parsed.build || {}
       );
 
-    if(!Array.isArray(state.build.toppings)){
-      state.build.toppings=[];
+
+    [
+      "toppings",
+      "condiments",
+      "sides"
+    ].forEach(
+      key => {
+
+        if(
+          !Array.isArray(
+            loaded.build[key]
+          )
+        ){
+
+          loaded.build[key]=[];
+
+        }
+
+      }
+    );
+
+
+    if(
+      !Array.isArray(
+        loaded.locations
+      ) ||
+      !loaded.locations.length
+    ){
+
+      loaded.locations=[
+        "stand"
+      ];
+
     }
 
-    if(!Array.isArray(state.unlockedLocations)){
-      state.unlockedLocations=["stand"];
-    }
 
-    return state;
+    return loaded;
 
   }catch(error){
 
-    console.warn(
-      "Could not load save:",
-      error
+    return clone(
+      DEFAULT_STATE
     );
 
-    return JSON.parse(
-      JSON.stringify(DEFAULT_STATE)
-    );
   }
 
 }
 
 
-let state = loadState();
+let state =
+  loadGame();
 
 
 /* =========================================
-   SAVE
+   SAVE GAME
 ========================================= */
 
 function saveGame(){
 
   try{
-
-    state.lastTick=Date.now();
 
     localStorage.setItem(
       SAVE_KEY,
@@ -2058,7 +1578,7 @@ function saveGame(){
   }catch(error){
 
     console.warn(
-      "Could not save game:",
+      "Save failed",
       error
     );
 
@@ -2068,65 +1588,144 @@ function saveGame(){
 
 
 /* =========================================
-   DOM HELPERS
-========================================= */
-
-const $ = id =>
-  document.getElementById(id);
-
-
-/* =========================================
-   NUMBER FORMATTING
+   BASIC HELPERS
 ========================================= */
 
 function money(value){
 
-  if(!Number.isFinite(value)){
-    value=0;
-  }
+  value =
+    Number(value) || 0;
+
 
   if(value>=1000000000){
+
     return "$"+
-      (value/1000000000)
-        .toFixed(2)+"B";
+      (
+        value/1000000000
+      ).toFixed(2)+
+      "B";
+
   }
+
 
   if(value>=1000000){
+
     return "$"+
-      (value/1000000)
-        .toFixed(2)+"M";
+      (
+        value/1000000
+      ).toFixed(2)+
+      "M";
+
   }
 
+
   if(value>=1000){
+
     return "$"+
-      (value/1000)
-        .toFixed(2)+"K";
+      (
+        value/1000
+      ).toFixed(2)+
+      "K";
+
   }
+
 
   return "$"+
     value.toFixed(2);
+
 }
 
 
-function number(value){
+function num(value){
 
-  if(!Number.isFinite(value)){
-    return "0";
+  return Number(
+    value || 0
+  ).toLocaleString();
+
+}
+
+
+function toast(message){
+
+  const box =
+    document.getElementById(
+      "toast"
+    );
+
+  if(!box){
+    return;
   }
 
-  if(value>=1000000){
-    return (
-      value/1000000
-    ).toFixed(2)+"M";
+
+  box.textContent=
+    message;
+
+
+  box.classList.add(
+    "show"
+  );
+
+
+  clearTimeout(
+    window.toastTimer
+  );
+
+
+  window.toastTimer =
+    setTimeout(
+      () => {
+
+        box.classList.remove(
+          "show"
+        );
+
+      },
+      2600
+    );
+
+}
+
+
+function speak(text){
+
+  if(
+    !("speechSynthesis" in window)
+  ){
+
+    return;
+
   }
 
-  if(value>=1000){
-    return (
-      value/1000
-    ).toFixed(1)+"K";
+
+  try{
+
+    speechSynthesis.cancel();
+
+
+    const utterance =
+      new SpeechSynthesisUtterance(
+        text
+      );
+
+
+    utterance.rate=.95;
+
+    utterance.pitch=1.03;
+
+
+    speechSynthesis.speak(
+      utterance
+    );
+
+  }catch(error){
+
+    console.warn(
+      "Voice unavailable",
+      error
+    );
+
   }
 
-  return Math.floor(value).toString();
 }
 
 
@@ -2134,50 +1733,259 @@ function number(value){
    FIND INGREDIENT
 ========================================= */
 
-function findIngredient(
+function ingredient(
   category,
   id
 ){
 
-  const list =
-    INGREDIENTS[category] || [];
+  const cat =
+    CATEGORIES.find(
+      item =>
+        item.id===category
+    );
 
-  return list.find(
-    item => item.id===id
+
+  if(!cat){
+    return null;
+  }
+
+
+  return cat.items.find(
+    item =>
+      item[0]===id
   ) || null;
 
 }
 
 
+function itemText(
+  category,
+  id
+){
+
+  const item =
+    ingredient(
+      category,
+      id
+    );
+
+
+  if(!item){
+
+    return "None";
+
+  }
+
+
+  return (
+    item[2]+
+    " "+
+    item[1]
+  );
+
+}
+
+
 /* =========================================
-   SHIFT LENGTH
+   XP / LEVEL
 ========================================= */
 
-function shiftNext(){
+function xpNeeded(){
 
-  const current =
-    Number(state.shiftLength) || 900;
+  return (
+    25+
+    (
+      (state.level-1)*
+      15
+    )
+  );
 
-  /*
-    Under one hour:
-    15 → 30 → 45 → 60
+}
 
-    After one hour:
-    60 → 90 → 120 → 150...
-  */
 
-  if(current < 3600){
+function addXP(amount){
 
-    return Math.min(
-      current+900,
-      3600
+  state.xp +=
+    Math.max(
+      0,
+      Math.floor(amount)
+    );
+
+
+  let leveled=false;
+
+
+  while(
+    state.xp >=
+    xpNeeded()
+  ){
+
+    state.xp -=
+      xpNeeded();
+
+
+    state.level++;
+
+
+    leveled=true;
+
+  }
+
+
+  if(leveled){
+
+    toast(
+      "🎉 LEVEL "+
+      state.level+
+      "!"
+    );
+
+
+    speak(
+      "Level "+
+      state.level+
+      "!"
     );
 
   }
 
+}
+
+
+/* =========================================
+   EARNINGS
+========================================= */
+
+function locationMultiplier(){
+
+  let total=1;
+
+
+  LOCATIONS.forEach(
+    location => {
+
+      if(
+        state.locations.includes(
+          location[0]
+        )
+      ){
+
+        total +=
+          location[4];
+
+      }
+
+    }
+  );
+
+
+  return total;
+
+}
+
+
+function powerMultiplier(){
+
+  const now =
+    Date.now();
+
+
+  let total=1;
+
+
+  if(
+    state.supersizedUntil >
+    now
+  ){
+
+    total*=2;
+
+  }
+
+
+  if(
+    state.galacticUntil >
+    now
+  ){
+
+    total*=2;
+
+  }
+
+
+  return total;
+
+}
+
+
+function upgradeMultiplier(){
+
+  /*
+    Level growth keeps the
+    early game slow.
+  */
+
+  return (
+    1+
+    (
+      (state.level-1)*
+      .025
+    )
+  );
+
+}
+
+
+function earningsPerSecond(){
+
+  return (
+    .01*
+    upgradeMultiplier()*
+    locationMultiplier()*
+    powerMultiplier()
+  );
+
+}
+
+
+/* =========================================
+   SHIFT TIME
+========================================= */
+
+function nextShiftLength(){
+
+  /*
+    15 minutes
+    30 minutes
+    45 minutes
+    60 minutes
+
+    Then:
+
+    90 minutes
+    120 minutes
+    150 minutes
+    etc.
+  */
+
+  if(
+    state.shiftLength<
+    3600
+  ){
+
+    return Math.min(
+      3600,
+      state.shiftLength+
+      900
+    );
+
+  }
+
+
   return Math.min(
-    current+1800,
-    28800
+    28800,
+    state.shiftLength+
+    1800
   );
 
 }
@@ -2185,23 +1993,30 @@ function shiftNext(){
 
 function formatTime(seconds){
 
-  seconds=Math.max(
-    0,
-    Math.floor(seconds)
-  );
+  seconds =
+    Math.max(
+      0,
+      Math.floor(seconds)
+    );
+
 
   const hours =
-    Math.floor(seconds/3600);
+    Math.floor(
+      seconds/3600
+    );
+
 
   const minutes =
     Math.floor(
       (seconds%3600)/60
     );
 
+
   const secs =
     seconds%60;
 
-  if(hours>0){
+
+  if(hours){
 
     return (
       hours+
@@ -2210,10 +2025,12 @@ function formatTime(seconds){
         .padStart(2,"0")+
       "m "+
       String(secs)
-        .padStart(2,"0")+"s"
+        .padStart(2,"0")+
+      "s"
     );
 
   }
+
 
   return (
     String(minutes)
@@ -2227,356 +2044,16 @@ function formatTime(seconds){
 
 
 /* =========================================
-   LEVEL / XP
-========================================= */
-
-function xpNeeded(){
-
-  return Math.floor(
-    25+
-    ((state.level-1)*15)
-  );
-
-}
-
-
-function addXP(amount){
-
-  amount=Math.max(
-    0,
-    Math.floor(amount)
-  );
-
-  state.xp += amount;
-
-  let leveled=false;
-
-  while(
-    state.xp >= xpNeeded()
-  ){
-
-    state.xp -= xpNeeded();
-
-    state.level++;
-
-    leveled=true;
-
-  }
-
-  if(leveled){
-
-    speak(
-      "Level "+
-      state.level+
-      "!"
-    );
-
-    showMessage(
-      "🎉 LEVEL UP! You are now level "+
-      state.level+"!"
-    );
-
-  }
-
-}
-
-
-/* =========================================
-   UPGRADE MULTIPLIER
-========================================= */
-
-function upgradeMultiplier(){
-
-  let total=1;
-
-  for(const upgrade of UPGRADES){
-
-    const level =
-      Number(
-        state.upgrades[upgrade.id] || 0
-      );
-
-    total +=
-      level*
-      upgrade.multiplier;
-
-  }
-
-  return total;
-
-}
-
-
-/* =========================================
-   LOCATION BONUS
-========================================= */
-
-function locationMultiplier(){
-
-  let total=1;
-
-  for(const location of LOCATIONS){
-
-    if(
-      state.unlockedLocations
-        .includes(location.id)
-    ){
-
-      total += location.bonus;
-
-    }
-
-  }
-
-  return total;
-
-}
-
-
-/* =========================================
-   POWER-UP MULTIPLIER
-========================================= */
-
-function powerMultiplier(){
-
-  const now=Date.now();
-
-  let multiplier=1;
-
-  if(
-    state.galacticUntil > now
-  ){
-
-    multiplier*=2;
-
-  }
-
-  if(
-    state.supersizedUntil > now
-  ){
-
-    multiplier*=2;
-
-  }
-
-  return multiplier;
-
-}
-
-
-/* =========================================
-   EARNINGS PER SECOND
-========================================= */
-
-function eps(){
-
-  /*
-    Base earnings start very small.
-    The game is intentionally slow-building.
-  */
-
-  const base=.01;
-
-  return (
-    base*
-    upgradeMultiplier()*
-    locationMultiplier()*
-    powerMultiplier()
-  );
-
-}
-
-
-/* =========================================
-   ORDER VALUE
-========================================= */
-
-function burgerValue(build){
-
-  let total=.01;
-
-  if(build.buns){
-
-    const item =
-      findIngredient(
-        "buns",
-        build.buns
-      );
-
-    if(item){
-      total+=item.price;
-    }
-
-  }
-
-  if(build.patties){
-
-    const item =
-      findIngredient(
-        "patties",
-        build.patties
-      );
-
-    if(item){
-      total+=item.price;
-    }
-
-  }
-
-  if(build.cheese){
-
-    const item =
-      findIngredient(
-        "cheese",
-        build.cheese
-      );
-
-    if(item){
-      total+=item.price;
-    }
-
-  }
-
-  if(build.sauce){
-
-    const item =
-      findIngredient(
-        "sauce",
-        build.sauce
-      );
-
-    if(item){
-      total+=item.price;
-    }
-
-  }
-
-  for(
-    const topping of
-    (build.toppings || [])
-  ){
-
-    const item =
-      findIngredient(
-        "toppings",
-        topping
-      );
-
-    if(item){
-      total+=item.price;
-    }
-
-  }
-
-  return (
-    total*
-    upgradeMultiplier()*
-    locationMultiplier()*
-    powerMultiplier()
-  );
-
-}
-
-
-/* =========================================
-   SHOW MESSAGE
-========================================= */
-
-let messageTimer=null;
-
-function showMessage(message){
-
-  const box=$("message");
-
-  if(!box)return;
-
-  box.textContent=message;
-
-  box.classList.add("show");
-
-  clearTimeout(messageTimer);
-
-  messageTimer=setTimeout(
-    ()=>{
-      box.classList.remove("show");
-    },
-    2600
-  );
-
-}
-
-
-/* =========================================
-   VOICE
-========================================= */
-
-function speak(text){
-
-  if(
-    !("speechSynthesis" in window)
-  ){
-    return;
-  }
-
-  try{
-
-    window.speechSynthesis.cancel();
-
-    const utterance =
-      new SpeechSynthesisUtterance(
-        text
-      );
-
-    utterance.rate=.95;
-
-    utterance.pitch=1.05;
-
-    window.speechSynthesis.speak(
-      utterance
-    );
-
-  }catch(error){
-
-    console.warn(
-      "Speech error:",
-      error
-    );
-
-  }
-
-}
-
-
-/* =========================================
-   SHIFT STATUS
-========================================= */
-
-function shiftTimeRemaining(){
-
-  if(!state.shiftActive){
-    return 0;
-  }
-
-  return Math.max(
-    0,
-    Math.ceil(
-      (state.shiftEndsAt-Date.now())/
-      1000
-    )
-  );
-
-}
-
-
-/* =========================================
-   START SHIFT
+   SHIFT FUNCTIONS
 ========================================= */
 
 function startShift(){
 
-  if(state.shiftActive){
+  if(
+    state.shiftActive
+  ){
 
-    showMessage(
+    toast(
       "🍔 Your shift is already running!"
     );
 
@@ -2584,2651 +2061,1581 @@ function startShift(){
 
   }
 
-  const now=Date.now();
 
   state.shiftActive=true;
 
-  state.shiftStartedAt=now;
 
-  state.shiftEndsAt =
-    now+
-    (state.shiftLength*1000);
+  state.shiftEnd =
+    Date.now()+
+    (
+      state.shiftLength*
+      1000
+    );
+
+
+  toast(
+    "🍔 SHIFT STARTED — "+
+    formatTime(
+      state.shiftLength
+    )
+  );
+
 
   speak(
-    "Shift started! Welcome to Desmond's Burger Blast."
+    "Shift started. Welcome to Desmond's Burger Blast."
   );
 
-  showMessage(
-    "🍔 SHIFT STARTED — "+
-    formatTime(state.shiftLength)
-  );
 
-  updateUI();
+  renderAll();
 
 }
 
 
-/* =========================================
-   END SHIFT
-========================================= */
+function finishShift(){
 
-function endShift(){
+  if(
+    !state.shiftActive
+  ){
 
-  if(!state.shiftActive){
     return;
+
   }
+
 
   state.shiftActive=false;
 
-  state.shiftStartedAt=0;
+  state.shiftEnd=0;
 
-  state.shiftEndsAt=0;
-
-  /*
-    Next shift gets longer.
-  */
 
   state.shiftLength =
-    shiftNext();
+    nextShiftLength();
+
+
+  toast(
+    "🎉 Shift complete! Next shift: "+
+    formatTime(
+      state.shiftLength
+    )
+  );
+
 
   speak(
     "Shift complete!"
   );
 
-  showMessage(
-    "🎉 Shift complete! Next shift: "+
-    formatTime(state.shiftLength)
-  );
 
-  updateUI();
+  renderAll();
 
 }
 
 
-/* =========================================
-   PROCESS SHIFT
-========================================= */
-
-function processShift(){
+function remainingShift(){
 
   if(
-    state.shiftActive &&
-    Date.now() >= state.shiftEndsAt
+    !state.shiftActive
   ){
 
-    endShift();
+    return 0;
 
   }
 
+
+  return Math.max(
+    0,
+    Math.ceil(
+      (
+        state.shiftEnd-
+        Date.now()
+      )/
+      1000
+    )
+  );
+
+}function currentBuildBonus(){
+  let bonus=0;
+
+  CATEGORIES.forEach(category=>{
+    const value=state.build[category.id];
+
+    if(category.multi){
+      if(Array.isArray(value)){
+        value.forEach(id=>{
+          const item=ingredient(category.id,id);
+          if(item)bonus+=item[4]||0;
+        });
+      }
+    }else{
+      if(value){
+        const item=ingredient(category.id,value);
+        if(item)bonus+=item[4]||0;
+      }
+    }
+  });
+
+  return bonus;
 }
 
+function buildDescription(){
+  const parts=[];
 
-/* =========================================
-   PROCESS PASSIVE EARNINGS
-========================================= */
+  if(state.build.bun){
+    parts.push(itemText("bun",state.build.bun));
+  }
 
-function processEarnings(){
+  if(state.build.patty){
+    parts.push(itemText("patty",state.build.patty));
+  }
 
-  /*
-    Earnings only happen while
-    the shift is active.
-  */
+  if(state.build.cheese){
+    parts.push(itemText("cheese",state.build.cheese));
+  }
 
-  if(!state.shiftActive){
+  if(state.build.toppings.length){
+    parts.push(
+      state.build.toppings
+        .map(id=>itemText("toppings",id))
+        .join(", ")
+    );
+  }
+
+  if(state.build.condiments.length){
+    parts.push(
+      state.build.condiments
+        .map(id=>itemText("condiments",id))
+        .join(", ")
+    );
+  }
+
+  if(state.build.sides.length){
+    parts.push(
+      state.build.sides
+        .map(id=>itemText("sides",id))
+        .join(", ")
+    );
+  }
+
+  return parts.length
+    ? parts.join(" • ")
+    : "Nothing selected yet";
+}
+
+function clearBuild(){
+
+  state.build={
+    bun:null,
+    patty:null,
+    cheese:null,
+    toppings:[],
+    condiments:[],
+    sides:[]
+  };
+
+  saveGame();
+  renderBuilder();
+
+  toast("🧹 Burger cleared!");
+
+  speak("Burger cleared. Choose your ingredients.");
+}
+
+function isUnlocked(item){
+  return state.level>=item[3];
+}
+
+function toggleIngredient(category,id){
+
+  const cat=CATEGORIES.find(item=>item.id===category);
+
+  if(!cat)return;
+
+  const item=ingredient(category,id);
+
+  if(!item)return;
+
+  if(!isUnlocked(item)){
+
+    toast(
+      "🔒 Unlocks at level "+
+      item[3]
+    );
+
+    speak(
+      item[1]+
+      " unlocks at level "+
+      item[3]
+    );
+
     return;
   }
+
+  if(cat.multi){
+
+    if(!Array.isArray(state.build[category])){
+      state.build[category]=[];
+    }
+
+    const list=state.build[category];
+    const index=list.indexOf(id);
+
+    if(index>=0){
+      list.splice(index,1);
+      toast("➖ "+item[1]);
+    }else{
+      list.push(id);
+      toast("➕ "+item[1]);
+      speak(item[1]+" added.");
+    }
+
+  }else{
+
+    state.build[category]=id;
+
+    toast(
+      "✅ "+
+      item[1]+
+      " selected"
+    );
+
+    speak(item[1]+" selected.");
+  }
+
+  saveGame();
+  renderBuilder();
+}
+
+function randomChoice(array){
+  return array[
+    Math.floor(Math.random()*array.length)
+  ];
+}
+
+function unlockedItems(category){
+
+  const cat=CATEGORIES.find(
+    item=>item.id===category
+  );
+
+  if(!cat)return[];
+
+  return cat.items.filter(
+    item=>isUnlocked(item)
+  );
+}
+
+function generateOrder(){
+
+  const unlockedFoods=FOODS.filter(
+    food=>state.level>=food.unlock
+  );
+
+  const food=
+    randomChoice(unlockedFoods);
+
+  let requirements={
+    bun:randomChoice(
+      unlockedItems("bun")
+    )[0],
+
+    patty:randomChoice(
+      unlockedItems("patty")
+    )[0],
+
+    cheese:randomChoice(
+      unlockedItems("cheese")
+    )[0],
+
+    toppings:[],
+    condiments:[],
+    sides:[]
+  };
+
+  const toppingChoices=
+    unlockedItems("toppings");
+
+  const condimentChoices=
+    unlockedItems("condiments");
+
+  const sideChoices=
+    unlockedItems("sides");
+
+  const toppingCount=
+    Math.floor(
+      Math.random()*Math.min(3,toppingChoices.length+1)
+    );
+
+  const condimentCount=
+    Math.floor(
+      Math.random()*Math.min(3,condimentChoices.length+1)
+    );
+
+  const sideCount=1;
+
+  const shuffledToppings=
+    [...toppingChoices]
+      .sort(()=>Math.random()-.5);
+
+  requirements.toppings=
+    shuffledToppings
+      .slice(0,toppingCount)
+      .map(item=>item[0]);
+
+  const shuffledCondiments=
+    [...condimentChoices]
+      .sort(()=>Math.random()-.5);
+
+  requirements.condiments=
+    shuffledCondiments
+      .slice(0,condimentCount)
+      .map(item=>item[0]);
+
+  if(sideChoices.length){
+    requirements.sides=[
+      randomChoice(sideChoices)[0]
+    ];
+  }
+
+  return{
+    foodId:food.id,
+    name:food.name,
+    emoji:food.emoji,
+    requirements,
+    created:Date.now()
+  };
+}
+
+function orderText(order){
+
+  if(!order)return"";
+
+  const req=order.requirements;
+
+  const parts=[];
+
+  parts.push(
+    itemText("bun",req.bun)
+  );
+
+  parts.push(
+    itemText("patty",req.patty)
+  );
+
+  if(req.cheese){
+    parts.push(
+      itemText("cheese",req.cheese)
+    );
+  }
+
+  if(req.toppings.length){
+    parts.push(
+      req.toppings
+        .map(id=>itemText("toppings",id))
+        .join(", ")
+    );
+  }
+
+  if(req.condiments.length){
+    parts.push(
+      req.condiments
+        .map(id=>itemText("condiments",id))
+        .join(", ")
+    );
+  }
+
+  if(req.sides.length){
+    parts.push(
+      req.sides
+        .map(id=>itemText("sides",id))
+        .join(", ")
+    );
+  }
+
+  return parts.join(" • ");
+}
+
+function createNewOrder(){
+
+  state.order=generateOrder();
+
+  clearBuildSilent();
+
+  saveGame();
+
+  renderAll();
+
+  const message=
+    "New order. Customer wants "+
+    state.order.name+
+    ". "+
+    orderText(state.order);
+
+  toast("🧑‍🍳 NEW ORDER!");
+
+  speak(message);
+}
+
+function clearBuildSilent(){
+
+  state.build={
+    bun:null,
+    patty:null,
+    cheese:null,
+    toppings:[],
+    condiments:[],
+    sides:[]
+  };
+}
+
+function takeOrder(){
+
+  if(!state.shiftActive){
+
+    toast("⏰ Start your shift first!");
+
+    speak(
+      "Start your shift before taking orders."
+    );
+
+    return;
+  }
+
+  if(!state.order){
+
+    state.order=generateOrder();
+
+    clearBuildSilent();
+
+    saveGame();
+
+    renderAll();
+  }
+
+  showPage("order");
+
+  setTimeout(()=>{
+    const message=
+      "Customer order. "+
+      state.order.name+
+      ". "+
+      orderText(state.order);
+
+    speak(message);
+  },150);
+}
+
+function arraysMatch(a,b){
+
+  if(!Array.isArray(a))a=[];
+
+  if(!Array.isArray(b))b=[];
+
+  if(a.length!==b.length)return false;
+
+  const aa=[...a].sort();
+  const bb=[...b].sort();
+
+  return aa.every(
+    (value,index)=>value===bb[index]
+  );
+}
+
+function buildMatchesOrder(){
+
+  if(!state.order)return false;
+
+  const req=state.order.requirements;
+  const build=state.build;
+
+  if(build.bun!==req.bun)return false;
+
+  if(build.patty!==req.patty)return false;
+
+  if(build.cheese!==req.cheese)return false;
+
+  if(!arraysMatch(
+    build.toppings,
+    req.toppings
+  ))return false;
+
+  if(!arraysMatch(
+    build.condiments,
+    req.condiments
+  ))return false;
+
+  if(!arraysMatch(
+    build.sides,
+    req.sides
+  ))return false;
+
+  return true;
+}
+
+function serveOrder(){
+
+  if(!state.shiftActive){
+
+    toast("⏰ Your shift is not active!");
+
+    speak(
+      "Your shift is not active."
+    );
+
+    return;
+  }
+
+  if(!state.order){
+
+    toast("🧑‍🍳 No customer order yet!");
+
+    speak("There is no customer order yet.");
+
+    return;
+  }
+
+  if(!buildMatchesOrder()){
+
+    toast(
+      "❌ That burger doesn't match the order!"
+    );
+
+    speak(
+      "That burger does not match the customer's order. Check the order and try again."
+    );
+
+    return;
+  }
+
+  const base=.05;
+
+  const ingredientBonus=
+    currentBuildBonus();
+
+  const levelBonus=
+    1+((state.level-1)*.02);
+
+  const earned=
+    base*
+    (1+ingredientBonus)*
+    levelBonus*
+    locationMultiplier()*
+    powerMultiplier();
+
+  const bucks=
+    Math.max(
+      1,
+      Math.floor(
+        1+
+        ingredientBonus*10+
+        state.level/5
+      )
+    );
+
+  state.money+=earned;
+  state.bakerBucks+=bucks;
+
+  state.burgers++;
+  state.orders++;
+
+  addXP(
+    Math.max(
+      5,
+      Math.floor(
+        10+
+        ingredientBonus*100
+      )
+    )
+  );
+
+  const completedName=
+    state.order.name;
+
+  state.order=null;
+
+  clearBuildSilent();
+
+  saveGame();
+
+  renderAll();
+
+  showPage("home");
+
+  toast(
+    "🎉 ORDER COMPLETE! +"+
+    money(earned)+
+    " +"+
+    bucks+
+    " Baker Bucks"
+  );
+
+  speak(
+    "Order complete! "+
+    "You earned "+
+    money(earned)+
+    " and "+
+    bucks+
+    " Baker Bucks."
+  );
+}
+
+function repeatOrder(){
+
+  if(!state.order){
+
+    toast("🧑‍🍳 No order to repeat.");
+
+    speak("There is no current order.");
+
+    return;
+  }
+
+  const message=
+    "Customer order. "+
+    state.order.name+
+    ". "+
+    orderText(state.order);
+
+  speak(message);
+
+  toast("🔊 ORDER REPEATED");
+}
+
+function purchaseLocation(id){
+
+  const location=
+    LOCATIONS.find(
+      item=>item[0]===id
+    );
+
+  if(!location)return;
+
+  const[
+    locationId,
+    name,
+    description,
+    cost,
+    bonus
+  ]=location;
+
+  if(state.locations.includes(locationId)){
+
+    state.currentLocation=locationId;
+
+    saveGame();
+    renderLocations();
+
+    toast(
+      "📍 "+name+" selected!"
+    );
+
+    speak(
+      name+" selected."
+    );
+
+    return;
+  }
+
+  if(state.money<cost){
+
+    toast(
+      "💵 You need "+
+      money(cost-state.money)+
+      " more!"
+    );
+
+    speak(
+      "You need "+
+      money(cost-state.money)+
+      " more to unlock "+
+      name
+    );
+
+    return;
+  }
+
+  state.money-=cost;
+
+  state.locations.push(locationId);
+
+  state.currentLocation=locationId;
+
+  saveGame();
+
+  renderAll();
+
+  toast(
+    "🎉 "+name+" unlocked!"
+  );
+
+  speak(
+    name+" unlocked!"
+  );
+}
+
+function activateSupersized(){
 
   const now=Date.now();
 
-  const previous =
-    Number(
-      state.lastTick || now
-    );
+  if(state.supersizedUntil>now){
 
-  const elapsed =
-    Math.min(
-      Math.max(
-        0,
-        (now-previous)/1000
-      ),
-      5
-    );
+    toast("⚡ Supersized Meal is already active!");
 
-  if(elapsed<=0){
     return;
   }
 
-  state.money +=
-    eps()*elapsed;
+  const cost=25;
 
-}
+  if(state.bakerBucks<cost){
 
-
-/* =========================================
-   TICK
-========================================= */
-
-function gameTick(){
-
-  processEarnings();
-
-  processShift();
-
-  updateUI();
-
-  state.lastTick=Date.now();
-
-}
-
-
-/* =========================================
-   PAGE SWITCHING
-========================================= */
-
-function switchPage(page){
-
-  const pages =
-    document.querySelectorAll(
-      ".page"
+    toast(
+      "⚡ Need "+
+      cost+
+      " Baker Bucks"
     );
 
-  pages.forEach(
-    element => {
+    speak(
+      "You need "+
+      cost+
+      " Baker Bucks."
+    );
 
-      element.classList.toggle(
-        "active",
-        element.id ===
-        "page-"+page
-      );
+    return;
+  }
 
-    }
+  state.bakerBucks-=cost;
+
+  state.supersizedUntil=
+    now+(60*60*1000);
+
+  saveGame();
+
+  renderAll();
+
+  toast(
+    "🍔 SUPERSIZED MEAL ACTIVE! 2X"
   );
 
-  const navButtons =
-    document.querySelectorAll(
-      ".navButton"
+  speak(
+    "Supersized Meal activated. Earnings are doubled for one hour."
+  );
+}
+
+function activateGalactic(){
+
+  const now=Date.now();
+
+  if(state.galacticUntil>now){
+
+    toast("🚀 Galactic Burger is already active!");
+
+    return;
+  }
+
+  const cost=50;
+
+  if(state.bakerBucks<cost){
+
+    toast(
+      "🚀 Need "+
+      cost+
+      " Baker Bucks"
     );
 
-  navButtons.forEach(
-    button => {
+    speak(
+      "You need "+
+      cost+
+      " Baker Bucks."
+    );
 
+    return;
+  }
+
+  state.bakerBucks-=cost;
+
+  state.galacticUntil=
+    now+(60*60*1000);
+
+  saveGame();
+
+  renderAll();
+
+  toast(
+    "🚀 GALACTIC BURGER ACTIVE! 2X"
+  );
+
+  speak(
+    "Galactic Burger activated. Earnings are doubled for one hour."
+  );
+}
+
+function renderStats(){
+
+  const moneyEl=document.getElementById("money");
+  const epsEl=document.getElementById("eps");
+  const burgersEl=document.getElementById("burgers");
+  const ordersEl=document.getElementById("orders");
+  const levelEl=document.getElementById("level");
+  const xpEl=document.getElementById("xp");
+
+  if(moneyEl)
+    moneyEl.textContent=money(state.money);
+
+  if(epsEl)
+    epsEl.textContent=
+      money(earningsPerSecond())+
+      "/sec";
+
+  if(burgersEl)
+    burgersEl.textContent=
+      num(state.burgers);
+
+  if(ordersEl)
+    ordersEl.textContent=
+      num(state.orders);
+
+  if(levelEl)
+    levelEl.textContent=
+      state.level;
+
+  if(xpEl)
+    xpEl.textContent=
+      state.xp+
+      "/"+
+      xpNeeded();
+}
+
+function renderShift(){
+
+  const button=
+    document.getElementById("shiftBtn");
+
+  const status=
+    document.getElementById("shiftStatus");
+
+  if(!button||!status)return;
+
+  if(state.shiftActive){
+
+    button.textContent=
+      "⏱️ SHIFT RUNNING";
+
+    status.textContent=
+      "Time left: "+
+      formatTime(remainingShift());
+
+  }else{
+
+    button.textContent=
+      "▶️ START SHIFT";
+
+    status.textContent=
+      "Next shift: "+
+      formatTime(state.shiftLength);
+  }
+}
+
+function renderHomeOrder(){
+
+  const box=
+    document.getElementById("homeOrder");
+
+  if(!box)return;
+
+  if(!state.order){
+
+    box.innerHTML=
+      "<strong>🧑‍🍳 No active customer order</strong>"+
+      "<br><span>Tap TAKE ORDER to get a customer.</span>";
+
+    return;
+  }
+
+  box.innerHTML=
+    "<strong>"+
+    state.order.emoji+
+    " "+state.order.name+
+    "</strong>"+
+    "<br>"+
+    "<span>"+
+    orderText(state.order)+
+    "</span>";
+}
+
+function renderBuilder(){
+
+  const box=
+    document.getElementById("choices");
+
+  const tabs=
+    document.getElementById("tabs");
+
+  if(!box||!tabs)return;
+
+  if(!window.builderCategory){
+    window.builderCategory="bun";
+  }
+
+  tabs.innerHTML="";
+
+  CATEGORIES.forEach(category=>{
+
+    const tab=
+      document.createElement("button");
+
+    tab.className=
+      "tab "+
+      (
+        window.builderCategory===category.id
+          ?"active"
+          :""
+      );
+
+    tab.type="button";
+
+    tab.textContent=
+      category.label;
+
+    tab.addEventListener(
+      "click",
+      ()=>{
+        window.builderCategory=
+          category.id;
+
+        renderBuilder();
+      }
+    );
+
+    tabs.appendChild(tab);
+  });
+
+  const category=
+    CATEGORIES.find(
+      item=>item.id===window.builderCategory
+    )||CATEGORIES[0];
+
+  box.innerHTML="";
+
+  category.items.forEach(item=>{
+
+    const[
+      id,
+      name,
+      emoji,
+      unlock,
+      bonus
+    ]=item;
+
+    const button=
+      document.createElement("button");
+
+    button.type="button";
+
+    const unlocked=
+      state.level>=unlock;
+
+    let selected=false;
+
+    if(category.multi){
+
+      selected=
+        state.build[category.id]
+          .includes(id);
+
+    }else{
+
+      selected=
+        state.build[category.id]===id;
+    }
+
+    button.className=
+      "choice"+
+      (selected?" selected":"")+
+      (!unlocked?" locked":"");
+
+    button.innerHTML=
+      "<span class='choiceEmoji'>"+
+      emoji+
+      "</span>"+
+      "<span class='choiceName'>"+
+      name+
+      "</span>"+
+      "<span class='choiceBonus'>"+
+      (
+        bonus
+          ? "+"+
+            Math.round(bonus*100)+
+            "%"
+          :""
+      )+
+      "</span>"+
+      (
+        unlocked
+          ?"<span class='choiceReady'>TAP TO SELECT</span>"
+          :"<span class='choiceReady'>🔒 LEVEL "+unlock+"</span>"
+      );
+
+    button.addEventListener(
+      "click",
+      ()=>{
+        toggleIngredient(
+          category.id,
+          id
+        );
+      }
+    );
+
+    box.appendChild(button);
+  });
+
+  const summary=
+    document.getElementById("builderSummary");
+
+  if(summary){
+
+    summary.textContent=
+      buildDescription();
+  }
+}
+
+function renderOrderPage(){
+
+  const box=
+    document.getElementById("customerOrder");
+
+  if(!box)return;
+
+  if(!state.order){
+
+    box.innerHTML=
+      "<strong>🧑‍🍳 No customer order</strong>"+
+      "<br><span>Tap NEW ORDER to create one.</span>";
+
+  }else{
+
+    box.innerHTML=
+      "<strong>"+
+      state.order.emoji+
+      " CUSTOMER WANTS: "+
+      state.order.name+
+      "</strong>"+
+      "<br>"+
+      "<span>"+
+      orderText(state.order)+
+      "</span>";
+  }
+}
+
+function renderPowerups(){
+
+  const box=
+    document.getElementById("powerStatus");
+
+  if(!box)return;
+
+  const now=Date.now();
+
+  const superTime=
+    Math.max(
+      0,
+      Math.ceil(
+        (state.supersizedUntil-now)/1000
+      )
+    );
+
+  const galacticTime=
+    Math.max(
+      0,
+      Math.ceil(
+        (state.galacticUntil-now)/1000
+      )
+    );
+
+  box.innerHTML=
+    "<div>🍔 Supersized Meal: "+
+    (
+      superTime
+        ? formatTime(superTime)
+        : "READY"
+    )+
+    "</div>"+
+    "<div>🚀 Galactic Burger: "+
+    (
+      galacticTime
+        ? formatTime(galacticTime)
+        : "READY"
+    )+
+    "</div>"+
+    "<div>💵 Baker Bucks: "+
+    num(state.bakerBucks)+
+    "</div>"+
+    "<div>👑 Bakery Crowns: "+
+    num(state.crowns)+
+    "</div>";
+}
+
+function renderLocations(){
+
+  const box=
+    document.getElementById("locationList");
+
+  if(!box)return;
+
+  box.innerHTML="";
+
+  LOCATIONS.forEach(location=>{
+
+    const[
+      id,
+      name,
+      description,
+      cost,
+      bonus
+    ]=location;
+
+    const owned=
+      state.locations.includes(id);
+
+    const active=
+      state.currentLocation===id;
+
+    const card=
+      document.createElement("div");
+
+    card.className=
+      "locationCard"+
+      (active?" active":"");
+
+    card.innerHTML=
+      "<div class='locationTitle'>"+
+      name+
+      "</div>"+
+      "<div class='locationDesc'>"+
+      description+
+      "</div>"+
+      "<div class='locationBonus'>"+
+      "+"+
+      Math.round(bonus*100)+
+      "% total earnings"+
+      "</div>"+
+      (
+        owned
+          ?"<button class='smallBtn' type='button'>"+
+            (
+              active
+                ?"📍 CURRENT LOCATION"
+                :"SELECT LOCATION"
+            )+
+            "</button>"
+          :"<button class='smallBtn' type='button'>"+
+            "🔓 UNLOCK FOR "+
+            money(cost)+
+            "</button>"
+      );
+
+    const button=
+      card.querySelector("button");
+
+    if(button){
+
+      button.addEventListener(
+        "click",
+        ()=>{
+          purchaseLocation(id);
+        }
+      );
+    }
+
+    box.appendChild(card);
+  });
+}
+
+function renderFood(){
+
+  const box=
+    document.getElementById("foodList");
+
+  if(!box)return;
+
+  box.innerHTML="";
+
+  FOODS.forEach(food=>{
+
+    const unlocked=
+      state.level>=food.unlock;
+
+    const card=
+      document.createElement("div");
+
+    card.className=
+      "foodCard"+
+      (unlocked?"":" locked");
+
+    card.innerHTML=
+      "<div class='foodEmoji'>"+
+      food.emoji+
+      "</div>"+
+      "<div class='foodInfo'>"+
+      "<strong>"+
+      food.name+
+      "</strong>"+
+      "<p>"+
+      food.desc+
+      "</p>"+
+      (
+        unlocked
+          ?"<span class='unlocked'>✅ UNLOCKED</span>"
+          :"<span class='lockedText'>🔒 LEVEL "+food.unlock+"</span>"
+      )+
+      "</div>";
+
+    box.appendChild(card);
+  });
+}function showPage(page){
+
+  document
+    .querySelectorAll(".page")
+    .forEach(section=>{
+      section.classList.toggle(
+        "active",
+        section.id==="page-"+page
+      );
+    });
+
+  document
+    .querySelectorAll(".nav button")
+    .forEach(button=>{
       button.classList.toggle(
         "active",
         button.dataset.page===page
       );
+    });
 
-    }
-  );
-
-  state.currentPage=page;
-
-  if(page==="orders"){
-    renderOrdersPage();
+  if(page==="home"){
+    renderStats();
+    renderShift();
+    renderHomeOrder();
   }
 
-  if(page==="upgrades"){
-    renderUpgrades();
+  if(page==="order"){
+    renderOrderPage();
+    renderBuilder();
+  }
+
+  if(page==="powerups"){
+    renderPowerups();
   }
 
   if(page==="locations"){
     renderLocations();
   }
 
-  if(page==="home"){
-    renderBuilder();
+  if(page==="food"){
+    renderFood();
   }
 
-  saveGame();
-
+  window.currentPage=page;
 }
 
-
-/* =========================================
-   ORDER TEXT
-========================================= */
-
-function ingredientName(
-  category,
-  id
-){
-
-  const item =
-    findIngredient(
-      category,
-      id
-    );
-
-  return item
-    ? item.emoji+" "+item.name
-    : "None";
-
-}
-
-
-/* =========================================
-   ORDER DESCRIPTION
-========================================= */
-
-function orderDescription(order){
-
-  if(!order){
-
-    return "No active order.";
-
-  }
-
-  const parts=[];
-
-  parts.push(
-    "🍞 "+
-    ingredientName(
-      "buns",
-      order.buns
-    )
-  );
-
-  parts.push(
-    "🥩 "+
-    ingredientName(
-      "patties",
-      order.patties
-    )
-  );
-
-  if(order.cheese){
-
-    parts.push(
-      "🧀 "+
-      ingredientName(
-        "cheese",
-        order.cheese
-      )
-    );
-
-  }
-
-  if(order.sauce){
-
-    parts.push(
-      "🍅 "+
-      ingredientName(
-        "sauce",
-        order.sauce
-      )
-    );
-
-  }
-
-  if(
-    order.toppings &&
-    order.toppings.length
-  ){
-
-    parts.push(
-      "🥬 "+
-      order.toppings
-        .map(
-          id =>
-            ingredientName(
-              "toppings",
-              id
-            )
-        )
-        .join(", ")
-    );
-
-  }else{
-
-    parts.push(
-      "🥬 No toppings"
-    );
-
-  }
-
-  return parts.join("\n");
-
-}/* =========================================
-   CREATE CUSTOMER ORDER
-========================================= */
-
-function createOrder(){
-
-  if(!state.shiftActive){
-
-    showMessage(
-      "⏰ Start your shift before taking an order!"
-    );
-
-    speak(
-      "Start your shift before taking an order."
-    );
-
-    return false;
-
-  }
-
-  /*
-    IMPORTANT:
-    Taking an order NEVER changes state.build.
-    The burger starts completely unselected.
-  */
-
-  const randomItem = category => {
-
-    const list =
-      INGREDIENTS[category] || [];
-
-    return list[
-      Math.floor(
-        Math.random()*list.length
-      )
-    ];
-
-  };
-
-
-  const bun =
-    randomItem("buns");
-
-  const patty =
-    randomItem("patties");
-
-  const cheese =
-    randomItem("cheese");
-
-  const sauce =
-    randomItem("sauce");
-
-
-  /*
-    Pick 0–2 toppings.
-    Each topping can only appear once.
-  */
-
-  const toppingPool =
-    [...INGREDIENTS.toppings];
-
-  const toppingCount =
-    Math.floor(
-      Math.random()*3
-    );
-
-  const toppings=[];
-
-  for(
-    let i=0;
-    i<toppingCount;
-    i++
-  ){
-
-    if(!toppingPool.length){
-      break;
-    }
-
-    const index =
-      Math.floor(
-        Math.random()*
-        toppingPool.length
-      );
-
-    toppings.push(
-      toppingPool[index].id
-    );
-
-    toppingPool.splice(
-      index,
-      1
-    );
-
-  }
-
-
-  state.order={
-
-    buns:bun.id,
-
-    patties:patty.id,
-
-    cheese:cheese.id,
-
-    sauce:sauce.id,
-
-    toppings:toppings,
-
-    createdAt:Date.now()
-
-  };
-
-
-  state.totalOrders++;
-
-
-  renderOrder();
-
-
-  /*
-    Switch to the dedicated Orders page
-    so the work area is never scrunched.
-  */
-
-  switchPage("orders");
-
-
-  const spokenOrder =
-    "Customer order. "+
-    bun.name+
-    ", "+
-    patty.name+
-    ", "+
-    cheese.name+
-    ", "+
-    sauce.name+
-    ". "+
-    (
-      toppings.length
-        ? toppings
-            .map(
-              id =>
-                findIngredient(
-                  "toppings",
-                  id
-                ).name
-            )
-            .join(", ")
-        : "no toppings"
-    )+
-    ".";
-
-
-  speak(spokenOrder);
-
-
-  showMessage(
-    "🧾 New customer order!"
-  );
-
-
-  return true;
-
-}
-
-
-/* =========================================
-   RENDER ORDER
-========================================= */
-
-function renderOrder(){
-
-  const order=state.order;
-
-  const homeBox=
-    $("homeOrderBox");
-
-  const homeText=
-    $("homeOrderText");
-
-  const large=
-    $("ordersLarge");
-
-
-  if(!order){
-
-    if(homeBox){
-      homeBox.hidden=true;
-    }
-
-    if(large){
-
-      large.innerHTML=`
-        <strong>No active order</strong>
-        <span style="font-size:14px;margin-top:6px">
-          Start a shift and take a customer order.
-        </span>
-      `;
-
-    }
-
-    return;
-
-  }
-
-
-  if(homeBox){
-
-    homeBox.hidden=false;
-
-  }
-
-
-  const description =
-    orderDescription(order);
-
-
-  if(homeText){
-
-    homeText.innerHTML =
-      description.replace(
-        /\n/g,
-        "<br>"
-      );
-
-  }
-
-
-  if(large){
-
-    large.innerHTML=`
-
-      <div
-        style="
-          font-size:20px;
-          font-weight:1000;
-          color:#c52d1d;
-          margin-bottom:8px;
-        "
-      >
-        👨‍🍳 BUILD THIS ORDER
-      </div>
-
-      <div
-        style="
-          white-space:pre-line;
-          font-size:17px;
-          font-weight:900;
-        "
-      >
-        ${description}
-      </div>
-
-    `;
-
-  }
-
-}
-
-
-/* =========================================
-   CLEAR BURGER
-========================================= */
-
-function clearBurger(){
-
-  state.build={
-
-    buns:null,
-
-    patties:null,
-
-    cheese:null,
-
-    sauce:null,
-
-    toppings:[]
-
-  };
-
-
+function renderAll(){
+
+  renderStats();
+  renderShift();
+  renderHomeOrder();
+  renderOrderPage();
   renderBuilder();
-
-
-  showMessage(
-    "🧹 Burger cleared!"
-  );
-
-
-  speak(
-    "Burger cleared."
-  );
-
-}
-
-
-/* =========================================
-   SELECT BUILDER ITEM
-========================================= */
-
-function selectIngredient(
-  category,
-  id
-){
-
-  if(
-    !INGREDIENTS[category]
-  ){
-    return;
-  }
-
-
-  /*
-    TOPPINGS are individually selectable.
-    Multiple toppings are allowed.
-  */
-
-  if(category==="toppings"){
-
-    const current =
-      state.build.toppings || [];
-
-    const index =
-      current.indexOf(id);
-
-
-    if(index>=0){
-
-      current.splice(
-        index,
-        1
-      );
-
-    }else{
-
-      current.push(id);
-
-    }
-
-
-    state.build.toppings =
-      current;
-
-  }else{
-
-    /*
-      Every other ingredient category
-      has exactly one choice.
-    */
-
-    state.build[category]=id;
-
-  }
-
-
-  renderBuilder();
-
-  saveGame();
-
-}
-
-
-/* =========================================
-   BUILDER CATEGORY
-========================================= */
-
-let activeBuilderCategory="buns";
-
-
-/* =========================================
-   RENDER BUILDER
-========================================= */
-
-function renderBuilder(){
-
-  const tabs=
-    $("builderTabs");
-
-  const grid=
-    $("choiceGrid");
-
-  if(!tabs || !grid){
-    return;
-  }
-
-
-  tabs.innerHTML="";
-
-
-  BUILDER_CATEGORIES.forEach(
-    category => {
-
-      const button=
-        document.createElement(
-          "button"
-        );
-
-      button.type="button";
-
-      button.className=
-        "builderTab"+
-        (
-          activeBuilderCategory===
-          category.id
-            ? " active"
-            : ""
-        );
-
-      button.textContent=
-        category.name;
-
-      button.setAttribute(
-        "aria-label",
-        category.name
-      );
-
-
-      button.addEventListener(
-        "click",
-        () => {
-
-          activeBuilderCategory=
-            category.id;
-
-          renderBuilder();
-
-          speak(
-            category.name
-          );
-
-        }
-      );
-
-
-      tabs.appendChild(button);
-
-    }
-  );
-
-
-  grid.innerHTML="";
-
-
-  const list =
-    INGREDIENTS[
-      activeBuilderCategory
-    ] || [];
-
-
-  list.forEach(
-    item => {
-
-      const button=
-        document.createElement(
-          "button"
-        );
-
-      button.type="button";
-
-      button.className="choice";
-
-
-      let selected=false;
-
-
-      if(
-        activeBuilderCategory===
-        "toppings"
-      ){
-
-        selected=
-          (
-            state.build.toppings || []
-          ).includes(item.id);
-
-      }else{
-
-        selected=
-          state.build[
-            activeBuilderCategory
-          ]===item.id;
-
-      }
-
-
-      if(selected){
-
-        button.classList.add(
-          "selected"
-        );
-
-      }
-
-
-      button.innerHTML=`
-        <span
-          style="
-            font-size:22px;
-            display:block;
-          "
-        >
-          ${item.emoji}
-        </span>
-
-        <span>
-          ${item.name}
-        </span>
-
-        <small>
-          +${money(item.price)}
-        </small>
-      `;
-
-
-      button.setAttribute(
-        "aria-label",
-        (
-          selected
-            ? "Selected "
-            : ""
-        )+
-        item.name
-      );
-
-
-      button.addEventListener(
-        "click",
-        () => {
-
-          selectIngredient(
-            activeBuilderCategory,
-            item.id
-          );
-
-          speak(
-            item.name+
-            (
-              (
-                activeBuilderCategory===
-                "toppings"
-              )
-                ? (
-                    (
-                      state.build.toppings ||
-                      []
-                    ).includes(item.id)
-                      ? " selected"
-                      : " removed"
-                  )
-                : " selected"
-            )
-          );
-
-        }
-      );
-
-
-      grid.appendChild(button);
-
-    }
-  );
-
-}
-
-
-/* =========================================
-   CHECK BURGER
-========================================= */
-
-function burgerMatchesOrder(){
-
-  const order=state.order;
-
-  if(!order){
-    return false;
-  }
-
-
-  const build=state.build;
-
-
-  /*
-    Every category must match exactly.
-  */
-
-  if(
-    build.buns !==
-    order.buns
-  ){
-    return false;
-  }
-
-
-  if(
-    build.patties !==
-    order.patties
-  ){
-    return false;
-  }
-
-
-  if(
-    build.cheese !==
-    order.cheese
-  ){
-    return false;
-  }
-
-
-  if(
-    build.sauce !==
-    order.sauce
-  ){
-    return false;
-  }
-
-
-  const buildToppings =
-    [...(
-      build.toppings || []
-    )].sort();
-
-
-  const orderToppings =
-    [...(
-      order.toppings || []
-    )].sort();
-
-
-  if(
-    buildToppings.length !==
-    orderToppings.length
-  ){
-    return false;
-  }
-
-
-  for(
-    let i=0;
-    i<buildToppings.length;
-    i++
-  ){
-
-    if(
-      buildToppings[i] !==
-      orderToppings[i]
-    ){
-
-      return false;
-
-    }
-
-  }
-
-
-  return true;
-
-}
-
-
-/* =========================================
-   SERVE BURGER
-========================================= */
-
-function submitBurger(){
-
-  if(!state.shiftActive){
-
-    showMessage(
-      "⏰ Start your shift first!"
-    );
-
-    speak(
-      "Start your shift first."
-    );
-
-    return;
-
-  }
-
-
-  if(!state.order){
-
-    showMessage(
-      "🧾 Take a customer order first!"
-    );
-
-    speak(
-      "Take a customer order first."
-    );
-
-    switchPage("orders");
-
-    return;
-
-  }
-
-
-  /*
-    Do NOT allow an empty burger
-    to accidentally count.
-  */
-
-  if(
-    !state.build.buns ||
-    !state.build.patties
-  ){
-
-    showMessage(
-      "🍔 Choose a bun and patty first!"
-    );
-
-    speak(
-      "Choose a bun and patty first."
-    );
-
-    return;
-
-  }
-
-
-  if(
-    !burgerMatchesOrder()
-  ){
-
-    showMessage(
-      "❌ That burger doesn't match the order!"
-    );
-
-    speak(
-      "That burger does not match the customer order."
-    );
-
-    return;
-
-  }
-
-
-  const earned =
-    burgerValue(state.build);
-
-
-  state.money += earned;
-
-  state.burgersCompleted++;
-
-  state.ordersCompleted++;
-
-
-  /*
-    Burger XP comes from every ingredient.
-  */
-
-  let earnedXP=5;
-
-
-  for(
-    const category of
-    ["buns","patties","cheese","sauce"]
-  ){
-
-    const item =
-      findIngredient(
-        category,
-        state.build[category]
-      );
-
-    if(item){
-
-      earnedXP +=
-        item.xp;
-
-    }
-
-  }
-
-
-  for(
-    const topping of
-    state.build.toppings || []
-  ){
-
-    const item =
-      findIngredient(
-        "toppings",
-        topping
-      );
-
-    if(item){
-
-      earnedXP +=
-        item.xp;
-
-    }
-
-  }
-
-
-  addXP(earnedXP);
-
-
-  const earnedBucks =
-    Math.max(
-      1,
-      Math.floor(
-        earned*10
-      )
-    );
-
-
-  state.bakerBucks +=
-    earnedBucks;
-
-
-  state.order=null;
-
-
-  /*
-    Clear the builder completely
-    after a successful order.
-  */
-
-  clearBurger();
-
-
-  renderOrder();
-
-
-  speak(
-    "Order complete! You earned "+
-    money(earned)+
-    " and "+
-    earnedBucks+
-    " Baker Bucks."
-  );
-
-
-  showMessage(
-    "🎉 ORDER COMPLETE! +"+
-    money(earned)+
-    " 💵 +"+
-    earnedBucks+
-    " Baker Bucks!"
-  );
-
-
-  switchPage("home");
-
-}
-
-
-/* =========================================
-   REPEAT ORDER
-========================================= */
-
-function repeatOrder(){
-
-  if(!state.order){
-
-    showMessage(
-      "🧾 There is no order to repeat."
-    );
-
-    speak(
-      "There is no order to repeat."
-    );
-
-    return;
-
-  }
-
-
-  const description =
-    orderDescription(
-      state.order
-    );
-
-
-  speak(
-    "Customer order. "+
-    description
-      .replace(/\n/g,", ")
-  );
-
-
-  showMessage(
-    "🔁 Order repeated."
-  );
-
-}
-
-
-/* =========================================
-   GO BUILD ORDER
-========================================= */
-
-function goBuildOrder(){
-
-  if(!state.order){
-
-    showMessage(
-      "🧾 Take an order first."
-    );
-
-    return;
-
-  }
-
-
-  /*
-    IMPORTANT:
-    We intentionally DO NOT copy
-    the order into state.build.
-
-    The player must build every part
-    manually.
-  */
-
-  activeBuilderCategory="buns";
-
-  switchPage("home");
-
-  showMessage(
-    "🍔 Build the customer's burger!"
-  );
-
-  speak(
-    "Build the customer's burger. Start with the bun."
-  );
-
-}
-
-
-/* =========================================
-   RENDER ORDERS PAGE
-========================================= */
-
-function renderOrdersPage(){
-
-  renderOrder();
-
-}
-
-
-/* =========================================
-   UPGRADE COST
-========================================= */
-
-function upgradeCost(
-  upgrade
-){
-
-  const level =
-    Number(
-      state.upgrades[
-        upgrade.id
-      ] || 0
-    );
-
-
-  return (
-    upgrade.baseCost *
-    Math.pow(
-      2,
-      level
-    )
-  );
-
-}
-
-
-/* =========================================
-   BUY UPGRADE
-========================================= */
-
-function buyUpgrade(
-  upgrade
-){
-
-  const level =
-    Number(
-      state.upgrades[
-        upgrade.id
-      ] || 0
-    );
-
-
-  if(
-    level >=
-    upgrade.maxLevel
-  ){
-
-    showMessage(
-      "⭐ "+upgrade.name+
-      " is fully upgraded!"
-    );
-
-    return;
-
-  }
-
-
-  const cost =
-    upgradeCost(upgrade);
-
-
-  if(
-    state.money <
-    cost
-  ){
-
-    showMessage(
-      "💰 You need "+
-      money(
-        cost-state.money
-      )+
-      " more."
-    );
-
-    return;
-
-  }
-
-
-  state.money -= cost;
-
-
-  state.upgrades[
-    upgrade.id
-  ] =
-    level+1;
-
-
-  showMessage(
-    "⬆️ "+upgrade.name+
-    " upgraded to level "+
-    (level+1)+"!"
-  );
-
-
-  speak(
-    upgrade.name+
-    " upgraded to level "+
-    (level+1)
-  );
-
-
-  renderUpgrades();
-
-  updateUI();
-
-  saveGame();
-
-}
-
-
-/* =========================================
-   RENDER UPGRADES
-========================================= */
-
-function renderUpgrades(){
-
-  const list=
-    $("upgradeList");
-
-  if(!list){
-    return;
-  }
-
-
-  list.innerHTML="";
-
-
-  UPGRADES.forEach(
-    upgrade => {
-
-      const level =
-        Number(
-          state.upgrades[
-            upgrade.id
-          ] || 0
-        );
-
-
-      const maxed =
-        level >=
-        upgrade.maxLevel;
-
-
-      const cost =
-        upgradeCost(upgrade);
-
-
-      const card=
-        document.createElement(
-          "div"
-        );
-
-      card.className=
-        "upgradeCard";
-
-
-      card.innerHTML=`
-
-        <div class="cardName">
-          ${upgrade.name}
-        </div>
-
-        <div class="cardDesc">
-          ${upgrade.description}
-        </div>
-
-        <div
-          style="
-            margin-top:6px;
-            font-weight:1000;
-            color:#7a2b16;
-          "
-        >
-          Level ${level}/${upgrade.maxLevel}
-        </div>
-
-        <div class="cardBottom">
-
-          <div class="cardPrice">
-            ${
-              maxed
-                ? "MAX"
-                : money(cost)
-            }
-          </div>
-
-          <button
-            class="smallButton"
-            ${maxed ? "disabled" : ""}
-          >
-            ${
-              maxed
-                ? "MAXED"
-                : "UPGRADE"
-            }
-          </button>
-
-        </div>
-
-      `;
-
-
-      const button=
-        card.querySelector(
-          "button"
-        );
-
-
-      if(button){
-
-        button.addEventListener(
-          "click",
-          () => buyUpgrade(upgrade)
-        );
-
-      }
-
-
-      list.appendChild(card);
-
-    }
-  );
-
-}
-
-
-/* =========================================
-   BUY LOCATION
-========================================= */
-
-function buyLocation(
-  location
-){
-
-  if(
-    state.unlockedLocations
-      .includes(location.id)
-  ){
-
-    state.currentLocation=
-      location.id;
-
-    showMessage(
-      "📍 Now serving at "+
-      location.name
-    );
-
-    renderLocations();
-
-    return;
-
-  }
-
-
-  if(
-    state.money <
-    location.cost
-  ){
-
-    showMessage(
-      "💰 You need "+
-      money(
-        location.cost-state.money
-      )+
-      " more."
-    );
-
-    return;
-
-  }
-
-
-  state.money -=
-    location.cost;
-
-
-  state.unlockedLocations.push(
-    location.id
-  );
-
-
-  state.currentLocation=
-    location.id;
-
-
-  showMessage(
-    "🎉 Location unlocked: "+
-    location.name
-  );
-
-
-  speak(
-    "Location unlocked. "+
-    location.name
-  );
-
-
+  renderPowerups();
   renderLocations();
-
-  updateUI();
-
-  saveGame();
-
+  renderFood();
 }
 
+function gameTick(){
 
-/* =========================================
-   RENDER LOCATIONS
-========================================= */
-
-function renderLocations(){
-
-  const list=
-    $("locationList");
-
-  if(!list){
-    return;
-  }
-
-
-  list.innerHTML="";
-
-
-  LOCATIONS.forEach(
-    location => {
-
-      const unlocked =
-        state.unlockedLocations
-          .includes(location.id);
-
-
-      const current =
-        state.currentLocation===
-        location.id;
-
-
-      const card=
-        document.createElement(
-          "div"
-        );
-
-      card.className=
-        "locationCard";
-
-
-      card.innerHTML=`
-
-        <div class="cardName">
-          ${location.name}
-        </div>
-
-        <div class="cardDesc">
-          ${location.description}
-        </div>
-
-        <div
-          style="
-            margin-top:6px;
-            font-weight:1000;
-            color:#16852d;
-          "
-        >
-          +${Math.round(
-            location.bonus*100
-          )}% earnings
-        </div>
-
-        <div class="cardBottom">
-
-          <div class="cardPrice">
-            ${
-              current
-                ? "CURRENT"
-                : unlocked
-                  ? "UNLOCKED"
-                  : money(location.cost)
-            }
-          </div>
-
-          <button
-            class="smallButton"
-            ${current ? "disabled" : ""}
-          >
-            ${
-              current
-                ? "CURRENT"
-                : unlocked
-                  ? "SELECT"
-                  : "UNLOCK"
-            }
-          </button>
-
-        </div>
-
-      `;
-
-
-      const button=
-        card.querySelector(
-          "button"
-        );
-
-
-      if(button){
-
-        button.addEventListener(
-          "click",
-          () => buyLocation(location)
-        );
-
-      }
-
-
-      list.appendChild(card);
-
-    }
-  );
-
-}
-
-
-/* =========================================
-   BURGER RAP
-========================================= */
-
-function playBurgerRap(){
-
-  const rap =
-`Yo yo yo, it's burger time,
-Stack it up and make it prime!
-Bun on top and patty below,
-Cheese melts down and steals the show!
-
-Lettuce, tomato, pickles too,
-Bacon makes the burger go BOOM for you!
-Ketchup, mustard, sauce so sweet,
-Desmond's Burger Blast can't be beat!
-
-Flip that grill, hear that sizzle,
-Build it fast and watch it drizzle!
-Take that order, make that cash,
-BURGER BLAST — LET'S MAKE A SPLASH! 🍔🍟`;
-
-  speak(rap);
-
-  showMessage(
-    "🎤🍔 BURGER RAP!"
-  );
-
-}
-
-
-/* =========================================
-   MYSTERY FLAVORS
-========================================= */
-
-function unlockMysteryFlavor(){
-
-  const cost =
-    Math.max(
-      25,
-      25*
-      Math.pow(
-        2,
-        state.unlockedMystery
-      )
-    );
-
-
-  if(
-    state.unlockedMystery >=
-    MYSTERY_FLAVORS.length
-  ){
-
-    showMessage(
-      "❓ All mystery flavors unlocked!"
-    );
-
-    return;
-
-  }
-
-
-  if(
-    state.bakerBucks <
-    cost
-  ){
-
-    showMessage(
-      "🪙 You need "+
-      number(
-        cost-state.bakerBucks
-      )+
-      " more Baker Bucks."
-    );
-
-    return;
-
-  }
-
-
-  state.bakerBucks -=
-    cost;
-
-
-  const flavor =
-    MYSTERY_FLAVORS[
-      state.unlockedMystery
-    ];
-
-
-  state.unlockedMystery++;
-
-
-  showMessage(
-    "🔓 Mystery flavor unlocked: "+
-    flavor
-  );
-
-
-  speak(
-    "Mystery flavor unlocked. "+
-    flavor
-  );
-
-
-  saveGame();
-
-}
-
-
-/* =========================================
-   POWER-UPS
-========================================= */
-
-function activateSupersized(){
+  const now=Date.now();
 
   /*
-    Supersized Meal:
-    1 hour
-    2x earnings
+    Earnings only happen while a shift is active.
   */
 
-  const now=Date.now();
+  if(state.shiftActive){
 
-  state.supersizedUntil =
-    Math.max(
-      now,
-      state.supersizedUntil || 0
-    )+
-    60*60*1000;
+    const elapsed=
+      Math.max(
+        0,
+        (now-state.lastTick)/1000
+      );
 
+    if(elapsed>0){
 
-  showMessage(
-    "🍔🍟 SUPERSIZED MEAL! 2× earnings for 1 hour!"
-  );
+      state.money+=
+        earningsPerSecond()*
+        elapsed;
+    }
 
+    if(now>=state.shiftEnd){
 
-  speak(
-    "Supersized Meal activated. Double earnings for one hour."
-  );
-
-
-  saveGame();
-
-}
-
-
-/* =========================================
-   GALACTIC BURGER
-========================================= */
-
-function activateGalactic(){
-
-  const now=Date.now();
-
-  state.galacticUntil =
-    Math.max(
-      now,
-      state.galacticUntil || 0
-    )+
-    60*60*1000;
-
-
-  showMessage(
-    "🚀🍔 GALACTIC BURGER! 2× earnings for 1 hour!"
-  );
-
-
-  speak(
-    "Galactic Burger activated. Double earnings for one hour."
-  );
-
-
-  saveGame();
-
-}
-
-
-/* =========================================
-   POWER-UP MENU
-========================================= */
-
-function showPowerUps(){
-
-  const supersizedReady =
-    state.level>=6;
-
-
-  if(!supersizedReady){
-
-    showMessage(
-      "🍔 Supersized Meal unlocks at level 6."
-    );
-
-    speak(
-      "Supersized Meal unlocks at level 6."
-    );
-
-    return;
-
+      finishShift();
+    }
   }
 
+  state.lastTick=now;
 
-  const useSupersized =
-    confirm(
-      "🍔 SUPERSIZED MEAL\n\n"+
-      "Activate 2× earnings for 1 hour?\n\n"+
-      "Press OK to activate."
-    );
-
-
-  if(useSupersized){
-
-    activateSupersized();
-
-  }
-
-}
-
-
-/* =========================================
-   PRESTIGE
-========================================= */
-
-function prestige(){
-
-  const requiredLevel=25;
+  renderStats();
+  renderShift();
+  renderPowerups();
 
   if(
-    state.level <
-    requiredLevel
+    state.supersizedUntil>0 &&
+    state.supersizedUntil<=now
   ){
-
-    showMessage(
-      "👑 Reach level "+
-      requiredLevel+
-      " to prestige."
-    );
-
-    return;
-
+    state.supersizedUntil=0;
+    toast("🍔 Supersized Meal ended!");
+    speak("Supersized Meal has ended.");
   }
 
-
-  const confirmed=
-    confirm(
-      "👑 PRESTIGE\n\n"+
-      "Prestige will reset your money, "+
-      "level and upgrades.\n\n"+
-      "You will receive a Bakery Crown."
-    );
-
-
-  if(!confirmed){
-    return;
+  if(
+    state.galacticUntil>0 &&
+    state.galacticUntil<=now
+  ){
+    state.galacticUntil=0;
+    toast("🚀 Galactic Burger ended!");
+    speak("Galactic Burger has ended.");
   }
-
-
-  state.money=0;
-
-  state.xp=0;
-
-  state.level=1;
-
-  state.bakerBucks=0;
-
-  state.crowns++;
-
-  state.burgersCompleted=0;
-
-  state.ordersCompleted=0;
-
-  state.totalOrders=0;
-
-
-  state.upgrades={
-    grill:0,
-    register:0,
-    chef:0,
-    fries:0,
-    combo:0
-  };
-
-
-  state.order=null;
-
-  clearBurger();
-
-
-  showMessage(
-    "👑 PRESTIGE COMPLETE! +1 Bakery Crown!"
-  );
-
-
-  speak(
-    "Prestige complete. You earned a Bakery Crown."
-  );
-
 
   saveGame();
-
 }
 
+function setupButtons(){
 
-/* =========================================
-   MORE MENU
-========================================= */
+  const shiftBtn=
+    document.getElementById("shiftBtn");
 
-function showMystery(){
+  if(shiftBtn){
 
-  const next =
-    MYSTERY_FLAVORS[
-      state.unlockedMystery
-    ];
-
-
-  if(!next){
-
-    showMessage(
-      "❓ All mystery flavors are unlocked!"
-    );
-
-    return;
-
-  }
-
-
-  const cost =
-    Math.max(
-      25,
-      25*
-      Math.pow(
-        2,
-        state.unlockedMystery
-      )
-    );
-
-
-  const unlocked=
-    MYSTERY_FLAVORS
-      .slice(
-        0,
-        state.unlockedMystery
-      );
-
-
-  let message=
-    "❓ MYSTERY FLAVORS\n\n";
-
-
-  if(unlocked.length){
-
-    message +=
-      "Unlocked:\n"+
-      unlocked.join("\n")+
-      "\n\n";
-
-  }
-
-
-  message +=
-    "Next mystery flavor:\n"+
-    "🔒 LOCKED\n\n"+
-    "Cost: "+
-    number(cost)+
-    " Baker Bucks";
-
-
-  const wants=
-    confirm(message+"\n\nUnlock it?");
-
-
-  if(wants){
-
-    unlockMysteryFlavor();
-
-  }
-
-}/* =========================================
-   UPDATE HOME STATS
-========================================= */
-
-function updateStats(){
-
-  const moneyDisplay =
-    $("moneyDisplay");
-
-  const epsDisplay =
-    $("epsDisplay");
-
-  const burgersDisplay =
-    $("burgersDisplay");
-
-  const ordersDisplay =
-    $("ordersDisplay");
-
-  const levelDisplay =
-    $("levelDisplay");
-
-  const xpDisplay =
-    $("xpDisplay");
-
-
-  if(moneyDisplay){
-
-    moneyDisplay.textContent =
-      money(state.money);
-
-  }
-
-
-  if(epsDisplay){
-
-    epsDisplay.textContent =
-      money(eps());
-
-  }
-
-
-  if(burgersDisplay){
-
-    burgersDisplay.textContent =
-      number(
-        state.burgersCompleted
-      );
-
-  }
-
-
-  if(ordersDisplay){
-
-    ordersDisplay.textContent =
-      number(
-        state.ordersCompleted
-      );
-
-  }
-
-
-  if(levelDisplay){
-
-    levelDisplay.textContent =
-      number(state.level);
-
-  }
-
-
-  if(xpDisplay){
-
-    xpDisplay.textContent =
-      number(state.xp)+
-      " / "+
-      number(xpNeeded());
-
-  }
-
-}
-
-
-/* =========================================
-   UPDATE SHIFT DISPLAY
-========================================= */
-
-function updateShiftDisplay(){
-
-  const button =
-    $("startShiftBtn");
-
-  const status =
-    $("shiftStatus");
-
-
-  if(!button || !status){
-    return;
-  }
-
-
-  if(state.shiftActive){
-
-    const remaining =
-      shiftTimeRemaining();
-
-
-    button.textContent =
-      "⏹️ SHIFT RUNNING";
-
-
-    button.classList.remove(
-      "orange"
-    );
-
-
-    status.innerHTML =
-      "🍔 SHIFT ACTIVE • "+
-      formatTime(remaining)+
-      " REMAINING";
-
-
-    return;
-
-  }
-
-
-  button.textContent =
-    "▶️ START SHIFT";
-
-
-  button.classList.add(
-    "orange"
-  );
-
-
-  status.innerHTML =
-    "⏱️ NEXT SHIFT: "+
-    formatTime(
-      state.shiftLength
-    );
-
-}
-
-
-/* =========================================
-   UPDATE UI
-========================================= */
-
-function updateUI(){
-
-  updateStats();
-
-  updateShiftDisplay();
-
-  renderOrder();
-
-}
-
-
-/* =========================================
-   START / STOP SHIFT BUTTON
-========================================= */
-
-function handleShiftButton(){
-
-  if(state.shiftActive){
-
-    /*
-      Do not throw away a shift accidentally.
-      The button simply explains that the shift
-      is currently running.
-    */
-
-    showMessage(
-      "🍔 Your shift is still running! "+
-      formatTime(
-        shiftTimeRemaining()
-      )+
-      " remaining."
-    );
-
-    return;
-
-  }
-
-
-  startShift();
-
-}
-
-
-/* =========================================
-   NAVIGATION BUTTONS
-========================================= */
-
-function initNavigation(){
-
-  document
-    .querySelectorAll(
-      ".navButton"
-    )
-    .forEach(
-      button => {
-
-        button.addEventListener(
-          "click",
-          () => {
-
-            const page =
-              button.dataset.page;
-
-            switchPage(page);
-
-          }
-        );
-
-      }
-    );
-
-}
-
-
-/* =========================================
-   HOME BUTTONS
-========================================= */
-
-function initButtons(){
-
-  const startShiftBtn =
-    $("startShiftBtn");
-
-  if(startShiftBtn){
-
-    startShiftBtn.addEventListener(
+    shiftBtn.addEventListener(
       "click",
-      handleShiftButton
+      startShift
     );
-
   }
 
+  const takeBtn=
+    document.getElementById("takeOrder");
 
-  const takeOrderBtn =
-    $("takeOrderBtn");
+  if(takeBtn){
 
-  if(takeOrderBtn){
-
-    takeOrderBtn.addEventListener(
+    takeBtn.addEventListener(
       "click",
-      createOrder
+      takeOrder
     );
-
   }
 
+  const clearHome=
+    document.getElementById("homeClear");
 
-  const newOrderBtn =
-    $("newOrderBtn");
+  if(clearHome){
 
-  if(newOrderBtn){
-
-    newOrderBtn.addEventListener(
+    clearHome.addEventListener(
       "click",
-      createOrder
+      clearBuild
     );
-
   }
 
+  const repeat=
+    document.getElementById("repeat");
 
-  const repeatOrderBtn =
-    $("repeatOrderBtn");
+  if(repeat){
 
-  if(repeatOrderBtn){
-
-    repeatOrderBtn.addEventListener(
+    repeat.addEventListener(
       "click",
       repeatOrder
     );
-
   }
 
+  const newOrder=
+    document.getElementById("newOrder");
 
-  const goBuildBtn =
-    $("goBuildBtn");
+  if(newOrder){
 
-  if(goBuildBtn){
-
-    goBuildBtn.addEventListener(
+    newOrder.addEventListener(
       "click",
-      goBuildOrder
+      createNewOrder
     );
-
   }
 
+  const clear=
+    document.getElementById("clear");
 
-  const clearBurgerBtn =
-    $("clearBurgerBtn");
+  if(clear){
 
-  if(clearBurgerBtn){
-
-    clearBurgerBtn.addEventListener(
+    clear.addEventListener(
       "click",
-      clearBurger
+      clearBuild
     );
-
   }
 
+  const serve=
+    document.getElementById("serve");
 
-  const submitBurgerBtn =
-    $("submitBurgerBtn");
+  if(serve){
 
-  if(submitBurgerBtn){
-
-    submitBurgerBtn.addEventListener(
+    serve.addEventListener(
       "click",
-      submitBurger
+      serveOrder
     );
-
   }
 
+  document
+    .querySelectorAll(".nav button")
+    .forEach(button=>{
 
-  const burgerRapBtn =
-    $("burgerRapBtn");
-
-  if(burgerRapBtn){
-
-    burgerRapBtn.addEventListener(
-      "click",
-      playBurgerRap
-    );
-
-  }
-
-
-  const mysteryBtn =
-    $("mysteryBtn");
-
-  if(mysteryBtn){
-
-    mysteryBtn.addEventListener(
-      "click",
-      showMystery
-    );
-
-  }
-
-
-  const prestigeBtn =
-    $("prestigeBtn");
-
-  if(prestigeBtn){
-
-    prestigeBtn.addEventListener(
-      "click",
-      prestige
-    );
-
-  }
-
-
-  const powerBtn =
-    $("powerBtn");
-
-  if(powerBtn){
-
-    powerBtn.addEventListener(
-      "click",
-      showPowerUps
-    );
-
-  }
-
-}
-
-
-/* =========================================
-   WELCOME MESSAGE
-========================================= */
-
-function welcomeMessage(){
-
-  setTimeout(
-    () => {
-
-      speak(
-        "Welcome to Desmond's Burger Blast. "+
-        "Are you ready to make some burgers?"
+      button.addEventListener(
+        "click",
+        ()=>{
+          showPage(button.dataset.page);
+        }
       );
 
-    },
-    700
-  );
+    });
 
+  const superButton=
+    document.getElementById("super");
+
+  if(superButton){
+
+    superButton.addEventListener(
+      "click",
+      activateSupersized
+    );
+  }
+
+  const galacticButton=
+    document.getElementById("galactic");
+
+  if(galacticButton){
+
+    galacticButton.addEventListener(
+      "click",
+      activateGalactic
+    );
+  }
 }
 
-
-/* =========================================
-   INITIALIZE GAME
-========================================= */
-
-function init(){
+function setupAccessibility(){
 
   /*
-    Make absolutely sure the builder
-    starts with no selected ingredients
-    unless the player has deliberately
-    saved a burger.
+    Make sure buttons have useful VoiceOver labels.
   */
 
-  if(
-    !state.build ||
-    typeof state.build !== "object"
-  ){
+  const labels={
+    shiftBtn:
+      "Start or view burger shop shift",
 
-    state.build={
-      buns:null,
-      patties:null,
-      cheese:null,
-      sauce:null,
-      toppings:[]
-    };
+    takeOrder:
+      "Take a customer order",
 
-  }
+    homeClear:
+      "Clear the current burger",
 
+    repeat:
+      "Repeat the customer order",
 
-  if(
-    !Array.isArray(
-      state.build.toppings
-    )
-  ){
+    newOrder:
+      "Create a new customer order",
 
-    state.build.toppings=[];
+    clear:
+      "Clear all selected burger ingredients",
 
-  }
+    serve:
+      "Serve the completed burger",
 
+    super:
+      "Activate Supersized Meal for double earnings for one hour",
 
-  initNavigation();
+    galactic:
+      "Activate Galactic Burger for double earnings for one hour"
+  };
 
-  initButtons();
+  Object.keys(labels).forEach(id=>{
 
-  renderBuilder();
+    const element=
+      document.getElementById(id);
 
-  renderOrder();
-
-  renderUpgrades();
-
-  renderLocations();
-
-  updateUI();
-
-  saveGame();
-
-  welcomeMessage();
-
+    if(element){
+      element.setAttribute(
+        "aria-label",
+        labels[id]
+      );
+    }
+  });
 }
 
+function initialWelcome(){
 
-/* =========================================
-   GAME LOOP
-========================================= */
+  const welcomed=
+    localStorage.getItem(
+      "desmondBurgerWelcome"
+    );
 
-let lastFrame =
-  Date.now();
+  if(welcomed)return;
 
+  setTimeout(()=>{
 
-setInterval(
-  () => {
+    speak(
+      "Welcome to Desmond's Burger Blast. Are you ready to make some burgers?"
+    );
 
-    const now =
-      Date.now();
+    localStorage.setItem(
+      "desmondBurgerWelcome",
+      "yes"
+    );
 
+  },900);
+}
 
-    /*
-      Prevent a giant earnings jump
-      if the phone has been asleep.
-    */
+function preventAccidentalFormSubmit(){
 
-    const elapsed =
-      Math.min(
-        5,
-        Math.max(
-          0,
-          (now-lastFrame)/1000
-        )
-      );
+  document
+    .querySelectorAll("button")
+    .forEach(button=>{
+      button.type="button";
+    });
+}
 
+function initGame(){
 
-    if(
-      state.shiftActive &&
-      elapsed>0
-    ){
+  setupButtons();
 
-      state.money +=
-        eps()*elapsed;
+  setupAccessibility();
 
-    }
+  preventAccidentalFormSubmit();
 
+  renderAll();
 
-    lastFrame=now;
+  showPage("home");
 
+  initialWelcome();
 
-    processShift();
+  /*
+    Give the game a regular update loop.
+    This keeps the timer, earnings,
+    powerups and VoiceOver information current.
+  */
 
-    updateUI();
+  setInterval(
+    gameTick,
+    1000
+  );
+}
 
-  },
-  1000
-);
-
-
-/* =========================================
-   SAVE PERIODICALLY
-========================================= */
-
-setInterval(
-  () => {
-
-    saveGame();
-
-  },
-  5000
-);
-
-
-/* =========================================
-   SAVE WHEN LEAVING PAGE
-========================================= */
-
-window.addEventListener(
-  "beforeunload",
-  () => {
-
-    saveGame();
-
-  }
-);
-
-
-/* =========================================
-   HANDLE PHONE TAB SWITCHING
-========================================= */
-
-document.addEventListener(
-  "visibilitychange",
-  () => {
-
-    if(
-      document.visibilityState===
-      "hidden"
-    ){
-
-      saveGame();
-
-      return;
-
-    }
-
-
-    /*
-      When returning to the game,
-      don't give the player a giant
-      offline earnings bonus.
-
-      Earnings remain tied to active
-      shifts.
-    */
-
-    state.lastTick=
-      Date.now();
-
-    lastFrame=
-      Date.now();
-
-    updateUI();
-
-  }
-);
-
-
-/* =========================================
-   DOM READY
-========================================= */
-
-if(
-  document.readyState===
-  "loading"
-){
+if(document.readyState==="loading"){
 
   document.addEventListener(
     "DOMContentLoaded",
-    init
+    initGame
   );
 
 }else{
 
-  init();
-
+  initGame();
 }
-
 </script>
-
 </body>
 </html>
+  
