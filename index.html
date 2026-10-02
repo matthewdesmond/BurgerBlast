@@ -114,7 +114,7 @@ button:focus{outline:4px solid #fff;outline-offset:2px}
 <div class="stat"><div class="statLabel">XP</div><div class="statValue" id="xp">0</div></div>
 <div class="stat"><div class="statLabel">STREAK</div><div class="statValue" id="streak">0</div></div>
 </div>
-<div class="earnings">💰 EARNINGS: <span id="eps">$0.0100</span>/SEC</div>
+<div class="earnings">💰 EARNINGS: <span id="eps">$0.010000</span>/SEC</div>
 </div>
 
 <div class="panel">
@@ -499,7 +499,7 @@ $('xp2').textContent=S.xp+' / '+xpNeed();
 $('streak').textContent=S.streak;
 $('bestStreak').textContent=S.bestStreak;
 $('locCount').textContent=Object.keys(S.locations).length;
-$('eps').textContent='$'+eps().toFixed(4);
+$('eps').textContent='$'+eps().toFixed(6);
 
 if(S.shift){
 const left=Math.max(0,Math.ceil((S.shiftEnd-Date.now())/1000));
@@ -1096,7 +1096,7 @@ moreContent('<strong>📊 BURGER BLAST STATS</strong><br><br>'+
 '<br>⭐ Level: '+S.level+
 '<br>🏆 XP: '+S.xp+' / '+xpNeed()+
 '<br>🔥 Best Streak: '+S.bestStreak+
-'<br>⚡ Earnings/sec: '+money(eps())+
+'<br>⚡ Earnings/sec: $'+eps().toFixed(6)+
 '<br>👑 Crowns: '+S.crowns+
 '<br>📍 Locations: '+Object.keys(S.locations).length+' / '+locations.length+
 '<br>🌟 Specialties: '+Object.keys(S.specialFound).length+' / '+specialties.length);
